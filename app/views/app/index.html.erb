@@ -1,0 +1,65 @@
+<div id="app">
+  <nav class="menu">
+  </nav>
+  
+  <nav class="list">
+    <header>
+      <h2>Carrier</h2>
+    </header>
+    
+    <div class="item">
+      <%= image_tag "https://secure.gravatar.com/avatar/b8b1657e3d9725114383b2763d367a3a" %>
+      <div>
+        <span class="subject">Conversation 1</span>
+        <span class="body">Lorra Lorra Lorem. Lorra Lorra Lorem.</span>
+      </div>
+    </div>
+    
+    <div class="item active">
+      <%= image_tag "https://secure.gravatar.com/avatar/11d44fdc7a81963600d079813ede2b69" %>
+      <div>
+        <span class="subject">Conversation 1</span>
+        <span class="body">Lorra Lorra Lorem. Lorra Lorra Lorem.</span>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="vdivide"></div>
+  
+  <article>
+    <header>
+      <span>Archive</span>
+      <span>Convert...</span>
+    </header>
+    
+    <div class="items">
+      <div class="item">
+        <%= image_tag "https://secure.gravatar.com/avatar/11d44fdc7a81963600d079813ede2b69" %>
+        <div class="body">Is this your new email conversation idea?</div>
+      </div>
+      
+      <div class="item me">
+        <%= image_tag "https://secure.gravatar.com/avatar/baf018e2cc4616e4776d323215c7136c" %>
+        <div class="body">Yup, this is it. What do you think?</div>
+      </div>
+      
+      <div class="item">
+        <%= image_tag "https://secure.gravatar.com/avatar/11d44fdc7a81963600d079813ede2b69" %>
+        <div class="body">This is the best idea in the whole world.</div>
+      </div>
+      
+      <div class="item me compose">
+        <%= image_tag "https://secure.gravatar.com/avatar/baf018e2cc4616e4776d323215c7136c" %>
+        <div class="body">
+          <textarea autofocus></textarea>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  jQuery(function($){
+    window.app = new App({el: $('#app')});
+  });
+</script>

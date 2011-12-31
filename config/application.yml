@@ -1,0 +1,12 @@
+defaults: &defaults
+  users:
+    dragon: slayer
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
