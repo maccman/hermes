@@ -1,0 +1,12 @@
+<aside>
+  <header>
+    <h2>Hermes</h2>
+    <img src="/assets/new.png">
+  </header>
+  
+  <div class="search">
+    <input type="search" results="0" placeholder="Search..." incremental="true">
+  </div>
+  
+  <div class="items"></div>
+</aside>

@@ -12,6 +12,9 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'omniauth'
+gem 'omniauth-google'
+gem 'omniauth-google-oauth2'
 
 group :development do
   gem 'sqlite3'
@@ -19,5 +22,5 @@ end
 
 group :production do
   gem 'pg'
-  gem 'psych'
-end  
+  # gem 'psych'
+end

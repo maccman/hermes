@@ -2,6 +2,10 @@ defaults: &defaults
   users:
     dragon: slayer
   name: Hermes
+  
+  google:
+    token: 995984426783.apps.googleusercontent.com
+    secret: sRIHAkNpxVdZrTONFFtjM-o4
 
 development:
   <<: *defaults

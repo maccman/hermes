@@ -1,0 +1,98 @@
+<div id="app">
+  <nav class="menu">
+    <div class="avatar">
+      <%= image_tag "https://secure.gravatar.com/avatar/baf018e2cc4616e4776d323215c7136c" %>
+    </div>
+    
+    <div class="item">
+      <%= image_tag "messages.png" %>
+    </div>
+
+    <div class="item">
+      <%= image_tag "starred.png" %>
+    </div>
+    
+    <div class="item">
+      <%= image_tag "broadcast.png" %>
+    </div>
+  </nav>
+  
+  <nav class="list">
+    <header>
+      <h2><%= Rails.config.name %></h2>
+      <%= image_tag "new.png" %>
+    </header>
+    
+    <div class="search">
+      <input type="search" results="0" placeholder="Search..." incremental="true">
+    </div>
+    
+    <div class="item">
+      <%= image_tag "https://secure.gravatar.com/avatar/b8b1657e3d9725114383b2763d367a3a" %>
+      <div>
+        <span class="subject">280 North</span>
+        <span class="body">You should really check this stuff out.</span>
+      </div>
+    </div>
+    
+    <div class="item active">
+      <%= image_tag "https://secure.gravatar.com/avatar/11d44fdc7a81963600d079813ede2b69" %>
+      <div>
+        <span class="subject">New email idea</span>
+        <span class="body">This is the best idea in the whole world.</span>
+      </div>
+    </div>
+    
+    <div class="item">
+      <%= image_tag "https://secure.gravatar.com/avatar/af54a0871600db7fbdbb5c558a6e29a3" %>
+      <div>
+        <span class="subject">Speaking</span>
+        <span class="body">Can you do a talk on Spine this week?</span>
+      </div>
+    </div>
+    
+    <div class="item">
+      <%= image_tag "https://secure.gravatar.com/avatar/a2beb162438985ede0a49b240aa17ca1" %>
+      <div>
+        <span class="subject">Open Source</span>
+        <span class="body">Yes, let me know where to send the patch.</span>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="vdivide"></div>
+  
+  <article>
+    <header>
+      <span>Archive</span>
+      <span>Activity</span>
+    </header>
+    
+    <div class="items">
+      <div class="item">
+        <%= image_tag "https://secure.gravatar.com/avatar/11d44fdc7a81963600d079813ede2b69" %>
+        <div class="body">Is this your new email conversation idea?</div>
+        <nav><a class="favourite"></a></nav>
+      </div>
+      
+      <div class="item me">
+        <%= image_tag "https://secure.gravatar.com/avatar/baf018e2cc4616e4776d323215c7136c" %>
+        <div class="body">Yup, this is it. What do you think?</div>
+        <nav><a class="favourite"></a></nav>
+      </div>
+      
+      <div class="item">
+        <%= image_tag "https://secure.gravatar.com/avatar/11d44fdc7a81963600d079813ede2b69" %>
+        <div class="body">This is the best idea in the whole world.</div>
+        <nav><a class="favourite"></a></nav>
+      </div>
+      
+      <div class="item me compose">
+        <%= image_tag "https://secure.gravatar.com/avatar/baf018e2cc4616e4776d323215c7136c" %>
+        <div class="body">
+          <textarea autofocus></textarea>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>

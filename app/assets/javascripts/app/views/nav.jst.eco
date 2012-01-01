@@ -1,0 +1,17 @@
+<nav class="nav">
+  <div class="avatar">
+    <img src="https://secure.gravatar.com/avatar/baf018e2cc4616e4776d323215c7136c">
+  </div>
+  
+  <div class="item">
+    <img src="/assets/messages.png">
+  </div>
+
+  <div class="item">
+    <img src="/assets/starred.png">
+  </div>
+  
+  <div class="item">
+    <img src="/assets/broadcast.png">
+  </div>
+</nav>

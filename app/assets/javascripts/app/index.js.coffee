@@ -4,6 +4,8 @@
 #= require spine/manager
 #= require spine/ajax
 #= require spine/route
+#= require gfx
+#= require gfx/effects
 
 #= require_tree ./lib
 #= require_self
@@ -15,10 +17,23 @@ class App extends Spine.Controller
   constructor: ->
     super
     
-    # Initialize controllers:
-    #  @append(@items = new App.Items)
-    #  ...
+    @append new App.Nav
+    @append new App.Stack
     
-    Spine.Route.setup()    
+    Spine.Route.setup()
+
+class App.Stack extends Spine.Stack
+  constructor: ->
+    super
+
+    @activity = new App.Activity(stack: @)
+    @messages = new App.Messages(stack: @)
+    @starred  = new App.Starred(stack: @)
+
+    @add(@activity)
+    @add(@messages)
+    @add(@starred)
+
+    @messages.active()
 
 window.App = App

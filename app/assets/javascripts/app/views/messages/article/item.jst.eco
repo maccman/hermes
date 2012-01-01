@@ -1,0 +1,3 @@
+<img src="<%= @avatar_url %>" />
+<div class="body"><%= @body %></div>
+<nav><a class="favourite"></a></nav>

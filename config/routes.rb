@@ -1,5 +1,12 @@
 Hermes::Application.routes.draw do
+  resources :messages
+
   root :to => 'app#index'
+  
+  match '/auth/google_oauth2/callback' => 'authorize#create'
+  match '/auth/failure' => 'authorize#failure'
+  match '/logout' => 'authorize#destroy', :as => :logout
+  match '/authorize' => redirect('/auth/google_oauth2'), :as => :authorize
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

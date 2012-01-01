@@ -1,0 +1,6 @@
+<img src="<%= @avatar_url %>">
+
+<div>
+  <span class="subject"><%= @subject %></span>
+  <span class="body"><%= @body %></span>
+</div>

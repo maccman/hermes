@@ -1,15 +1,17 @@
 /*
  *= require theme
  *= require_self
+ *= require_tree ./app
 */
 
 @import 'mixins'
 
-.stack > *:not(.active)
-  display: none
+// .stack > *:not(.active)
+//   display: none
   
 body, html
   vbox()
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.08)), to(rgba(255, 255, 255, 0.08))), url(/assets/blacky.png) repeat
   
 #app
   margin: 10px
@@ -17,213 +19,14 @@ body, html
   box-flex(1)
   hbox()
   overflow: hidden
-  
-  nav.menu
-    display: block
-    width: 60px
-    border-box()
-    padding: 10px
-    box-shadow: inset -1px 0 2px rgba(0, 0, 0, 0.2)
-    border-right: 1px solid rgba(0, 0, 0, 0.2)
-    background: #5E5E5E
-    text-align: center
-    
-    .avatar 
-      cursor: pointer
-    
-      img
-        width: 38px
-        height: 38px
-        border-radius(5px)
-        box-shadow(0px, 1px, 2px, rgba(0, 0, 0, 0.3))
-      
-    .item 
-      margin: 12px 0
-      cursor: pointer
-      
-      img      
-        width: 25px
-        height: 25px
-  
-  nav.list
-    display: block
-    background: #FFF
-    width: 250px
-    overflow: auto
-    
-    .item
-      border-bottom: 1px solid lighten(#D1D1D1, 20%)
-      padding: 14px
-      overflow: hidden
-      cursor: pointer
-      
-      img
-        width: 38px
-        height: 38px
-        border-radius(5px)
-        box-shadow(0px, 1px, 2px, rgba(0, 0, 0, 0.3))
-        float: left
-        margin-right: 13px
-        
-      .subject
-        ellipsis()
-        margin: 1px 0 2px
-        
-      .body
-        ellipsis()
-        color: lighten(#52585D, 30%)
-      
-      span
-        display: block
-              
-      &.active
-        background: lighten(#F4F4F4, 20%)
-        -webkit-box-shadow: inset 1px 0 2px rgba(0, 0, 0, 0.1), inset -1px 0 2px rgba(0, 0, 0, 0.1)
-        text-shadow: 0 1px #FFF
-  
-    header
-      inset-line(0.7)
-      vbg-gradient(lighten(#F4F4F4, 10%), darken(#F4F4F4, 5%))
-      border-bottom: 1px solid lighten(#CCCCCC, 10%)
-      height: 35px
-      line-height: 35px
-      padding: 0 10px
-      -webkit-border-radius: 3px 3px 0 0
-    
-      h2
-        margin: 0
-        font: 20px arial,lucida,helvetica,arial,sans-serif
-        font-weight: normal
-        text-shadow: 0 1px 0 #FFF
-        float: left
-        line-height: 36px
-        
-      img
-        width: 20px
-        height: 20px
-        float: right
-        margin: 8px 0
-        cursor: pointer
       
   .vdivide
     hbg-gradient(lighten(#F4F4F4, 10%), darken(#F4F4F4, 5%))
-    // hbg-gradient(#F9F9F9, #DFE0E1)
     width: 6px;
     border: 1px solid rgba(0, 0, 0, 0.1)
     border-width: 0 1px 0 1px
     border-right-color: rgba(0, 0, 0, 0.2)
-    // box-shadow(0, 1px, 4px, rgba(0, 0, 0, 0.4))
     
-  article
+  > .stack
     box-flex(1)
-    box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.1)
-    background: #F4F4F4
-    
-    .items
-      padding: 25px 30px
-    
-    .item
-      position: relative
-      margin: 0 65px 15px
-      
-      img
-        position: absolute
-        top: 0
-        left: -70px
-        width: 48px
-        height: 48px
-        border-radius(5px)
-        box-shadow(0px, 1px, 2px, rgba(0, 0, 0, 0.4))
-      
-      .body
-        border-box()
-        padding: 12px
-        background: #FFF
-        box-shadow(0px, 1px, 2px, rgba(0, 0, 0, 0.2))
-        border-radius(5px)
-        -webkit-user-select: text
-        outline: none
-        
-        &::before
-          content: ''
-          background: url(/assets/larrow.png) no-repeat center center
-          width: 12px
-          height: 22px
-          position: absolute
-          left: -12px
-          top: 10px
-          
-      &.compose
-        .body
-          background: lighten(#F4F4F4, 80%)
-          
-      textarea
-        height: 28px
-        border-box()
-        width: 100%
-        border: 0
-        resize: none
-        box-shadow: none
-        background: transparent
-        padding: 0
-        color: #000
-        text-rendering: optimizeLegibility
-        -webkit-font-smoothing: antialiased
-        font: 15px "helvetica neue", helvetica, arial, sans-serif        
-          
-    .item.me    
-      img
-        left: auto
-        right: -70px
-        
-      .body
-        &::before
-          display: none
-      
-        &::after
-          content: ''
-          background: url(/assets/rarrow.png) no-repeat center center
-          width: 12px
-          height: 22px
-          position: absolute
-          right: -12px
-          top: 10px
-        
-      
-    header
-      border-bottom: 1px solid rgba(0, 0, 0, 0.2)
-      vbg-gradient(lighten(#F4F4F4, 10%), darken(#F4F4F4, 5%))
-      box-shadow(1px, 1px, 2px, rgba(0, 0, 0, 0.1))
-      height: 35px
-      line-height: 35px
-      
-      font-weight: bold
-      text-shadow: 0 1px 1px white
-      font-size: 14px
-    
-      span
-        display: block
-        float: left
-        padding: 0 20px
-        cursor: pointer
-        border-right: 1px solid rgba(0, 0, 0, 0.15)
-        inset-box-shadow(1px, 0, 1px, rgba(255, 255, 255, 0.5))
-        color: lighten(#52585D, 20%)
-        
-        &:active
-          box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3)
-          border-right: 1px solid rgba(0, 0, 0, 0.2)
-          border-bottom: 1px solid rgba(0, 0, 0, 0.04)
-
-  // background: #FFF
-  // border-radius(3px)
-  // 
-  // // background: -webkit-gradient(linear, left top, left bottom, from(#FFF), color-stop(0.9, #FFF), to(lighten(#F4F4F4, 20%)))
-  // 
-  // overflow: hidden
-  //  
-  //     
-  // article.article
-  //   display: block
-  //   padding: 15px 15px 5px 15px
-  //   overflow: hidden
+    hbox()
