@@ -1,6 +1,7 @@
 defaults: &defaults
   users:
     dragon: slayer
+  name: Hermes
 
 development:
   <<: *defaults
