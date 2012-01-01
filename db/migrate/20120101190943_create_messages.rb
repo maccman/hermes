@@ -4,6 +4,8 @@ class CreateMessages < ActiveRecord::Migration
       t.text :subject
       t.text :body
       t.string :avatar_url
+      t.integer :conversation_id
+      t.integer :user_id
 
       t.timestamps
     end

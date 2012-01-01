@@ -13,6 +13,7 @@ end
 
 gem 'jquery-rails'
 gem 'omniauth'
+gem 'omniauth-twitter'
 gem 'omniauth-google'
 gem 'omniauth-google-oauth2'
 
