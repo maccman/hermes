@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Carrier::Application.load_tasks
+Hermes::Application.load_tasks

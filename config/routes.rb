@@ -1,4 +1,4 @@
-Carrier::Application.routes.draw do
+Hermes::Application.routes.draw do
   root :to => 'app#index'
   
   # The priority is based upon order of creation:
