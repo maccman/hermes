@@ -24,6 +24,8 @@ gem 'will_paginate'
 group :development do
   gem 'sqlite3'
   gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'heroku'
+  gem 'foreman'
 end
 
 group :production do
