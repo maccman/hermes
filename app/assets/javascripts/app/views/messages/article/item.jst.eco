@@ -1,3 +1,3 @@
 <img src="<%= @from_user()?.avatar_url %>" />
 <div class="body"><%= @body %></div>
-<nav><a class="favourite"></a></nav>
+<nav><a class="star <%= 'active' if @starred %>"></a></nav>

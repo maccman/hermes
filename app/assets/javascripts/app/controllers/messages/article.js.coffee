@@ -2,10 +2,21 @@ Conversation = App.Conversation
 
 class Item extends Spine.Controller
   className: 'item'
+    
+  events:
+    'click .star': 'toggleStarred'
+    
+  constructor: ->
+    super
+    throw 'record required' unless @record
+    @record.bind 'change', @render
 
-  render: ->
+  render: =>
     @el.toggleClass('me', @record.isMe())
     @html @view('messages/article/item')(@record)
+    
+  toggleStarred: ->
+    @record.toggleStarred()
   
 class Compose extends Spine.Controller
   className: 'item me compose'

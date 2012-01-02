@@ -8,3 +8,7 @@ class App.Message extends Spine.Model
   
   isMe: ->
     App.user?.eql(@from_user()) or false
+    
+  toggleStarred: ->
+    @starred = !@starred
+    @save()
