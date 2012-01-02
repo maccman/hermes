@@ -1,24 +1,21 @@
 class Conversation < ActiveRecord::Base
   belongs_to :from_user, :class_name => "User"
 
-  has_many   :conversation_users
-  belongs_to :to_users, :through => :conversation_users
+  has_many :conversation_users
+  has_many :to_users, :through => :conversation_users
 
-  has_many   :messages
+  has_many :messages
   
   validates_presence_of :from_user_id
   validates_length_of   :to_users, :within => 1..20
   
   scope :between, lambda {|from, *to| 
-    where(:from_user => from, :to_users => to).first
+    where(:from_user_id => from.id, :to_users => to).first
   }
   
   scope :for_user, lambda {|user|
-    where(:from_user => user)
+    where(:from_user_id => user && user.id)
   }
-  
-  scope :active, where(:archived => false)
-  scope :today, lambda { where('updated_at < ?', 1.day.ago) }
   
   class << self
     def between!(from, *to)

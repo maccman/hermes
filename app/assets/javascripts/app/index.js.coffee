@@ -4,6 +4,7 @@
 #= require spine/manager
 #= require spine/ajax
 #= require spine/route
+#= require spine/relation
 #= require gfx
 #= require gfx/effects
 
@@ -35,5 +36,7 @@ class App.Stack extends Spine.Stack
     @add(@starred)
 
     @messages.active()
+    
+    App.Conversation.fetch()
 
 window.App = App

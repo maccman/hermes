@@ -11,6 +11,10 @@ class Message < ActiveRecord::Base
   before_create :create_conversation
   after_create  :send_message
   
+  scope :for_user, lambda {|user|
+    where(:from_user_id => user && user.id)
+  }
+  
   def to=(array)
     # Array(array).map {}
     # Extract emails/handles
