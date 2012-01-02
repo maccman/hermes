@@ -1,7 +1,14 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter :keepsafe
   
-  protected    
+  protected
+    def keepsafe
+      request.local? || authenticate_or_request_with_http_digest do |username|
+        Rails.config.users[username]
+      end
+    end
+    
     def current_user=(user)
       session[:user_id] = user && user.id
     end
