@@ -2,7 +2,7 @@ class Conversation < ActiveRecord::Base
   belongs_to :from_user, :class_name => "User"
 
   has_many :conversation_users
-  has_many :to_users, :through => :conversation_users
+  has_many :to_users, :through => :conversation_users, :source => :user
 
   has_many :messages
   
