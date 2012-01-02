@@ -1,7 +1,8 @@
 class AuthorizeController < ApplicationController
   def create
-    auth = request.env["omniauth.auth"]
-    # cookies.permanent.signed[:handle] = auth.info.nickname
+    self.current_user = User.authorize_twitter!(
+      request.env["omniauth.auth"]
+    )
     redirect_to "/"
   end
   

@@ -16,9 +16,12 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-google'
 gem 'omniauth-google-oauth2'
+gem 'twitter'
+gem 'twitter-text'
 
 group :development do
   gem 'sqlite3'
+  gem 'ruby-debug19', :require => 'ruby-debug'
 end
 
 group :production do

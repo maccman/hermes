@@ -6,6 +6,10 @@ defaults: &defaults
   google:
     token: 995984426783.apps.googleusercontent.com
     secret: sRIHAkNpxVdZrTONFFtjM-o4
+    
+  twitter:
+    token: rwLOok0beIE8RKdXatCOEg
+    secret: pGLXDeoCkCwUDJrKeK8HZgXiPxszkuDlu6jYwa9bLo
 
 development:
   <<: *defaults

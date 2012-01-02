@@ -20,6 +20,7 @@ class MessagesController < ApplicationController
   # POST /messages.json
   def create
     @message = Message.new(params[:message])
+    @message.from = current_user
 
     if @message.save
       render json: @message, status: :created, location: @message
