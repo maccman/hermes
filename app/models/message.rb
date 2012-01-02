@@ -11,7 +11,8 @@ class Message < ActiveRecord::Base
   before_create :create_conversation
   after_create  :send_message
   
-  def to=(str)
+  def to=(array)
+    # Array(array).map {}
     # Extract emails/handles
     Extractor.parse(str)
   end
@@ -19,7 +20,7 @@ class Message < ActiveRecord::Base
   protected  
     def create_conversation
       return if conversation_id?
-      self.conversation = Conversation.for(from_user, to_users*)
+      self.conversation = Conversation.between!(from_user, to_users*)
       self.conversation.read = false
       self.conversation.save!
     end

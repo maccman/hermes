@@ -1,4 +1,9 @@
 class User < ActiveRecord::Base
+  validates_uniqueness_of :uid, :allow_blank => true
+  
+  validates_presence_of :handle, :unless => :email?
+  validates_presence_of :email, :unless => :handle?
+  
   class << self
     # Find or new user by Twiter oauth information
     def authorize_twitter!(auth)
@@ -25,14 +30,14 @@ class User < ActiveRecord::Base
       query = self
     
       if attrs[:handle]
-        query.where(:handle => attrs[:handle])
+        query = query.where(:handle => attrs[:handle])
       elsif attrs[:email]
-        query.where(:email => attrs[:email])
+        query = query.where(:email => attrs[:email])
       end
     
       query.first || self.new(
         :handle => attrs[:handle], 
-        :email => attrs[:email]
+        :email  => attrs[:email]
       )
     end
   end
@@ -46,7 +51,7 @@ class User < ActiveRecord::Base
     )
   end
   
-  def member?
-    twitter_token?
+  def twitter?
+    twitter_token? && twitter_secret?
   end
 end

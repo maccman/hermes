@@ -10,6 +10,10 @@ defaults: &defaults
   twitter:
     token: rwLOok0beIE8RKdXatCOEg
     secret: pGLXDeoCkCwUDJrKeK8HZgXiPxszkuDlu6jYwa9bLo
+    
+  aws:
+    token: 0J24A7Q2HZ4FEDVSW9R2
+    secret: cv6RUKLI3e2Zps5auUo9K39ACDNEj3moaDD2TlaC
 
 development:
   <<: *defaults
