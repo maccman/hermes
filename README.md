@@ -11,10 +11,12 @@ Message:
 
     created_at: Unix epoch timestamp
     sent_at: Unix epoch timestamp
-    to: Array of recipients
     subject: String
     body: String
     attachments: Array of attachments
+    starred: Boolean
+    to_users: [User]
+    from_user: User
 
 Attachment:
 
@@ -23,6 +25,13 @@ Attachment:
     size: Number of bytes encoded
     encoding: An encoding (default is base64)
     data: Raw data
+    
+Conversation:
+
+    read: Boolean
+    from_user: User
+    to_users: [User]
+    messages: [Message]
 
 ## API
 
@@ -30,11 +39,24 @@ GET /messages?since=:since&limit=:limit
 
     Since defaults to now. Limit defaults to ?.
 
-    Data:
+    Returns:
     messages: Array of messages, sorted by sent_at DESC
     users: Array of users in the messages
 
 POST /messages
 
-    Data:
-    Any data that is part of a message.
+    Create message.
+    
+    Params:
+    sent_at: Unix epoch timestamp
+    to: Array of handles/emails
+    subject: String
+    body: String
+    attachments: Array of attachments
+
+PUT /messages/:id
+
+    Update starred.
+
+    Params:
+    starred: Boolean
