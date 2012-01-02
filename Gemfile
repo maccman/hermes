@@ -19,7 +19,7 @@ gem 'omniauth-google-oauth2'
 gem 'twitter'
 gem 'twitter-text'
 gem 'carrierwave'
-gem 'will-paginate'
+gem 'will_paginate'
 
 group :development do
   gem 'sqlite3'
