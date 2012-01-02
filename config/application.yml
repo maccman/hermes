@@ -2,15 +2,11 @@ defaults: &defaults
   users:
     dragon: slayer
   name: Hermes
-  
+
   google:
     token: 995984426783.apps.googleusercontent.com
     secret: sRIHAkNpxVdZrTONFFtjM-o4
-    
-  twitter:
-    token: rwLOok0beIE8RKdXatCOEg
-    secret: pGLXDeoCkCwUDJrKeK8HZgXiPxszkuDlu6jYwa9bLo
-    
+
   aws:
     token: 0J24A7Q2HZ4FEDVSW9R2
     secret: cv6RUKLI3e2Zps5auUo9K39ACDNEj3moaDD2TlaC

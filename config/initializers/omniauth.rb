@@ -1,5 +1,3 @@
-Rails.application.config.middleware.use OmniAuth::Builder do  
-  provider :google,        Rails.config.google.token, Rails.config.google.secret
-  provider :google_oauth2, Rails.config.google.token, Rails.config.google.secret
-  provider :twitter,       Rails.config.twitter.token, Rails.config.twitter.secret
+Rails.application.config.middleware.use OmniAuth::Builder do
+  provider :twitter, ENV['TWITTER_CONSUMER_KEY'], ENV['TWITTER_CONSUMER_SECRET']
 end
