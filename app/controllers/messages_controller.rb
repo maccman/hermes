@@ -31,7 +31,7 @@ class MessagesController < ApplicationController
 
   # PUT /messages/1.json
   def update
-    @message = Message.for_user(current_user).find(params[:id])
+    @message = Message.with_user(current_user).find(params[:id])
 
     if @message.update_attributes(params[:message])
       head :no_content

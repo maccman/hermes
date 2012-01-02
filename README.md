@@ -41,6 +41,7 @@ Conversation:
 GET /messages?since=:since&limit=:limit
 
   Since defaults to current server time. Limit defaults to ?.
+  Finds messages where from_user is current_user
 
   Returns:
   messages: [Message] sorted by sent_at DESC
@@ -51,6 +52,8 @@ POST /messages
   Creates a new message. If a conversation between the creator of the message
   and any of the recipients does not yet exist, a new conversation is created
   between them.
+  
+  Sets from_user to current_user
 
   Params:
   sent_at: Unix timestamp
@@ -61,6 +64,7 @@ POST /messages
 
 PUT /messages/:id
 
+  Finds any message the current_user is associated with (i.e. via from_user or to_users)
   Update starred.
 
   Params:

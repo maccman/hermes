@@ -16,6 +16,10 @@ class Message < ActiveRecord::Base
     where(:from_user_id => user && user.id)
   }
   
+  scope :with_user, lambda {|user|
+    where('from_user_id = :id OR to_user_ids IN :id', :id => user && user.id)
+  }
+  
   def to=(array)
     # Array(array).map {}
     # Extract emails/handles
