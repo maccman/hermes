@@ -1,10 +1,6 @@
 Hermes::Application.routes.draw do
   resources :messages
-  resources :conversations do
-    collection do
-      get 'active'
-    end
-  end
+  resources :conversations
 
   root :to => 'app#index'
   

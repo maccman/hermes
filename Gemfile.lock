@@ -41,6 +41,8 @@ GEM
     archive-tar-minitar (0.5.2)
     arel (3.0.0.rc1)
     builder (3.0.0)
+    carrierwave (0.5.8)
+      activesupport (~> 3.0)
     coffee-rails (3.2.0)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0.beta)
@@ -172,11 +174,13 @@ GEM
     uglifier (1.2.1)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
+    will_paginate (3.0.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  carrierwave
   coffee-rails (~> 3.2.0)
   eco
   jquery-rails
@@ -194,3 +198,4 @@ DEPENDENCIES
   twitter
   twitter-text
   uglifier (>= 1.0.3)
+  will_paginate

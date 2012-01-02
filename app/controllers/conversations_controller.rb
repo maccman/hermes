@@ -1,13 +1,9 @@
 class ConversationsController < ApplicationController
+  before_filter :require_user
+  
   # GET /conversations.json
   def index
     @conversations = Conversation.for_user(current_user).all
-    render json: @conversations
-  end
-  
-  # GET /conversations/active.json
-  def active
-    @conversations = Conversation.for_user(current_user).active.today    
     render json: @conversations
   end
 

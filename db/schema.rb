@@ -11,11 +11,32 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120101195725) do
+ActiveRecord::Schema.define(:version => 20120102183929) do
+
+  create_table "attachments", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "conversation_users", :force => true do |t|
+    t.integer  "conversation_id"
+    t.integer  "user_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "conversations", :force => true do |t|
-    t.integer  "to_id"
-    t.integer  "from_id"
+    t.string   "uid"
+    t.integer  "from_user_id"
+    t.boolean  "read",         :default => false
+    t.boolean  "archived",     :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  create_table "message_users", :force => true do |t|
+    t.integer  "message_id"
+    t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -23,10 +44,9 @@ ActiveRecord::Schema.define(:version => 20120101195725) do
   create_table "messages", :force => true do |t|
     t.text     "subject"
     t.text     "body"
-    t.string   "avatar_url"
+    t.datetime "sent_at"
     t.integer  "conversation_id"
-    t.integer  "from_id"
-    t.integer  "to_id"
+    t.integer  "from_user_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
