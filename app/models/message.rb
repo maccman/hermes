@@ -5,11 +5,12 @@ class Message < ActiveRecord::Base
   has_many :message_users
   has_many :to_users, :through => :message_users, :source => :user
   
-  validates_presence_of :from_user_id, :conversation_id
+  validates_presence_of :from_user_id, :conversation_id, :body
   validates_length_of   :to_users, :within => 1..20
   
-  before_create :create_conversation
-  after_create  :send_message
+  before_save  :set_defaults
+  before_validation :create_conversation, :on => :create
+  after_create :send_message
   
   scope :for_user, lambda {|user|
     where(:from_user_id => user && user.id)
@@ -21,7 +22,11 @@ class Message < ActiveRecord::Base
     Extractor.parse(str)
   end
     
-  protected  
+  protected
+    def set_defaults
+      self.sent_at ||= Time.now
+    end
+  
     def create_conversation
       return if conversation_id?
       self.conversation = Conversation.between!(from_user, *to_users)
