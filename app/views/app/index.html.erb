@@ -2,6 +2,7 @@
 
 <script type="text/javascript" charset="utf-8">
   jQuery(function($){
+    App.user   = App.User.fromJSON(<%= current_user.to_json.html_safe %>);
     window.app = new App({el: $('#app')});
   });
 </script>

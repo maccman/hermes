@@ -8,6 +8,12 @@ class App.Messages extends Spine.Controller
     @render()
     
   render: ->
-    @append new App.Messages.Aside
+    @append @aside = new App.Messages.Aside
     @append $('<div />').addClass('vdivide')
-    @append new App.Messages.Article
+    @append @article = new App.Messages.Article
+    
+    @routes
+      '/conversations/:id': (params) ->
+        @active()
+        @aside.active(params)
+        @article.active(params)

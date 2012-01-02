@@ -1,6 +1,8 @@
-<img src="<%= @avatar_url %>">
+<div class="item" data-id="<%= @id %>">
+  <img src="<%= @preview().avatar_url %>">
 
-<div>
-  <span class="subject"><%= @subject %></span>
-  <span class="body"><%= @body %></span>
+  <div>
+    <span class="subject"><%= @preview().subject %></span>
+    <span class="body"><%= @preview().body %></span>
+  </div>
 </div>

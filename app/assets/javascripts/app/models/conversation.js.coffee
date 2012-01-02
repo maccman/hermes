@@ -2,9 +2,14 @@ class App.Conversation extends Spine.Model
   @configure 'Conversation', 'read'
   @extend Spine.Model.Ajax
   
-  @hasOne 'from_user', 'models/user'
-  @hasMany 'to_users', 'models/user'
-  @hasMany 'messages', 'models/message'
+  @hasOne 'from_user', 'App.User'
+  @hasMany 'to_users', 'App.User'
+  @hasMany 'messages', 'App.Message'
   
-  @preview: ->
-    @messages().first()
+  preview: ->
+    message = @messages().first()
+    {
+      avatar_url: message.from_user()?.avatar_url
+      subject:    'Some subject'
+      body:       message.body
+    }

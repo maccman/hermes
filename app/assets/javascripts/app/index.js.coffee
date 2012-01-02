@@ -5,6 +5,7 @@
 #= require spine/ajax
 #= require spine/route
 #= require spine/relation
+#= require spine/list
 #= require gfx
 #= require gfx/effects
 
@@ -21,7 +22,10 @@ class App extends Spine.Controller
     @append new App.Nav
     @append new App.Stack
     
-    Spine.Route.setup()
+    App.Conversation.one 'refresh', ->
+      Spine.Route.setup()
+      
+    App.Conversation.fetch()    
 
 class App.Stack extends Spine.Stack
   constructor: ->
@@ -35,8 +39,6 @@ class App.Stack extends Spine.Stack
     @add(@messages)
     @add(@starred)
 
-    @messages.active()
-    
-    App.Conversation.fetch()
+    @messages.active()    
 
 window.App = App

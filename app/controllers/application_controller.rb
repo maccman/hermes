@@ -39,4 +39,6 @@ class ApplicationController < ActionController::Base
       redirect_to(return_to.present? ? return_to : default)
       session[:return_to] = nil
     end
+    
+    helper_method :logged_in?, :current_user
 end
