@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120102183929) do
+ActiveRecord::Schema.define(:version => 20120102231114) do
 
   create_table "attachments", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -34,6 +34,13 @@ ActiveRecord::Schema.define(:version => 20120102183929) do
     t.datetime "updated_at",                      :null => false
   end
 
+  create_table "message_stars", :force => true do |t|
+    t.integer  "message_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "message_users", :force => true do |t|
     t.integer  "message_id"
     t.integer  "user_id"
@@ -49,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20120102183929) do
     t.integer  "from_user_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.boolean  "starred"
   end
 
   create_table "users", :force => true do |t|

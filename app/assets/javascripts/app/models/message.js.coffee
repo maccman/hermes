@@ -1,5 +1,5 @@
 class App.Message extends Spine.Model
-  @configure 'Message', 'subject', 'body'
+  @configure 'Message', 'subject', 'body', 'starred'
   @extend Spine.Model.Ajax
   
   @belongsTo 'from_user', 'App.User'
