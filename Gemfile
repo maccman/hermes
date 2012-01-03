@@ -19,6 +19,7 @@ gem 'omniauth-google-oauth2'
 gem 'twitter'
 gem 'twitter-text'
 gem 'rmagick'
+gem 'fog'
 gem 'carrierwave'
 gem 'will_paginate'
 
