@@ -47,8 +47,7 @@ class Compose extends Spine.Controller
     message.conversation(@record)
     if message.body
       @form[0].reset()
-      message.save()      
-      @record.trigger('render')
+      message.save()
     
 class App.Messages.Article extends Spine.Controller
   elements:
@@ -58,7 +57,7 @@ class App.Messages.Article extends Spine.Controller
   constructor: ->
     super
     
-    Conversation.bind 'render change', (record) =>
+    Conversation.bind 'change', (record) =>
       @render() if record.eql(@current)
     
     @active (params = {}) ->
