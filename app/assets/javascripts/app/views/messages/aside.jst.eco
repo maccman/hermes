@@ -1,7 +1,7 @@
 <aside>
   <header>
     <h2>Hermes</h2>
-    <img src="/assets/new.png">
+    <img src="/assets/new.png" class="newMessage">
   </header>
   
   <div class="search">

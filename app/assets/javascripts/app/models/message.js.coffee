@@ -1,5 +1,5 @@
 class App.Message extends Spine.Model
-  @configure 'Message', 'subject', 'body', 'starred'
+  @configure 'Message', 'subject', 'body', 'starred', 'to'
   @extend Spine.Model.Ajax
   
   @belongsTo 'from_user', 'App.User'
@@ -11,4 +11,4 @@ class App.Message extends Spine.Model
     
   toggleStarred: ->
     @starred = !@starred
-    @save()
+    @save()    

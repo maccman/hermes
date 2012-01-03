@@ -1,32 +1,38 @@
 class Conversation < ActiveRecord::Base
-  belongs_to :from_user, :class_name => "User"
+  belongs_to :user
 
   has_many :conversation_users
   has_many :to_users, :through => :conversation_users, :source => :user
 
   has_many :messages
   
-  validates_presence_of :from_user_id
+  validates_presence_of :user_id
   validates_length_of   :to_users, :within => 1..20
   
   scope :between, lambda {|from, *to| 
-    where(:from_user_id => from.id, :to_users => to).first
+    includes(:conversation_users).where("conversations.user_id = ? AND conversation_users.user_id IN (?)", from.id, to)
   }
   
   scope :for_user, lambda {|user|
-    where(:from_user_id => user && user.id)
+    where(:user_id => user && user.id)
   }
+  
+  scope :latest, order("updated_at DESC")
   
   class << self
     def between!(from, *to)
-      between(from, *to) || self.new(:from_user => from, :to_users => to)
+      between(from, *to).first || self.new(:user => from, :to_users => to)
     end
   end
   
   def serializable_hash(options = nil)
     # TODO - limit amount of messages a conversation includes by default
     super((options || {}).merge(
-      :include => [:from_user, :to_users, :messages]
+      :include => [:user, :to_users, :messages]
     ))
+  end
+  
+  def to_s
+    handle || email
   end
 end

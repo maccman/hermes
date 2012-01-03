@@ -31,7 +31,7 @@
         border-bottom: 1px solid rgba(0, 0, 0, 0.04)
   
   .items
-    padding: 25px 30px
+    padding: 25px 30px 1px 30px
   
   .item
     position: relative
@@ -85,25 +85,7 @@
         height: 22px
         position: absolute
         left: -12px
-        top: 10px
-        
-    &.compose
-      .body
-        background: lighten(#F4F4F4, 70%)
-        
-    textarea
-      height: 28px
-      border-box()
-      width: 100%
-      border: 0
-      resize: none
-      box-shadow: none
-      background: transparent
-      padding: 0
-      color: #000
-      text-rendering: optimizeLegibility
-      -webkit-font-smoothing: antialiased
-      font: 15px "helvetica neue", helvetica, arial, sans-serif        
+        top: 10px      
         
   .item.me  
     img
@@ -122,3 +104,25 @@
         position: absolute
         right: -12px
         top: 10px
+        
+
+  .compose
+    margin: 0 30px 25px 30px
+    padding: 0
+
+    .body
+      background: lighten(#F4F4F4, 70%)
+
+    textarea
+      height: 28px
+      border-box()
+      width: 100%
+      border: 0
+      resize: none
+      box-shadow: none
+      background: transparent
+      padding: 0
+      color: #000
+      text-rendering: optimizeLegibility
+      -webkit-font-smoothing: antialiased
+      font: 15px "helvetica neue", helvetica, arial, sans-serif

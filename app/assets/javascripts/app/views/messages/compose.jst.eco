@@ -1,0 +1,10 @@
+<header>
+  <h2>New Message</h2>
+</header>
+
+<form>
+  <article>
+    <input type="text" name="to" placeholder="To..." required autofocus>
+    <textarea name="body" placeholder="Message..." required></textarea>
+  </article>  
+</form>

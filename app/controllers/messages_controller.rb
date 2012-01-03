@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
   # GET /messages.json
   def index
-    @messages = Message.for_user(current_user).all
+    @messages = Message.for_user(current_user).latest.all
     render json: @messages
   end
 
@@ -20,7 +20,12 @@ class MessagesController < ApplicationController
   # POST /messages.json
   def create
     @message = Message.new(params[:message])
-    @message.from = current_user
+    @message.user = current_user
+    @message.from_user = current_user
+    
+    if params[:conversation_id]
+      @message.conversation = Conversation.for_user(current_user).find(params[:conversation_id])
+    end
 
     if @message.save
       render json: @message, status: :created, location: @message
@@ -31,9 +36,12 @@ class MessagesController < ApplicationController
 
   # PUT /messages/1.json
   def update
-    @message = Message.with_user(current_user).find(params[:id])
+    @message = Message.for_user(current_user).find(params[:id])
 
-    if @message.update_attributes(params[:message])
+    # Can only update starred attribute
+    @message.starred = params[:message][:starred] if params[:message]
+
+    if @message.save
       head :no_content
     else
       render json: @message.errors, status: :unprocessable_entity

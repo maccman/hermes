@@ -4,4 +4,6 @@
   </header>
   
   <div class="items"></div>
+  
+  <div class="compose"></div>
 </article>

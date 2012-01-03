@@ -1,4 +1,5 @@
 Conversation = App.Conversation
+Message      = App.Message
 
 class Item extends Spine.Controller
   className: 'item'
@@ -19,19 +20,38 @@ class Item extends Spine.Controller
     @record.toggleStarred()
   
 class Compose extends Spine.Controller
-  className: 'item me compose'
+  className: 'item me'
+  
+  events:
+    'submit form': 'submit'
+    'keypress textarea': 'keypress'
+    
+  elements:
+    'form': 'form'
     
   constructor: ->
     super
     @render()
     
   render: ->
-    # TODO
-    @html @view('messages/article/compose')(compose)
+    @html @view('messages/article/compose')(@record)
 
+  keypress: (e) ->
+    if e.keyCode is 13 and (e.shiftKey or e.metaKey)
+      @submit(e)
+
+  submit: (e) ->
+    e.preventDefault()
+    message = Message.fromForm(@form)
+    message.conversation(@record)
+    if message.body
+      @form[0].reset()
+      message.save()
+    
 class App.Messages.Article extends Spine.Controller
   elements:
     '.items': 'items'
+    '.compose': 'compose'
   
   constructor: ->
     super
@@ -45,6 +65,7 @@ class App.Messages.Article extends Spine.Controller
     
   render: ->
     @replace @view('messages/article')()
+    @compose.append(new Compose(record: App.user).render())
     
     messages = @current?.messages().all()
     @add(messages)

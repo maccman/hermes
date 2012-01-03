@@ -1,3 +1,5 @@
+require 'user_extractor'
+
 class User < ActiveRecord::Base
   validates_uniqueness_of :uid, :allow_blank => true
   
@@ -26,19 +28,16 @@ class User < ActiveRecord::Base
     end
     
     # Find or new user by handle or email address
-    def for(attrs)
-      query = self
-    
-      if attrs[:handle]
-        query = query.where(:handle => attrs[:handle])
-      elsif attrs[:email]
-        query = query.where(:email => attrs[:email])
+    def for(to_users)
+      users  = []
+      result = UserExtractor.extract(to_users)
+      result[:handles].each do |handle|
+        users << find_or_create_by_handle(handle)
       end
-    
-      query.first || self.new(
-        :handle => attrs[:handle], 
-        :email  => attrs[:email]
-      )
+      result[:emails].each do |email|
+        users << find_or_create_by_email(email)
+      end
+      users
     end
   end
   
@@ -51,7 +50,9 @@ class User < ActiveRecord::Base
     )
   end
   
-  def twitter?
+  def member?
     twitter_token? && twitter_secret?
   end
+  
+  alias_method :twitter?, :member?
 end
