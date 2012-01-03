@@ -11,4 +11,4 @@ class App.Message extends Spine.Model
     
   toggleStarred: ->
     @starred = !@starred
-    @save()    
+    @save()

@@ -31,10 +31,11 @@ class Compose extends Spine.Controller
     
   constructor: ->
     super
+    throw 'record required' unless @record
     @render()
     
   render: ->
-    @html @view('messages/article/compose')(@record)
+    @html @view('messages/article/compose')(App.user)
 
   keypress: (e) ->
     if e.keyCode is 13 and (e.shiftKey or e.metaKey)
@@ -46,7 +47,8 @@ class Compose extends Spine.Controller
     message.conversation(@record)
     if message.body
       @form[0].reset()
-      message.save()
+      message.save()      
+      @record.trigger('render')
     
 class App.Messages.Article extends Spine.Controller
   elements:
@@ -55,6 +57,9 @@ class App.Messages.Article extends Spine.Controller
   
   constructor: ->
     super
+    
+    Conversation.bind 'render change', (record) =>
+      @render() if record.eql(@current)
     
     @active (params = {}) ->
       @change(Conversation.find(params.id)) if params.id
@@ -65,7 +70,7 @@ class App.Messages.Article extends Spine.Controller
     
   render: ->
     @replace @view('messages/article')()
-    @compose.append(new Compose(record: App.user).render())
+    @compose.append(new Compose(record: @current).render())
     
     messages = @current?.messages().all()
     @add(messages)
