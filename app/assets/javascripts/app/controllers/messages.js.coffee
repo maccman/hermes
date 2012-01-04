@@ -15,6 +15,9 @@ class Compose extends Spine.Controller
     @html @view('messages/compose')()
     $.overlay(@el)
     
+  close: ->
+    @el.trigger('close')
+    
   keypress: (e) ->
     if e.keyCode is 13 and (e.shiftKey or e.metaKey)
       @submit(e)
@@ -22,14 +25,27 @@ class Compose extends Spine.Controller
   submit: (e) ->
     e.preventDefault()
     message = Message.fromForm(@form)
-    
-    Spine.Ajax.disable ->
-      conversation = Conversation.create()
-      message.conversation(conversation)
       
-    if message.to and message.body
+    return unless message.to and message.body
+
+    conversation = null
+    
+    # Save message before creating conversation, 
+    # as we don't want conversation_id to be sent
+    # to the server
+    message.save success: ->
+      Spine.Ajax.disable =>
+        conversation.changeID(@conversation_id)
+      conversation.ajax().reload()
+    
+    # Create a empty conversation and navigate to it
+    Spine.Ajax.disable =>
+      conversation = App.Conversation.create(user: App.user)
+      message.conversation(conversation)
       message.save()
-      @el.trigger('close')
+      
+    @close()
+    @navigate '/conversations', conversation.cid
   
 class App.Messages extends Spine.Controller
   className: 'messages'

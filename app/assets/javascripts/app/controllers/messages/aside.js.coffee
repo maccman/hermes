@@ -35,24 +35,31 @@ class App.Messages.Aside extends Spine.Controller
     @active (params = {}) ->
       @change(Conversation.find(params.id)) if params.id
       
-    Conversation.bind 'refresh', @add
+    Conversation.bind 'refresh', @addAll
+    Conversation.bind 'create',  @addOne
+    Conversation.bind 'change',  @render
   
   items: []
   
-  add: (records = []) =>
+  addAll: (records = []) =>
     for record in records
       item = new Item(record: record)
       @items.push(item)
       @itemsEl.append(item.render())
       
+  addOne: (record) =>
+    item = new Item(record: record)
+    @items.unshift(item)
+    @itemsEl.prepend(item.render())    
+      
   change: (item) ->
     @current = item
     @render()
     
-  render: ->
+  render: =>
     for item in @items
       item.toggleActive(item.record.eql(@current))
       
   click: (e) ->
-    itemID = $(e.currentTarget).data('id')
+    itemID = $(e.currentTarget).data('cid')
     @navigate '/conversations', itemID

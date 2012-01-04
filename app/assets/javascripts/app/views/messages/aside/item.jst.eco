@@ -1,4 +1,4 @@
-<div class="item" data-id="<%= @id %>">
+<div class="item" data-cid="<%= @cid %>">
   <img src="<%= @preview().avatar_url %>">
 
   <div>
