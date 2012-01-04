@@ -5,6 +5,7 @@ class EmailsController < ApplicationController
     subject    = params[:subject]
     body       = params[:body_plain]
 
+    # TODO - Check domain and find by handle instead
     to_user = User.find_by_email!(recipient)
     
     message = Message.new(

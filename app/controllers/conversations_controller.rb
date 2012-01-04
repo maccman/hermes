@@ -16,7 +16,7 @@ class ConversationsController < ApplicationController
   # PUT /conversation/1.json
   def update
     # Can only update read attribute
-    @conversation.read = params[:conversation][:read] if params[:conversation]
+    @conversation.read = params[:read] if params.has_key?(:read)
 
     if @conversation.save
       head :no_content

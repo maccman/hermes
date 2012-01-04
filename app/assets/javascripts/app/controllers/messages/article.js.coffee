@@ -78,3 +78,5 @@ class App.Messages.Article extends Spine.Controller
   add: (records = []) ->
     for record in records
       @items.append(new Item(record: record).render())
+    
+    @items.scrollTop(@items.height())

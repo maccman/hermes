@@ -1,7 +1,7 @@
 class UserMailer < ActionMailer::Base
   default from: "notify@#{Rails.config.domain}"
   
-  def message(to_user, message)
+  def send_message(to_user, message)
     @to_user   = to_user
     @from_user = message.from_user
     @message   = message

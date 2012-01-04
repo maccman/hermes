@@ -1,5 +1,5 @@
 module DMSender extend self
-  def message(to_user, message)
+  def send_message(to_user, message)
     # TODO - add rescue, truncation, urls
     from_user = message.from_user
     from_user.twitter.direct_message_create(

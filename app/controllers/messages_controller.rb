@@ -39,7 +39,7 @@ class MessagesController < ApplicationController
   # PUT /messages/1.json
   def update
     # Can only update starred attribute
-    @message.starred = params[:message][:starred] if params[:message]
+    @message.starred = params[:starred] if params.has_key?(:starred)
 
     if @message.save
       head :no_content

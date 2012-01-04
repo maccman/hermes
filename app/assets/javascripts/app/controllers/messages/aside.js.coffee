@@ -8,7 +8,6 @@ class Item extends Spine.Controller
   constructor: ->
     super
     throw 'record required' unless @record
-    @record.bind 'change', @render
   
   render: =>
     @replace @view('messages/aside/item')(@record)
@@ -37,28 +36,33 @@ class App.Messages.Aside extends Spine.Controller
       
     Conversation.bind 'refresh', @addAll
     Conversation.bind 'create',  @addOne
-    Conversation.bind 'change',  @render
+    Conversation.bind 'refresh change', @render
   
   items: []
   
   addAll: (records = []) =>
-    for record in records
-      item = new Item(record: record)
-      @items.push(item)
-      @itemsEl.append(item.render())
+    @addOne(record) for record in records
       
   addOne: (record) =>
     item = new Item(record: record)
-    @items.unshift(item)
-    @itemsEl.prepend(item.render())    
+    @items.push(item)
       
   change: (item) ->
     @current = item
-    @render()
     
-  render: =>
     for item in @items
       item.toggleActive(item.record.eql(@current))
+    
+  render: =>
+    # Select first item unless otherwise
+    # specified
+    unless @current
+      @current = @items[0]?.record
+    
+    @itemsEl.html('')
+    
+    for item in @items
+      @itemsEl.append(item.render())
       
   click: (e) ->
     itemID = $(e.currentTarget).data('cid')

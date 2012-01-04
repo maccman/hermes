@@ -4,7 +4,11 @@
   display: block
   background: #FFF
   width: 250px
-  overflow: auto
+  vbox()
+  
+  .items
+    box-flex(1)
+    overflow-x: auto
   
   .item
     border-bottom: 1px solid lighten(#D1D1D1, 20%)

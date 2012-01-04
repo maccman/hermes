@@ -1,3 +1,5 @@
+require 'dm_sender'
+
 class Message < ActiveRecord::Base
   belongs_to :conversation
   belongs_to :user
@@ -75,10 +77,10 @@ class Message < ActiveRecord::Base
           Message.duplicate!(to_user, self)
         elsif to_user.email?
           # Else email
-          UserMailer.message(to_user, self).deliver
+          UserMailer.send_message(to_user, self).deliver
         elsif to_user.handle?
           # Or DM
-          DMSender.message(to_user, self)
+          DMSender.send_message(to_user, self)
         end
       end
     end
