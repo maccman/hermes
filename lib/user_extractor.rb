@@ -1,3 +1,6 @@
+require 'mail'
+require 'twitter'
+
 module UserExtractor extend self
   def extract_handle(str)
     Twitter::Extractor.extract_reply_screen_name(str)

@@ -22,6 +22,11 @@ class Compose extends Spine.Controller
   submit: (e) ->
     e.preventDefault()
     message = Message.fromForm(@form)
+    
+    Spine.Ajax.disable ->
+      conversation = Conversation.create()
+      message.conversation(conversation)
+      
     if message.to and message.body
       message.save()
       @el.trigger('close')

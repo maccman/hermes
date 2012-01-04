@@ -1,7 +1,5 @@
 <img src="<%= @avatar_url %>">
 
 <div class="body">
-  <form>
-    <textarea name="body" autofocus></textarea>
-  </form>
+  <div class="input" contenteditable autofocus></div>
 </div>

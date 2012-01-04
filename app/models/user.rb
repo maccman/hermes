@@ -41,6 +41,10 @@ class User < ActiveRecord::Base
     end
   end
   
+  def to_s
+    handle? ? "@#{handle}" : email
+  end
+  
   def twitter
     Twitter::Client.new(
       :consumer_key    => Rails.config.twitter.token,
@@ -51,8 +55,16 @@ class User < ActiveRecord::Base
   end
   
   def member?
-    twitter_token? && twitter_secret?
+    # twitter_token? && twitter_secret?
+    # TODO
+    true
   end
   
   alias_method :twitter?, :member?
+  
+  def serializable_hash(options = nil)
+    super((options || {}).merge(
+      :except  => [:twitter_token, :twitter_secret, :uid]
+    ))
+  end
 end

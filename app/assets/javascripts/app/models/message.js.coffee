@@ -15,4 +15,4 @@ class App.Message extends Spine.Model
     
   @bind 'create', (record) ->
     Spine.Ajax.disable ->
-      record.conversation().save()
+      record.conversation()?.save()

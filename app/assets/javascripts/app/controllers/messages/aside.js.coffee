@@ -3,6 +3,8 @@ $ = jQuery
 Conversation = App.Conversation
 
 class Item extends Spine.Controller
+  active: false
+  
   constructor: ->
     super
     throw 'record required' unless @record
@@ -10,9 +12,11 @@ class Item extends Spine.Controller
   
   render: =>
     @replace @view('messages/aside/item')(@record)
+    @el.toggleClass('active', @active)
     
   toggleActive: (bool) ->
-    this.el.toggleClass('active', bool)
+    @active = bool
+    @render()
 
 class App.Messages.Aside extends Spine.Controller
   elements:

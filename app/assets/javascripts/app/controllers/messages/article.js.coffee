@@ -23,19 +23,19 @@ class Compose extends Spine.Controller
   className: 'item me'
   
   events:
-    'submit form': 'submit'
-    'keypress textarea': 'keypress'
+    'keypress .input': 'keypress'
     
   elements:
-    'form': 'form'
+    '.input': 'input'
     
   constructor: ->
     super
     throw 'record required' unless @record
-    @render()
     
   render: ->
     @html @view('messages/article/compose')(App.user)
+    @delay -> @input.focus()
+    @el
 
   keypress: (e) ->
     if e.keyCode is 13 and (e.shiftKey or e.metaKey)
@@ -43,10 +43,11 @@ class Compose extends Spine.Controller
 
   submit: (e) ->
     e.preventDefault()
-    message = Message.fromForm(@form)
+    message = new Message(body: @input.text())
+    message.from_user(App.user)
     message.conversation(@record)
     if message.body
-      @form[0].reset()
+      @input.text('')
       message.save()
     
 class App.Messages.Article extends Spine.Controller

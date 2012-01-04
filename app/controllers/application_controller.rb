@@ -24,14 +24,14 @@ class ApplicationController < ActionController::Base
     def require_user
       unless current_user
         respond_to do |format|
-          format.html  { 
+          format.html do
             store_location
-            flash[:error] = "You must be logged in to access this page"
-            redirect_to new_user_session_url          
-          }
-          format.all { 
+            redirect_to authorize_url          
+          end
+          
+          format.all do
             head(:unauthorized)
-          }
+          end
         end
         return false
       end

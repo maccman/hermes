@@ -16,7 +16,7 @@ class Message < ActiveRecord::Base
   scope :latest, order(:sent_at => 'ASC')
   
   attr_accessor :to
-  attr_accessible :subject, :body, :starred, :sent_at, :to
+  attr_accessible :to, :subject, :body, :sent_at
   
   def to
     to_users.map(&:to_s)
@@ -24,6 +24,14 @@ class Message < ActiveRecord::Base
   
   def to_users
     (conversation_id? && conversation.to_users) || []
+  end
+  
+  def serializable_hash(options = nil)
+    super((options || {}).merge(
+      :include => :from_user,
+      :methods => :to,
+      :except  => [:from_user_id, :user_id]
+    ))
   end
     
   protected
@@ -33,13 +41,28 @@ class Message < ActiveRecord::Base
   
     def create_conversation
       return if conversation_id? or !@to
-      self.conversation = Conversation.between!(user, *User.for(@to))
+      self.conversation = Conversation.between!(user, from_user, *User.for(@to))
       self.conversation.read = false
       self.conversation.save!
     end
     
     def send_message
-      # Duplicate message locally if to.member?
-      # Send email if !to.member? and to.email
+      return unless from_user == user
+      
+      to_users.each do |to_user|
+        if user.member?
+          message = Message.new(
+            to:      to,
+            subject: subject,
+            body:    body,
+            sent_at: sent_at
+          )
+          message.user      = to_user
+          message.from_user = user
+          message.save!
+        else
+          # TODO - Send DM or Email...
+        end
+      end
     end
 end

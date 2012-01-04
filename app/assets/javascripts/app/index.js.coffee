@@ -4,7 +4,7 @@
 #= require spine/manager
 #= require spine/ajax
 #= require spine/route
-#= require spine/relation
+#= require ./spine/relation
 #= require spine/list
 #= require gfx
 #= require gfx/effects
