@@ -61,7 +61,7 @@ class App.Messages.Aside extends Spine.Controller
     
     @itemsEl.html('')
     
-    for item in @items
+    for item in @items.sort(Conversation.sort)
       @itemsEl.append(item.render())
       
   click: (e) ->
