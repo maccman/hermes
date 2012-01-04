@@ -22,6 +22,7 @@ gem 'rmagick'
 gem 'fog'
 gem 'carrierwave'
 gem 'will_paginate'
+gem 'nestful'
 
 group :development do
   gem 'sqlite3'

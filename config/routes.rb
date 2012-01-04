@@ -1,6 +1,7 @@
 Hermes::Application.routes.draw do
   resources :messages
   resources :conversations
+  resources :emails
 
   root :to => 'app#index'
   

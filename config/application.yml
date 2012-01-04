@@ -3,6 +3,7 @@ defaults: &defaults
     dragon: slayer
 
   name: Hermes
+  domain: hermes.com
 
 development:
   <<: *defaults

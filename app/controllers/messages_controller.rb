@@ -1,4 +1,7 @@
 class MessagesController < ApplicationController
+  before_filter :require_user
+  before_filter :find_message, :only => [:show, :update, :destroy]
+  
   # GET /messages.json
   def index
     @messages = Message.for_user(current_user).latest.all
@@ -7,7 +10,6 @@ class MessagesController < ApplicationController
 
   # GET /messages/1.json
   def show
-    @message = Message.for_user(current_user).find(params[:id])
     render json: @message
   end
 
@@ -19,8 +21,8 @@ class MessagesController < ApplicationController
 
   # POST /messages.json
   def create
-    @message = Message.new(params[:message])
-    @message.user = current_user
+    @message           = Message.new(params[:message])
+    @message.user      = current_user
     @message.from_user = current_user
     
     if params[:conversation_id]
@@ -36,8 +38,6 @@ class MessagesController < ApplicationController
 
   # PUT /messages/1.json
   def update
-    @message = Message.for_user(current_user).find(params[:id])
-
     # Can only update starred attribute
     @message.starred = params[:message][:starred] if params[:message]
 
@@ -50,8 +50,12 @@ class MessagesController < ApplicationController
 
   # DELETE /messages/1.json
   def destroy
-    @message = Message.for_user(current_user).find(params[:id])
     @message.destroy
     head :no_content
   end
+  
+  protected
+    def find_message
+      @message = Message.for_user(current_user).find(params[:id])
+    end
 end

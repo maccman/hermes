@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
       result[:emails].each do |email|
         users << find_or_create_by_email(email)
       end
-      users
+      users.uniq
     end
   end
   
@@ -47,17 +47,13 @@ class User < ActiveRecord::Base
   
   def twitter
     Twitter::Client.new(
-      :consumer_key    => Rails.config.twitter.token,
-      :consumer_secret => Rails.config.twitter.secret,
-      :oauth_token     => self.twitter_token,
+      :oauth_token        => self.twitter_token,
       :oauth_token_secret => self.twitter_secret
     )
   end
   
   def member?
-    # twitter_token? && twitter_secret?
-    # TODO
-    true
+    twitter_token? && twitter_secret?
   end
   
   alias_method :twitter?, :member?

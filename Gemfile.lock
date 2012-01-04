@@ -104,6 +104,8 @@ GEM
     mime-types (1.17.2)
     multi_json (1.0.4)
     multipart-post (1.1.4)
+    nestful (0.0.7)
+      activesupport (>= 3.0.0.beta)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-ssh (2.2.1)
@@ -219,6 +221,7 @@ DEPENDENCIES
   foreman
   heroku
   jquery-rails
+  nestful
   omniauth
   omniauth-google
   omniauth-google-oauth2
