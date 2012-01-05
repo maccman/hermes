@@ -1,5 +1,3 @@
-require 'user_extractor'
-
 class User < ActiveRecord::Base
   has_many :conversations
   has_many :friends, :through => :conversations, :source => :to_users
@@ -15,18 +13,7 @@ class User < ActiveRecord::Base
       return unless auth && auth.uid
     
       user = self.find_by_uid(auth.uid) || self.new
-      user.uid          = auth.uid
-      user.handle       = auth.info.nickname
-      user.name         = auth.info.name
-      user.description  = auth.info.description
-      user.avatar_url   = auth.info.image
-    
-      if auth.provider == "twitter"      
-        user.twitter_token  = auth.credentials.token
-        user.twitter_secret = auth.credentials.secret
-      end
-    
-      user.save!
+      user.link_twitter!(auth)
       user
     end
     
@@ -51,14 +38,43 @@ class User < ActiveRecord::Base
     end
   end
   
+  def link_twitter!(auth)
+    self.uid            = auth.uid
+    self.handle         = auth.info.nickname
+    self.name           = auth.info.name
+    self.description    = auth.info.description
+    self.avatar_url     = auth.info.image
+    self.twitter_token  = auth.credentials.token
+    self.twitter_secret = auth.credentials.secret
+    save!
+  end
+  
+  def link_google!(auth)
+    self.email         = auth.info.email
+    self.google_token  = auth.credentials.token
+    self.google_secret = auth.credentials.secret
+    save!
+  end
+  
   def to_s
     handle? ? "@#{handle}" : email
   end
   
+  def google
+    Google::Client.new(
+      oauth_token:        self.google_token,
+      oauth_token_secret: self.google_secret    
+    )
+  end
+  
+  def google?
+    google_token?
+  end
+  
   def twitter
     Twitter::Client.new(
-      :oauth_token        => self.twitter_token,
-      :oauth_token_secret => self.twitter_secret
+      oauth_token:        self.twitter_token,
+      oauth_token_secret: self.twitter_secret
     )
   end
   
@@ -86,6 +102,11 @@ class User < ActiveRecord::Base
       friend_ids = twitter.friend_ids.ids.shuffle[0..99]
       friends    = twitter.users(*friend_ids)
       friends.map {|f| "@#{f.screen_name}" }
+    end
+    
+    def google_autocomplete
+      return [] unless google?
+      google.contacts.map {|c| c.email }
     end
 
     def friends_autocomplete

@@ -6,6 +6,7 @@ Hermes::Application.routes.draw do
   root :to => 'app#index'
   
   match '/auth/twitter/callback' => 'authorize#create'
+  match '/auth/google/callback' => 'authorize#google'
   match '/auth/failure' => 'authorize#failure'
   match '/logout' => 'authorize#destroy', :as => :logout
   match '/authorize' => redirect('/auth/twitter'), :as => :authorize
