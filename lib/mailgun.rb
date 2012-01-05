@@ -27,8 +27,8 @@ module Mailgun
 
     def deliver!(mail)
       Nestful.post(
-        url:     endpoint,
-        format:  :multipart,
+        endpoint,
+        format: :multipart,
         params: {
           to: mail.destinations.join(","),
           message: mail.to_s

@@ -56,14 +56,14 @@ class App.Messages.Aside extends Spine.Controller
   render: =>
     @items = @items.sort(Conversation.sort)
     
-    # Select first item unless otherwise specified
-    unless @current
-      @current = @items[0]?.record
-    
     @itemsEl.html('')
     
     for item in @items
       @itemsEl.append(item.render())
+      
+    # Select first item unless otherwise specified
+    unless @current
+      @itemsEl.find('.item:first').click()
       
   click: (e) ->
     itemID = $(e.currentTarget).data('cid')
