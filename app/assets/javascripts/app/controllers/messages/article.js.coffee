@@ -43,7 +43,7 @@ class Compose extends Spine.Controller
 
   submit: (e) ->
     e.preventDefault()
-    message = new Message(body: @input.text())
+    message = new Message(body: @input.innerText())
     message.from_user(App.user)
     message.conversation(@record)
     if message.body

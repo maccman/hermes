@@ -1,6 +1,7 @@
 class App.Conversation extends Spine.Model
   @configure 'Conversation', 'read'
   @extend Spine.Model.Ajax
+  @extend Spine.Timestamps
   
   @hasOne 'user', 'App.User'
   @hasMany 'to_users', 'App.User'
@@ -14,3 +15,7 @@ class App.Conversation extends Spine.Model
       subject:    'Some subject'
       body:       message.body
     }
+
+  @sort: (a, b) ->
+    earlier = Date.parse(a.updated_at) > Date.parse(b.updated_at)
+    if earlier then -1 else 1
