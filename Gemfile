@@ -24,6 +24,7 @@ gem 'carrierwave'
 gem 'will_paginate'
 gem 'nestful'
 gem 'dalli'
+gem 'net-http-spy'
 
 group :development do
   gem 'sqlite3'

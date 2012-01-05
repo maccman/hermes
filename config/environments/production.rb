@@ -65,10 +65,23 @@ Hermes::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
   
-  require "mailgun"
-  config.action_mailer.delivery_method  = :mailgun
-  config.action_mailer.mailgun_settings = {
-    api_host: ENV["MAILGUN_API_HOST"],
-    api_key:  ENV["MAILGUN_API_KEY"]
+  # require "mailgun"
+  # config.action_mailer.delivery_method  = :mailgun
+  # config.action_mailer.mailgun_settings = {
+  #   api_host: ENV["MAILGUN_API_HOST"],
+  #   api_key:  ENV["MAILGUN_API_KEY"]
+  # }
+  
+  config.action_mailer.delivery_method       = :smtp
+  config.action_mailer.default_charset       = "utf-8"
+  config.action_mailer.perform_deliveries    = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.smtp_settings = {
+       :authentication => :plain,
+       :address        => "smtp.mailgun.org",
+       :port           => 25,
+       :domain         => ENV["MAILGUN_API_HOST"],
+       :user_name      => "postmaster@#{ENV["MAILGUN_API_HOST"]}",
+       :password       => ENV["MAILGUN_API_KEY"]
   }
 end
