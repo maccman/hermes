@@ -9,9 +9,6 @@ class User < ActiveRecord::Base
   validates_presence_of :handle, :unless => :email?
   validates_presence_of :email, :unless => :handle?
   
-  # Warm up caches when a user is first created
-  after_save :autocomplete, :if => :twitter_token_changed?
-  
   class << self
     # Find or new user by Twiter oauth information
     def authorize_twitter!(auth)
