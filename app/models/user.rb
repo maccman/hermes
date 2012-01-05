@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
   alias_method :member?, :twitter?
   
   def autocomplete
-    Rails.cache.fetch([cache_key, :autocomplete].join('/')) do
+    Rails.cache.fetch([cache_key, :autocomplete].join('/'), expires_in: 1.day) do
       friends_autocomplete | twitter_autocomplete
     end
   end
@@ -88,7 +88,7 @@ class User < ActiveRecord::Base
       return [] unless twitter? 
       friend_ids = twitter.friend_ids.ids.shuffle[0..99]
       friends    = twitter.users(*friend_ids)
-      friends.map {|f| "@#{f.screen_name}" }
+      friends.map {|f| ["@#{f.screen_name}"] }
     end
 
     def friends_autocomplete

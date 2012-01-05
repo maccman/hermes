@@ -52,6 +52,7 @@ GEM
     coffee-script-source (1.2.0)
     columnize (0.3.6)
     daemons (1.1.5)
+    dalli (1.1.4)
     eco (1.0.0)
       coffee-script
       eco-source
@@ -216,6 +217,7 @@ PLATFORMS
 DEPENDENCIES
   carrierwave
   coffee-rails (~> 3.2.0)
+  dalli
   eco
   fog
   foreman

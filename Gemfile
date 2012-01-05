@@ -23,6 +23,7 @@ gem 'fog'
 gem 'carrierwave'
 gem 'will_paginate'
 gem 'nestful'
+gem 'dalli'
 
 group :development do
   gem 'sqlite3'
