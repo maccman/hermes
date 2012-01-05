@@ -107,7 +107,6 @@ GEM
     multipart-post (1.1.4)
     nestful (0.0.8)
       activesupport (>= 3.0.0.beta)
-    net-http-spy (0.2.1)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-ssh (2.2.2)
@@ -222,7 +221,6 @@ DEPENDENCIES
   heroku
   jquery-rails
   nestful
-  net-http-spy
   omniauth
   omniauth-google
   omniauth-google-oauth2
