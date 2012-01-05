@@ -79,6 +79,6 @@ Hermes::Application.configure do
        :port           => 25,
        :domain         => ENV["MAILGUN_API_HOST"],
        :user_name      => "postmaster@#{ENV["MAILGUN_API_HOST"]}",
-       :password       => ENV["MAILGUN_API_KEY"]
+       :password       => ENV["MAILGUN_PASSWORD"]
   }
 end
