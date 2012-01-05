@@ -1,6 +1,6 @@
 <nav class="nav">
   <div class="avatar">
-    <img src="https://secure.gravatar.com/avatar/baf018e2cc4616e4776d323215c7136c">
+    <img src="<%= @avatar_url %>">
   </div>
   
   <div class="item">

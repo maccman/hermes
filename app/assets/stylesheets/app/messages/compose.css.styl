@@ -1,0 +1,39 @@
+@import 'mixins'
+
+.ui-autocomplete {
+  position: absolute
+  cursor: default
+  background: rgba(255, 255, 255, 0.9)
+  box-shadow(1px, 1px, 3px, rgba(0, 0, 0, 0.3))
+  border: 1px solid rgba(0, 0, 0, 0.2)
+}
+
+.ui-menu {
+	list-style: none
+	display: block
+	float: left
+	padding: 0
+	margin: 0
+}
+  
+.ui-menu .ui-menu-item {
+  	float: left
+  	clear: left
+  	padding: 0
+  	margin: 0
+  	width: 100%
+	
+  	a {
+    	text-decoration: none
+    	display: block
+    	padding: .2em .4em
+    	line-height: 1.5
+    	padding: 2px 4px
+    	
+    	&.ui-state-hover {
+    	  background: #2D81C5
+    	  color: #FFF
+    	  text-shadow: none
+    	}
+  	}
+}

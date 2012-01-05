@@ -6,5 +6,6 @@ module DMSender extend self
       to_user.handle, 
       message.body
     )
+  rescue Twitter::Error
   end
 end

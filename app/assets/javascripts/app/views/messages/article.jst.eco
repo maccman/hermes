@@ -1,7 +1,17 @@
 <article>
   <header>
-    <span data-type="activity">Activity</span>
-  </header>
+    <!-- <span data-type="activity">Activity</span> -->
+    <div class="participants">
+      Between you and 
+      
+      <% users = @to_users().all() %>
+      <% for user, i in users: %>
+        <a data-id="<%= user.id %>">
+          <%= user.name or user.handle or user.email %>
+        </a><% if i isnt users.length - 1: %>,<% end %>
+      <% end %>
+    </div>
+  </header>  
   
   <div class="items"></div>
   

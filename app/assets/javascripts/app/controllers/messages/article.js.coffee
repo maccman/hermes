@@ -69,7 +69,7 @@ class App.Messages.Article extends Spine.Controller
     @render()
     
   render: ->
-    @replace @view('messages/article')()
+    @replace @view('messages/article')(@current)
     @compose.append(new Compose(record: @current).render())
     
     messages = @current?.messages().all()

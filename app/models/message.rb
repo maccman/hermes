@@ -78,7 +78,7 @@ class Message < ActiveRecord::Base
         elsif to_user.email?
           # Else email
           UserMailer.send_message(to_user, self).deliver
-        elsif to_user.handle?
+        elsif user.member? && to_user.handle?
           # Or DM
           DMSender.send_message(to_user, self)
         end

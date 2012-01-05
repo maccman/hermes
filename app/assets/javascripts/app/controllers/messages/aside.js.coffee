@@ -54,14 +54,15 @@ class App.Messages.Aside extends Spine.Controller
       item.toggleActive(item.record.eql(@current))
     
   render: =>
-    # Select first item unless otherwise
-    # specified
+    @items = @items.sort(Conversation.sort)
+    
+    # Select first item unless otherwise specified
     unless @current
       @current = @items[0]?.record
     
     @itemsEl.html('')
     
-    for item in @items.sort(Conversation.sort)
+    for item in @items
       @itemsEl.append(item.render())
       
   click: (e) ->

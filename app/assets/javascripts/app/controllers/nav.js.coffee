@@ -4,4 +4,4 @@ class App.Nav extends Spine.Controller
     @render()
     
   render: ->
-    @replace @view('nav')()
+    @replace @view('nav')(App.user)
