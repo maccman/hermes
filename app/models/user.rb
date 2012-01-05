@@ -52,7 +52,6 @@ class User < ActiveRecord::Base
   def link_google!(auth)
     self.email         = auth.info.email
     self.google_token  = auth.credentials.token
-    self.google_secret = auth.credentials.secret
     save!
   end
   
@@ -61,10 +60,7 @@ class User < ActiveRecord::Base
   end
   
   def google
-    Google::Client.new(
-      oauth_token:        self.google_token,
-      oauth_token_secret: self.google_secret    
-    )
+    Google::Client.new(self.google_token)
   end
   
   def google?
@@ -86,7 +82,7 @@ class User < ActiveRecord::Base
   
   def autocomplete
     Rails.cache.fetch([cache_key, :autocomplete].join('/'), expires_in: 1.day) do
-      friends_autocomplete | twitter_autocomplete
+      friends_autocomplete | twitter_autocomplete | google_autocomplete
     end
   end
   
@@ -106,7 +102,7 @@ class User < ActiveRecord::Base
     
     def google_autocomplete
       return [] unless google?
-      google.contacts.map {|c| c.email }
+      google.contacts.select(&:email).map(&:to_s)
     end
 
     def friends_autocomplete
