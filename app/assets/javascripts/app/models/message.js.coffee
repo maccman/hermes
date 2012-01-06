@@ -1,5 +1,5 @@
 class App.Message extends Spine.Model
-  @configure 'Message', 'subject', 'body', 'starred', 'to'
+  @configure 'Message', 'subject', 'body', 'starred', 'to', 'sent_at'
   @extend Spine.Model.Ajax
   @extend Spine.Timestamps
   
@@ -19,5 +19,5 @@ class App.Message extends Spine.Model
       record.conversation()?.save()
       
   @sort: (a, b) ->
-    later = Date.parse(a.updated_at) < Date.parse(b.updated_at)
+    later = Date.parse(a.sent_at) < Date.parse(b.sent_at)
     if later then -1 else 1
