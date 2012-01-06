@@ -73,12 +73,12 @@ Hermes::Application.configure do
   # }
   
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings   = {
-       :authentication => :plain,
-       :address        => "smtp.mailgun.org",
-       :port           => 25,
-       :domain         => ENV["MAILGUN_API_HOST"],
-       :user_name      => "postmaster@#{ENV["MAILGUN_API_HOST"]}",
-       :password       => ENV["MAILGUN_PASSWORD"]
+  config.action_mailer.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => ENV['SENDGRID_USERNAME'],
+    :password       => ENV['SENDGRID_PASSWORD'],
+    :domain         => 'heroku.com'
   }
 end
