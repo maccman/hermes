@@ -1,4 +1,6 @@
 class EmailsController < ApplicationController
+  skip_before_filter :keepsafe
+  
   def create
     from      = params[:from]
     to        = params[:to] || params[:recipient]
