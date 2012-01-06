@@ -65,8 +65,9 @@ class Message < ActiveRecord::Base
           user, from_user, *User.for(@to)
         )
         conversation.read = false
-        conversation.save!
       end
+      conversation.read = user != from_user
+      conversation.save!
     end
     
     def send_message

@@ -12,6 +12,7 @@ class Item extends Spine.Controller
   render: =>
     @replace @view('messages/aside/item')(@record)
     @el.toggleClass('active', @active)
+    @el.toggleClass('unread', not @record.read)
     
   toggleActive: (bool) ->
     @active = bool
@@ -54,8 +55,6 @@ class App.Messages.Aside extends Spine.Controller
       item.toggleActive(item.record.eql(@current))
     
   render: =>
-    # @items = @items.sort(Conversation.sort)
-    
     @itemsEl.html('')
     
     for item in @items

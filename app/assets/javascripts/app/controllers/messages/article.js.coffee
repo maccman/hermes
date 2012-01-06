@@ -72,6 +72,7 @@ class App.Messages.Article extends Spine.Controller
       
   change: (item) ->
     @current = item
+    @current.open()
     @render()
     
   render: ->

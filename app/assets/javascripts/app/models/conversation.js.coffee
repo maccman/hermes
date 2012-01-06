@@ -15,6 +15,10 @@ class App.Conversation extends Spine.Model
       subject:    'Some subject'
       body:       message.body
     }
+    
+  open: ->
+    @read = true
+    @save()
 
   @sort: (a, b) ->
     earlier = Date.parse(a.updated_at) > Date.parse(b.updated_at)
