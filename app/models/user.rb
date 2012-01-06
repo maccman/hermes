@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   validates_presence_of :handle, :unless => :email?
   validates_presence_of :email, :unless => :handle?
   
+  before_save :set_defaults
+  
   class << self
     # Find or new user by Twiter oauth information
     def authorize_twitter!(auth)
@@ -96,5 +98,9 @@ class User < ActiveRecord::Base
 
     def friends_autocomplete
       friends.map(&:to_s)
+    end
+    
+    def set_defaults
+      self.avatar_url ||= Gravatar.make(email)
     end
 end
