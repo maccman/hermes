@@ -6,8 +6,11 @@ class Conversation < ActiveRecord::Base
 
   has_many :messages
   
+  before_create :create_access_token
+  
   validates_presence_of :user_id
   validates_length_of   :to_users, :within => 1..20
+  validate :valid_users  
   
   scope :between, lambda {|from, *to| 
     includes(:conversation_users).where("conversations.user_id = ? AND conversation_users.user_id IN (?)", from.id, to)
@@ -17,9 +20,11 @@ class Conversation < ActiveRecord::Base
     where(:user_id => user && user.id)
   }
   
-  scope :latest, order("updated_at DESC")
+  scope :for_token, lambda {|token|
+    where(:access_token => token)
+  }
   
-  validate :valid_users
+  scope :latest, order("updated_at DESC")  
   
   class << self
     def between!(user, from, *to)
@@ -46,9 +51,14 @@ class Conversation < ActiveRecord::Base
     handle || email
   end
   
-  def valid_users
-    if to_users.include?(user)
-      errors.add("users", "can't start a conversation with yourself")
+  protected  
+    def create_access_token
+      self.access_token = SecureRandom.hex(16)
     end
-  end
+  
+    def valid_users
+      if to_users.include?(user)
+        errors.add("users", "can't start a conversation with yourself")
+      end
+    end
 end

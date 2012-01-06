@@ -19,5 +19,5 @@ class App.Message extends Spine.Model
       record.conversation()?.save()
       
   @sort: (a, b) ->
-    earlier = Date.parse(a.updated_at) > Date.parse(b.updated_at)
-    if earlier then -1 else 1
+    later = Date.parse(a.updated_at) < Date.parse(b.updated_at)
+    if later then -1 else 1

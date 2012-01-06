@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120105071519) do
+ActiveRecord::Schema.define(:version => 20120106025419) do
 
   create_table "attachments", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -27,10 +27,11 @@ ActiveRecord::Schema.define(:version => 20120105071519) do
 
   create_table "conversations", :force => true do |t|
     t.string   "uid"
-    t.boolean  "read",       :default => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.boolean  "read",         :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.integer  "user_id"
+    t.string   "access_token"
   end
 
   create_table "messages", :force => true do |t|
@@ -57,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20120105071519) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.string   "google_token"
+    t.string   "google_secret"
   end
 
 end

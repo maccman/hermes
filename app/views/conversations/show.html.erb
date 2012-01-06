@@ -1,0 +1,7 @@
+<h1>Show conversation!</h1>
+
+<p><%= @conversation.to_users.map(&:to_name).join(',') %></p>
+
+<% @conversation.messages.each do |message| %>
+  <p><%= message.body %></p>
+<% end %>

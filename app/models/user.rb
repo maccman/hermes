@@ -59,6 +59,10 @@ class User < ActiveRecord::Base
     handle? ? "@#{handle}" : email
   end
   
+  def to_name
+    name || to_s
+  end
+  
   def google
     Google::Client.new(self.google_token)
   end

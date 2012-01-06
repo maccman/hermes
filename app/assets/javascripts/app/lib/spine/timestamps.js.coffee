@@ -1,5 +1,5 @@
 Spine.Timestamps = 
   extended: ->
-    @bind 'save', ->
-      @updated_at or= new Date
-      @created_at or= new Date
+    @bind 'beforeSave', (item) ->
+      item.updated_at or= new Date
+      item.created_at or= new Date

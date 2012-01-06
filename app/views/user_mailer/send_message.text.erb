@@ -2,4 +2,4 @@
 <%= @message.body %>
 
 ----
-Sent via Hermes on behalf of <%= @message.from.name %>.
+Sent via <%= Rails.config.name %> on behalf of <%= @message.from_user.to_name %>.

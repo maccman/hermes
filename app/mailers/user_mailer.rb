@@ -7,9 +7,10 @@ class UserMailer < ActionMailer::Base
     @message   = message
     
     mail(
-      to: @to_user.email, 
-      from: @from_user.email, 
-      subject: "#{Rails.config.name} message"
+      to:       @to_user.email, 
+      from:     @from_user.email,
+      reply_to: "#{@from_user.handle}@#{Rails.config.domain}", 
+      subject:  "#{Rails.config.name} message"
     )
   end
 end
