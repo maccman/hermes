@@ -3,4 +3,4 @@ class App.User extends Spine.Model
   
   load: ->
     super
-    @avatar_url or= "http://robohash.org/#{@email}.png?size=48x48"
+    @avatar_url or= "http://robohash.org/#{@email}.png?size=48x48&bgset=1"
