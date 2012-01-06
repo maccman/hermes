@@ -14,8 +14,8 @@ class EmailsController < ApplicationController
       body:    body
     )
     
-    message.from_user = User.for(to).first
-    message.to        = [to_user.to_s]
+    message.from_user = User.for(from).first
+    message.to        = [to_user]
     message.user      = to_user
     message.save!
     

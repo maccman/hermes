@@ -19,22 +19,7 @@ class User < ActiveRecord::Base
     
     # Find or new user by handle or email address
     def for(to_users)
-      if to_users.is_a?(String)
-        to_users = to_users.split(',')
-      end
-      
-      users  = []
-      result = UserExtractor.extract(to_users)
-      
-      result[:handles].each do |handle|
-        users << find_or_create_by_handle(handle)
-      end
-      
-      result[:emails].each do |email|
-        users << find_or_create_by_email(email)
-      end
-      
-      users.uniq
+      UserExtractor.extract(to_users)
     end
   end
   

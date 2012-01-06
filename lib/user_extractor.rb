@@ -1,3 +1,4 @@
+require 'user'
 require 'mail'
 require 'twitter'
 
@@ -12,17 +13,22 @@ module UserExtractor extend self
   end
   
   def extract(array)
-    emails  = []
-    handles = []
+    if array.is_a?(String)
+      array = array.split(',')
+    end
     
-    Array(array).each do |str|
-      if handle = extract_handle(str)
-        handles << handle
-      elsif email = extract_email(str)
-        emails << email
+    users = []
+    
+    Array(array).each do |value|
+      if value.is_a?(User)
+        users << value
+      elsif handle = extract_handle(value)
+        users << User.find_or_create_by_handle(handle)
+      elsif email = extract_email(value)
+        users << User.find_or_create_by_email(email)
       end
     end
     
-    {handles: handles, emails: emails}
+    users.uniq
   end
 end
