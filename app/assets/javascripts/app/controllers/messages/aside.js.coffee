@@ -54,7 +54,7 @@ class App.Messages.Aside extends Spine.Controller
       item.toggleActive(item.record.eql(@current))
     
   render: =>
-    @items = @items.sort(Conversation.sort)
+    # @items = @items.sort(Conversation.sort)
     
     @itemsEl.html('')
     

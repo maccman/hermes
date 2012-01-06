@@ -58,12 +58,15 @@ class Message < ActiveRecord::Base
     # Create a conversation if it doesn't exist
     # with the message's participants
     def create_conversation
-      return if conversation_id? or !@to
-      self.conversation = Conversation.between!(
-        user, from_user, *User.for(@to)
-      )
-      self.conversation.read = false
-      self.conversation.save!
+      if conversation_id?
+        conversation.touch(:received_at)
+      elsif @to
+        self.conversation = Conversation.between!(
+          user, from_user, *User.for(@to)
+        )
+        conversation.read = false
+        conversation.save!
+      end
     end
     
     def send_message

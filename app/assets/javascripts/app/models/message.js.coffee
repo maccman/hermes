@@ -1,5 +1,5 @@
 class App.Message extends Spine.Model
-  @configure 'Message', 'subject', 'body', 'starred', 'to', 'updated_at'
+  @configure 'Message', 'subject', 'body', 'starred', 'to'
   @extend Spine.Model.Ajax
   @extend Spine.Timestamps
   

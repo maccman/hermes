@@ -7,6 +7,7 @@ class Conversation < ActiveRecord::Base
   has_many :messages
   
   before_create :create_access_token
+  before_save   :set_defaults
   
   validates_presence_of :user_id
   validates_length_of   :to_users, :within => 1..20
@@ -24,7 +25,7 @@ class Conversation < ActiveRecord::Base
     where(:access_token => token)
   }
   
-  scope :latest, order("updated_at DESC")  
+  scope :latest, order("received_at DESC")  
   
   class << self
     def between!(user, from, *to)
@@ -54,6 +55,10 @@ class Conversation < ActiveRecord::Base
   protected  
     def create_access_token
       self.access_token = SecureRandom.hex(16)
+    end
+    
+    def set_defaults
+      self.received_at = current_time_from_proper_timezone
     end
   
     def valid_users

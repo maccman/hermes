@@ -1,5 +1,5 @@
 class App.Conversation extends Spine.Model
-  @configure 'Conversation', 'read'
+  @configure 'Conversation', 'read', 'received_at'
   @extend Spine.Model.Ajax
   @extend Spine.Timestamps
   
