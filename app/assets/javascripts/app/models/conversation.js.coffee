@@ -17,6 +17,7 @@ class App.Conversation extends Spine.Model
     }
     
   open: ->
+    return if @read
     @read = true
     @save()
 
