@@ -7,7 +7,7 @@
       <% users = @to_users().all() %>
       <% for user, i in users: %>
         <a data-id="<%= user.id %>">
-          <%= user.name or user.handle or user.email %>
+          <%= user.name or (user.handle and "@#{user.handle}") or user.email %>
         </a><% if i isnt users.length - 1: %>,<% end %>
       <% end %>
     </div>
