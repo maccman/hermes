@@ -1,12 +1,11 @@
 class EmailsController < ApplicationController
   def create
     from      = params[:from]
-    to        = params[:to]
+    to        = params[:to] || params[:recipient]
     subject   = params[:subject]
-    body      = params[:text]
+    body      = params[:text] || params["stripped-text"] || params[:plain]
 
-    # TODO - Check domain and find by handle instead
-    to_user = User.find_by_email!(recipient)
+    to_user = User.find_by_handle!(to.split('@', 2).first)
     
     message = Message.new(
       subject: subject,
@@ -14,7 +13,7 @@ class EmailsController < ApplicationController
     )
     
     message.to_users  = [to_user]
-    message.from_user = User.for(recipient).first
+    message.from_user = User.for(to).first
     message.save!
     
     head :ok
