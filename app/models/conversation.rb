@@ -12,7 +12,7 @@ class Conversation < ActiveRecord::Base
   validates_length_of   :to_users, :within => 1..20
   validate :valid_users  
   
-  # Find all conversations where conversations.user is user, and conversation_users.user_id all equal to_ids
+  # Find all conversations where conversations.user is user, and all conversation_users.user_id are equal to_ids
   scope :between, lambda {|from, *to| 
     includes(:conversation_users).where("conversations.user_id = ? AND conversation_users.user_id IN (?)", from.id, to)
   }
