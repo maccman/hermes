@@ -6,13 +6,13 @@ class Conversation < ActiveRecord::Base
 
   has_many :messages
   
-  before_create :create_access_token
   before_save   :set_defaults
   
   validates_presence_of :user_id
   validates_length_of   :to_users, :within => 1..20
   validate :valid_users  
   
+  # Find all conversations where conversations.user is user, and conversation_users.user_id all equal to_ids
   scope :between, lambda {|from, *to| 
     includes(:conversation_users).where("conversations.user_id = ? AND conversation_users.user_id IN (?)", from.id, to)
   }
@@ -53,10 +53,6 @@ class Conversation < ActiveRecord::Base
   end
   
   protected  
-    def create_access_token
-      self.access_token = SecureRandom.hex(16)
-    end
-    
     def set_defaults
       self.received_at = current_time_from_proper_timezone
     end

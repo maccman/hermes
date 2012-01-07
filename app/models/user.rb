@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   validates_presence_of :handle, :unless => :email?
   validates_presence_of :email, :unless => :handle?
   
-  before_save :set_defaults
+  before_create :create_access_token
   
   class << self
     # Find or new user by Twiter oauth information
@@ -77,6 +77,10 @@ class User < ActiveRecord::Base
     end
   end
   
+  def avatar_url
+    read_attribute(:avatar_url) || email? ? Gravatar.make(email) : Gravatar.robohash(to_s)
+  end
+  
   def serializable_hash(options = nil)
     super((options || {}).merge(
       :except  => [:twitter_token, :twitter_secret, :uid]
@@ -100,7 +104,7 @@ class User < ActiveRecord::Base
       friends.map(&:to_s)
     end
     
-    def set_defaults
-      self.avatar_url ||= Gravatar.make(email)
+    def create_access_token
+      self.access_token = SecureRandom.hex(16)
     end
 end

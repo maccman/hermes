@@ -12,4 +12,8 @@ module Gravatar extend self
     
     "http://www.gravatar.com/avatar/#{hash}?d=#{default}"
   end
+  
+  def robohash(value)
+    DEFAULT % Digest::MD5.hexdigest(value)
+  end
 end

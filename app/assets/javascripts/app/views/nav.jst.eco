@@ -3,7 +3,7 @@
     <img src="<%= @avatar_url %>">
   </div>
   
-  <div class="item">
+  <div class="item" data-type="messages">
     <img src="/assets/messages.png">
   </div>
 

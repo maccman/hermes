@@ -34,20 +34,9 @@ class App.Messages.Aside extends Spine.Controller
     # Subscribe active events
     @active (params = {}) ->
       @change(Conversation.find(params.id)) if params.id
-      
-    Conversation.bind 'refresh', @addAll
-    Conversation.bind 'create',  @addOne
+    
     Conversation.bind 'refresh change', @render
-  
-  items: []
-  
-  addAll: (records = []) =>
-    @addOne(record) for record in records
-      
-  addOne: (record) =>
-    item = new Item(record: record)
-    @items.push(item)
-      
+        
   change: (item) ->
     @current = item
     
@@ -55,9 +44,13 @@ class App.Messages.Aside extends Spine.Controller
       item.toggleActive(item.record.eql(@current))
     
   render: =>
+    @items = []
     @itemsEl.html('')
     
-    for item in @items
+    for record in Conversation.all()
+      item = new Item(record: record)
+      item.toggleActive(item.record.eql(@current))
+      @items.push(item)
       @itemsEl.append(item.render())
       
     # Select first item unless otherwise specified

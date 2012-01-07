@@ -14,7 +14,10 @@ class ApplicationController < ActionController::Base
     end
     
     def current_user
-      session[:user_id] && User.find(session[:user_id])
+      return @current_user if defined?(@current_user)
+      @current_user = 
+        session[:user_id].present? && User.find(session[:user_id]) ||
+          params[:access_token].present? && User.find_by_access_token(params[:access_token])
     end
     
     def logged_in?

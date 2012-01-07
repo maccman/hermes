@@ -64,14 +64,17 @@ class App.Compose extends Spine.Controller
     # Save message before creating conversation, 
     # as we don't want conversation_id to be sent
     # to the server
-    message.save success: ->
-      Spine.Ajax.disable =>
-        conversation.changeID(@conversation_id)
-      conversation.ajax().reload()
+    message.save 
+      success: ->
+        Spine.Ajax.disable =>
+          conversation.changeID(@conversation_id)
+        conversation.ajax().reload()
+      error: ->
+        alert('Message send error.')
     
     # Create a empty conversation and navigate to it
     Spine.Ajax.disable =>
-      conversation = App.Conversation.create(user: App.user)
+      conversation = App.Conversation.create(user: App.user, read: true)
       message.conversation(conversation)
       message.save()
       

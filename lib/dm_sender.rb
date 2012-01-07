@@ -10,7 +10,7 @@ module DMSender extend self
       controller:   'conversations', 
       action:       'show', 
       id:           conversation.id, 
-      access_token: conversation.access_token
+      access_token: to_user.access_token
     )
     
     # Length is Twitter limit, minus space, minus tco

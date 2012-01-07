@@ -1,5 +1,5 @@
 class ConversationsController < ApplicationController
-  before_filter :require_user, :except => :show
+  before_filter :require_user
   before_filter :find_converation, :only => [:show, :update]
   
   # GET /conversations.json
@@ -10,12 +10,6 @@ class ConversationsController < ApplicationController
 
   # GET /conversations/1.json
   def show
-    if logged_in?
-      find_converation
-    elsif token = params[:access_token]
-      @conversation = Conversation.for_token(token).find(params[:id])
-    end
-    
     respond_to do |format|
       format.html { render :layout => "basic" }
       format.json { render json: @conversation }

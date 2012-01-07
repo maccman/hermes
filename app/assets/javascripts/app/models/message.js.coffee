@@ -18,6 +18,10 @@ class App.Message extends Spine.Model
     Spine.Ajax.disable ->
       record.conversation()?.save()
       
-  @sort: (a, b) ->
+  @sentAtDesc: (a, b) ->
     later = Date.parse(a.sent_at) < Date.parse(b.sent_at)
     if later then -1 else 1
+    
+  @sentAtAsc: (a, b) ->
+    before = Date.parse(a.sent_at) > Date.parse(b.sent_at)
+    if before then -1 else 1

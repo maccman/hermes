@@ -64,9 +64,8 @@ class Message < ActiveRecord::Base
         self.conversation = Conversation.between!(
           user, from_user, *User.for(@to)
         )
-        conversation.read = false
       end
-      conversation.read = user != from_user
+      conversation.read = user == from_user
       conversation.save!
     end
     

@@ -30,6 +30,7 @@ class Compose extends Spine.Controller
   
   events:
     'keypress .input': 'keypress'
+    'submit form': 'submit'
     
   elements:
     '.input': 'input'
@@ -72,14 +73,18 @@ class App.Messages.Article extends Spine.Controller
       
   change: (item) ->
     @current = item
-    @current.open()
     @render()
+    
+    setTimeout =>
+      if item.eql(@current)
+        @current.open()
+    , 1000
     
   render: ->
     @replace @view('messages/article')(@current)
     @compose.append(new Compose(record: @current).render())
     
-    messages = @current?.messages().all().sort(Message.sort)
+    messages = @current?.messages().all().sort(Message.sentAtDesc)
     @add(messages)
     
   add: (records = []) ->

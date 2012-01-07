@@ -1,5 +1,63 @@
 @import 'mixins'
 
+.composeMessage
+  background: #F4F4F4
+  border-radius(4px)
+  box-shadow(0, 6px, 20px, rgba(0,0,0,0.4))
+  
+  header
+    inset-line(0.7)
+    vbg-gradient(lighten(#F4F4F4, 10%), darken(#F4F4F4, 5%))
+    border-bottom: 1px solid lighten(#CCCCCC, 10%)
+    height: 35px
+    line-height: 35px
+    padding: 0 10px
+    border-radius: 4px 4px 0 0
+
+    h2
+      margin: 0
+      font: 20px arial,lucida,helvetica,arial,sans-serif
+      font-weight: normal
+      text-shadow: 0 1px 0 #FFF
+      float: left
+      line-height: 36px
+    
+  article
+    inset-line()
+    padding: 10px 10px 2px 10px
+    overflow: hidden
+    
+    input, textarea
+      border-box()
+      display: block
+      width: 100%
+      font-size: 15px
+      padding: 5px
+      
+    input
+      margin: 0 0 10px 0
+      
+    textarea
+      resize: vertical
+      min-height: 200px
+      
+    .input
+      margin: 0 0 10px 0
+      border-box()
+      display: block
+      width: 100%
+      font-size: 15px
+      padding: 5px
+      
+  footer
+    padding: 4px 10px 8px
+    text-align: right
+    overflow: hidden
+    
+    button
+      margin: 0
+      font-size: 15px
+
 .ui-autocomplete {
   position: absolute
   cursor: default
@@ -15,21 +73,21 @@
 	padding: 0
 	margin: 0
 }
-  
+
 .ui-menu .ui-menu-item {
   	float: left
   	clear: left
   	padding: 0
   	margin: 0
   	width: 100%
-	
+
   	a {
     	text-decoration: none
     	display: block
     	padding: .2em .4em
     	line-height: 1.5
     	padding: 2px 4px
-    	
+  	
     	&.ui-state-hover {
     	  background: #2D81C5
     	  color: #FFF

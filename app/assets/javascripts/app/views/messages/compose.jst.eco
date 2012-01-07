@@ -7,4 +7,7 @@
     <input type="text" name="to" placeholder="To..." required autofocus>
     <textarea name="body" placeholder="Message..." required></textarea>
   </article>  
+  <footer>
+    <button>Send</button>
+  </footer>
 </form>
