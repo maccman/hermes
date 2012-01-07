@@ -4,7 +4,7 @@
 
 <form>
   <article>
-    <input type="text" name="to" placeholder="To..." required autofocus>
+    <input type="text" name="to" placeholder="To..." required autofocus spellcheck="false">
     <textarea name="body" placeholder="Message..." required></textarea>
   </article>  
   <footer>

@@ -52,6 +52,8 @@ class Conversation < ActiveRecord::Base
     handle || email
   end
   
+  alias_attribute :same_user, :read
+  
   protected  
     def set_defaults
       self.received_at = current_time_from_proper_timezone

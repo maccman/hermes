@@ -1,6 +1,4 @@
-$ = jQuery
-
-$ ->
+App.load ->
   title    = $('title')
   original = title.text();
   

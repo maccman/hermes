@@ -16,6 +16,20 @@
 #= require_tree ./views
 
 class App extends Spine.Controller
+  @extend Spine.Events
+  
+  @load: (callback) ->
+    if (typeof callback is 'load')
+      @bind 'load', callback
+    else
+      @trigger('load', arguments...)
+  
+  @ready: (callback) ->
+    if (typeof callback is 'function')
+      @bind 'ready', callback
+    else
+      @trigger('ready', arguments...)
+  
   constructor: ->
     super
     
@@ -24,7 +38,9 @@ class App extends Spine.Controller
     
     App.Conversation.one 'refresh', ->
       Spine.Route.setup()
-      
+      App.ready()
+    
+    App.load()
     App.Conversation.fetch()    
 
 class App.Stack extends Spine.Stack

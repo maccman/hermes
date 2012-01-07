@@ -49,6 +49,10 @@ class Message < ActiveRecord::Base
       :except  => [:from_user_id, :user_id]
     ))
   end
+  
+  def same_user?
+    from_user == user
+  end
     
   protected
     def set_defaults
@@ -65,12 +69,12 @@ class Message < ActiveRecord::Base
           user, from_user, *User.for(@to)
         )
       end
-      conversation.read = user == from_user
+      conversation.read = same_user?
       conversation.save!
     end
     
     def send_message
-      return unless from_user == user
+      return unless same_user?
       
       to_users.each do |to_user|
         if to_user.member?

@@ -4,6 +4,9 @@ defaults: &defaults
 
   name: Hermes
   domain: postmonk.com
+  
+  juggernaut:
+    host: maccman-hermes-rt.herokuapp.com
 
 development:
   <<: *defaults

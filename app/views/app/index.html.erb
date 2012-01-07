@@ -2,6 +2,7 @@
 
 <script type="text/javascript" charset="utf-8">
   jQuery(function($){
+    App.config = <%= @config_json.html_safe %>;
     App.user   = new App.User(<%= @user_json.html_safe %>);
     window.app = new App({el: $('#app')});
   });
