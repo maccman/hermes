@@ -19,10 +19,7 @@ class ConversationsController < ApplicationController
   
   # PUT /conversation/1.json
   def update
-    # Can only update read attribute
-    @conversation.read = params[:read] if params.has_key?(:read)
-
-    if @conversation.save
+    if @conversation.update_attributes(params[:conversation])
       head :no_content
     else
       render json: @conversation.errors, status: :unprocessable_entity

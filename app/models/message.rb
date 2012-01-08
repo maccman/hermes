@@ -15,8 +15,8 @@ class Message < ActiveRecord::Base
   
   scope :latest, order(:sent_at => 'ASC')
   
-  attr_accessor   :to
-  attr_accessible :to, :subject, :body, :sent_at
+  attr_accessor   :to, :client_id
+  attr_accessible :to, :subject, :body, :sent_at, :client_id
   
   class << self
     def duplicate!(to_user, message)
@@ -64,9 +64,9 @@ class Message < ActiveRecord::Base
     def create_conversation
       if conversation_id?
         conversation.touch(:received_at)
-      elsif @to
+      elsif to
         self.conversation = Conversation.between!(
-          user, from_user, *User.for(@to)
+          user, from_user, *User.for(to)
         )
       end
       conversation.read = same_user?

@@ -11,7 +11,7 @@ class JuggernautClient extends Spine.Module
     )
     @client.on 'connect', @connected
     @client.on 'disconnect', @disconnected
-    @client.subscribe("/observer/#{App.user.id}", @process)
+    @client.subscribe("/observer/#{App.user.id}", @processWithoutAjax)
   
   process: (message) =>
     model = App[message.model] or throw('Model required')
@@ -25,6 +25,10 @@ class JuggernautClient extends Spine.Module
         model.destroy(message.id)
       else
         throw("Unknown type: #{message.type}")
+        
+  processWithoutAjax: (message) =>
+    Spine.Ajax.disable =>
+      @process(message)
   
   logPrefix: '(Juggernaut)'
   
@@ -33,5 +37,15 @@ class JuggernautClient extends Spine.Module
     
   disconnected: =>
     @log 'disconnected'
+    
+  getID: ->
+    @client.sessionID
+    
+Spine.Model.include
+  toJSON: ->
+    result = @attributes()
+    result.client_id = App.Juggernaut?.getID()
+    result
 
-App.ready -> new JuggernautClient
+App.ready -> 
+  App.Juggernaut = new JuggernautClient

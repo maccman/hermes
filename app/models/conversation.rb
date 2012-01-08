@@ -25,7 +25,10 @@ class Conversation < ActiveRecord::Base
     where(:access_token => token)
   }
   
-  scope :latest, order("received_at DESC")  
+  scope :latest, order("received_at DESC")
+  
+  attr_accessor :client_id
+  attr_accessible :read
   
   class << self
     def between!(user, from, *to)
@@ -37,7 +40,11 @@ class Conversation < ActiveRecord::Base
       to -= [user]
       
       # Find or new conversation
-      between(user, *to).first || self.new(:user => user, :to_users => to)
+      conversation = between(user, *to).first 
+      conversation ||= self.new.tap do |conv|
+        conv.user     = user
+        conv.to_users = to
+      end
     end
   end
   
@@ -51,8 +58,6 @@ class Conversation < ActiveRecord::Base
   def to_s
     handle || email
   end
-  
-  alias_attribute :same_user, :read
   
   protected  
     def set_defaults

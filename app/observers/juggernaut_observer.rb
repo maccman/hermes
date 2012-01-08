@@ -1,5 +1,5 @@
 class JuggernautObserver < ActiveRecord::Observer
-  observe :message
+  observe :message, :conversation
     
   def after_create(record)
     publish(:create, record)
@@ -15,14 +15,20 @@ class JuggernautObserver < ActiveRecord::Observer
   
   protected
     def publish(type, record)
-      if record.respond_to?(:same_user?)
-        return if record.same_user?
+      options = {
+        type: type, 
+        id: record.id, 
+        model: record.class.name, 
+        record: record
+      }
+      
+      if record.respond_to?(:client_id)
+        options[:except] = record.client_id
       end
       
       Juggernaut.publish(
         "/observer/#{record.user_id}", 
-        type: type, id: record.id, 
-        model: record.class.name, record: record
+        options
       )
     rescue
     end
