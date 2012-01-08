@@ -13,7 +13,10 @@ class App.Message extends Spine.Model
   toggleStarred: ->
     @starred = !@starred
     @save()
-    
+  
+  @bind 'beforeCreate', (record) ->
+    record.sent_at or= new Date
+  
   @bind 'create', (record) ->
     Spine.Ajax.disable ->
       record.conversation()?.save()
