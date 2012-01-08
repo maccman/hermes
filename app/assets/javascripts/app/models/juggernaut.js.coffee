@@ -14,6 +14,8 @@ class JuggernautClient extends Spine.Module
     @client.subscribe("/observer/#{App.user.id}", @processWithoutAjax)
   
   process: (message) =>
+    @log 'processing', message
+    
     model = App[message.model] or throw('Model required')
     switch message.type
       when 'create'
