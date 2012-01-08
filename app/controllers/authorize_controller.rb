@@ -6,6 +6,9 @@ class AuthorizeController < ApplicationController
       request.env["omniauth.auth"]
     )
     redirect_to "/"
+  rescue => e
+    logger.error
+    raise e
   end
   
   def create
@@ -13,6 +16,9 @@ class AuthorizeController < ApplicationController
       request.env["omniauth.auth"]
     )
     redirect_to "/"
+  rescue => e
+    logger.error
+    raise e
   end
   
   def failure

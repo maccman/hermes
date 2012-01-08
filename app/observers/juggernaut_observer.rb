@@ -28,7 +28,8 @@ class JuggernautObserver < ActiveRecord::Observer
       
       Juggernaut.publish(
         "/observer/#{record.user_id}", 
-        options
+        options,
+        options[:except]
       )
     rescue
     end
