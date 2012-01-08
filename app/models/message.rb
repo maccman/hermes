@@ -64,9 +64,9 @@ class Message < ActiveRecord::Base
     def create_conversation
       if conversation_id?
         conversation.touch(:received_at)
-      elsif to
+      elsif @to
         self.conversation = Conversation.between!(
-          user, from_user, *User.for(to)
+          user, from_user, *User.for(@to)
         )
       end
       conversation.read = same_user?
