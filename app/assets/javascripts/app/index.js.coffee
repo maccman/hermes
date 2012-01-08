@@ -2,7 +2,7 @@
 #= require jquery
 #= require ./spine/spine
 #= require spine/manager
-#= require spine/ajax
+#= require ./spine/ajax
 #= require spine/route
 #= require ./spine/relation
 #= require spine/list
@@ -19,7 +19,7 @@ class App extends Spine.Controller
   @extend Spine.Events
   
   @load: (callback) ->
-    if (typeof callback is 'load')
+    if (typeof callback is 'function')
       @bind 'load', callback
     else
       @trigger('load', arguments...)
