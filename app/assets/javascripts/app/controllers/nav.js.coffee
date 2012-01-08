@@ -15,4 +15,5 @@ class App.Nav extends Spine.Controller
     
   renderCount: =>
     count = Conversation.unreadCount()
-    @messages.attr('data-count', count or '')    
+    @messages.attr('data-count', count or '')
+    callback?.dock.badge = count
