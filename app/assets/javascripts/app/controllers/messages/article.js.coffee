@@ -13,6 +13,9 @@ class Item extends Spine.Controller
   events:
     'click .star': 'toggleStarred'
     
+  elements:
+    '.star': 'star'
+    
   constructor: ->
     super
     throw 'record required' unless @record
@@ -24,6 +27,7 @@ class Item extends Spine.Controller
     
   toggleStarred: ->
     @record.toggleStarred()
+    @star.gfx(rotate: if @record.starred then '360deg' else '-360deg')
   
 class Compose extends Spine.Controller
   className: 'item me'
