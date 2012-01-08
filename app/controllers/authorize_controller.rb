@@ -21,6 +21,7 @@ class AuthorizeController < ApplicationController
   
   def destroy
     reset_session
+    cookies.delete(:user_id)
     render :text => "Logged out"
   end
 end

@@ -10,13 +10,13 @@ class ApplicationController < ActionController::Base
     end
     
     def current_user=(user)
-      session[:user_id] = user && user.id
+      cookies.permanent.signed[:user_id] = user && user.id
     end
     
     def current_user
       return @current_user if defined?(@current_user)
       @current_user = 
-        session[:user_id].present? && User.find(session[:user_id]) ||
+        cookies.signed[:user_id].present? && User.find(cookies.signed[:user_id]) ||
           params[:access_token].present? && User.find_by_access_token(params[:access_token])
     end
     
