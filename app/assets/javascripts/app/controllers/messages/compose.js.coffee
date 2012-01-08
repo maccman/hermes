@@ -70,7 +70,7 @@ class App.Compose extends Spine.Controller
           conversation.changeID(@conversation_id)
         conversation.ajax().reload()
       error: ->
-        alert('Message send error.')
+        alert('Message send error')
     
     # Create a empty conversation and navigate to it
     Spine.Ajax.disable =>

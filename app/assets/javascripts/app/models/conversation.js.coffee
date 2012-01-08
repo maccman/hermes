@@ -10,17 +10,17 @@ class App.Conversation extends Spine.Model
   preview: ->
     messages = @messages().all().sort(App.Message.sentAtAsc)
     
-    avatar_url = (msg.from_user()?.avatar_url for msg in messages when not msg.isMe())
-    avatar_url = (val for val in avatar_url when val)[0]
-    avatar_url or= @to_users().first()?.avatar_url
+    from_user = (msg.from_user() for msg in messages when not msg.isMe())[0]
+    from_user or= @to_users().first()
     
     message = (msg for msg in messages when not msg.isMe())[0]
     message or= messages[0] or {}
     
     {
-      avatar_url: avatar_url
-      subject:    'Some subject'
+      avatar_url: from_user?.avatar_url
+      handle:     from_user?.toString() or App.user.handle
       body:       message.body
+      timestamp:  new Date(message.sent_at).formatAgo()
     }
     
   open: ->

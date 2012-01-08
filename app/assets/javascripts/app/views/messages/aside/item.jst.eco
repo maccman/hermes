@@ -2,7 +2,8 @@
   <img src="<%= @preview().avatar_url %>">
 
   <div>
-    <span class="subject"><%= @preview().subject %></span>
+    <span class="handle"><%= @preview().handle %></span>
     <span class="body"><%= @preview().body %></span>
+    <time><%= @preview().timestamp %></time>
   </div>
 </div>

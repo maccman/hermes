@@ -16,6 +16,7 @@
     padding: 14px
     overflow: hidden
     cursor: pointer
+    position: relative
     
     img
       width: 38px
@@ -25,13 +26,29 @@
       float: left
       margin-right: 13px
       
-    .subject
+    .handle
       ellipsis()
       margin: 1px 0 2px
-      
+      font-size: 14px
+            
     .body
       ellipsis()
       color: lighten(#52585D, 30%)
+      
+    time
+      font-size: 11px
+      color: lighten(#CCC, 20%)
+      font-weight: normal
+      position: absolute
+      right: 11px
+      top: 11px
+      background: rgba(255, 255, 255, 0.2)
+      padding: 3px
+      opacity: 0
+      transition()
+    
+    &:hover time
+      opacity: 1
     
     span
       display: block
