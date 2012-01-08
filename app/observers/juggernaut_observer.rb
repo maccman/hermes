@@ -15,7 +15,7 @@ class JuggernautObserver < ActiveRecord::Observer
   
   protected
     def publish(type, record)
-      options = {
+      data = {
         type: type, 
         id: record.id, 
         model: record.class.name, 
@@ -23,13 +23,13 @@ class JuggernautObserver < ActiveRecord::Observer
       }
       
       if record.respond_to?(:client_id)
-        options[:except] = record.client_id
+        data[:except] = record.client_id
       end
       
       Juggernaut.publish(
         "/observer/#{record.user_id}", 
-        options,
-        options[:except]
+        data,
+        except: data[:except]
       )
     rescue
     end
