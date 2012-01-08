@@ -17,12 +17,12 @@ class JuggernautClient extends Spine.Module
     model = App[message.model] or throw('Model required')
     switch message.type
       when 'create'
-        unless model.exists(msg.id)
-          model.create(msg.record)
+        unless model.exists(message.id)
+          model.create(message.record)
       when 'update'
-        model.update(msg.id, msg.record)
+        model.update(message.id, message.record)
       when 'destroy'
-        model.destroy(msg.id)
+        model.destroy(message.id)
       else
         throw("Unknown type: #{message.type}")
   
