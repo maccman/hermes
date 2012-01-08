@@ -70,6 +70,7 @@ class Message < ActiveRecord::Base
         )
       end
       conversation.read = same_user?
+      conversation.client_id = client_id
       conversation.save!
     end
     
