@@ -4,7 +4,7 @@ require 'twitter'
 
 module UserExtractor extend self
   def extract_handle(str)
-    Twitter::Extractor.extract_reply_screen_name(str)
+    Twitter::Extractor.extract_mentioned_screen_names(str)[0]
   end
   
   def extract_email(str)

@@ -50,6 +50,10 @@ class User < ActiveRecord::Base
     name || to_s
   end
   
+  def to_name_s
+    "#{to_name.inspect} #{to_s}"
+  end
+  
   def google
     Google::Client.new(self.google_token)
   end
@@ -92,7 +96,7 @@ class User < ActiveRecord::Base
       return [] unless twitter? 
       friend_ids = twitter.friend_ids.ids.shuffle[0..99]
       friends    = twitter.users(*friend_ids)
-      friends.map {|f| "@#{f.screen_name}" }
+      friends.map {|f| "#{f.name.inspect} @#{f.screen_name}" }
     end
     
     def google_autocomplete
@@ -101,7 +105,7 @@ class User < ActiveRecord::Base
     end
 
     def friends_autocomplete
-      friends.map(&:to_s)
+      friends.map(&:to_name_s)
     end
     
     def create_access_token
