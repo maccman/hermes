@@ -8,10 +8,11 @@ class UserMailer < ActionMailer::Base
     @message   = message
     
     mail(
-      to:       @to_user.email, 
-      from:     @from_user.email,
-      reply_to: "#{@from_user.handle}@#{Rails.config.domain}", 
-      subject:  @message.conversation.current_subject
+      to:          @to_user.email, 
+      from:        @from_user.email,
+      reply_to:    "#{@from_user.handle}@#{Rails.config.domain}", 
+      subject:     @message.conversation.current_subject,
+      in_reply_to: @message.conversation.last_message.try(:uid)
     )
   end
 end

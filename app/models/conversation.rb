@@ -48,6 +48,10 @@ class Conversation < ActiveRecord::Base
     end
   end
   
+  def last_message
+    messages.order("sent_at DESC").first
+  end
+  
   def current_subject
     messages.order("sent_at DESC").where("subject IS NOT NULL").first.try(:subject)
   end

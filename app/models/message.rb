@@ -16,7 +16,7 @@ class Message < ActiveRecord::Base
   scope :latest, order(:sent_at => 'ASC')
   
   attr_accessor   :to, :client_id
-  attr_accessible :to, :subject, :body, :sent_at, :client_id
+  attr_accessible :to, :subject, :body, :sent_at, :client_id, :uid
   
   class << self
     def duplicate!(to_user, message)
@@ -46,7 +46,7 @@ class Message < ActiveRecord::Base
     super((options || {}).merge(
       :include => :from_user,
       :methods => :to,
-      :except  => [:from_user_id, :user_id]
+      :except  => [:from_user_id, :user_id, :uid]
     ))
   end
   

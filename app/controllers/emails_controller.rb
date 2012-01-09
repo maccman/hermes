@@ -1,3 +1,5 @@
+require 'mail'
+
 class EmailsController < ApplicationController
   skip_before_filter :keepsafe
   
@@ -6,10 +8,12 @@ class EmailsController < ApplicationController
     to        = params[:to] || params[:recipient]
     subject   = params[:subject]
     body      = params[:text] || params["stripped-text"] || params[:plain]
+    headers   = params[:headers] && Mail.new(params[:headers])
 
     to_user = User.find_by_handle!(Mail::Address.new(to).local)
     
     message = Message.new(
+      uid:     headers.try(:message_id),
       subject: subject,
       body:    strip(body)
     )
@@ -30,6 +34,7 @@ class EmailsController < ApplicationController
       body = body.split(/^-- ?$/, 2)[0]
       body.gsub!("Sent from my iPhone", "")
       body.gsub!("Sent from my BlackBerry", "")
+      body.strip!
       body
     end
 end
