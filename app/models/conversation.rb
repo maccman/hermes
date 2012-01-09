@@ -4,7 +4,9 @@ class Conversation < ActiveRecord::Base
   has_many :conversation_users
   has_many :to_users, :through => :conversation_users, :source => :user
 
-  has_many :messages
+  has_many :messages do
+    scope :ordered, order("send_at DESC")
+  end
   
   before_save   :set_defaults
   
@@ -48,12 +50,8 @@ class Conversation < ActiveRecord::Base
     end
   end
   
-  def last_message
-    messages.order("sent_at DESC").where("from_user_id != ?", user_id)
-  end
-  
   def current_subject
-    messages.order("sent_at DESC").where("subject IS NOT NULL").first.try(:subject)
+    messages.where("subject IS NOT NULL").first.try(:subject)
   end
   
   def serializable_hash(options = nil)
