@@ -4,7 +4,7 @@ class ConversationsController < ApplicationController
   
   # GET /conversations.json
   def index
-    @conversations = Conversation.for_user(current_user).latest_last
+    @conversations = Conversation.for_user(current_user).latest
     @conversations = @conversations.all(:include => [:user, :to_users, {:messages => :from_user}])
     render json: @conversations
   end
