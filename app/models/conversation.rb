@@ -49,7 +49,7 @@ class Conversation < ActiveRecord::Base
   end
   
   def last_message
-    messages.order("sent_at DESC").first
+    messages.order("sent_at DESC").where("from_user_id != ?", user_id)
   end
   
   def current_subject
