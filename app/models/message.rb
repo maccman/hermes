@@ -1,3 +1,5 @@
+require 'mail'
+
 class Message < ActiveRecord::Base
   belongs_to :conversation
   belongs_to :user
@@ -13,7 +15,7 @@ class Message < ActiveRecord::Base
     where(:user_id => user && user.id)
   }
   
-  scope :latest, order(:sent_at => 'ASC')
+  scope :latest, order(:sent_at => "ASC")
   
   attr_accessor   :to, :client_id
   attr_accessible :to, :subject, :body, :sent_at, :client_id, :uid
@@ -57,6 +59,7 @@ class Message < ActiveRecord::Base
   protected
     def set_defaults
       self.sent_at ||= Time.now
+      self.uid     ||= Mail::MessageIdField.new.to_s
     end
   
     # Create a conversation if it doesn't exist
