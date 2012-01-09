@@ -48,6 +48,10 @@ class Conversation < ActiveRecord::Base
     end
   end
   
+  def current_subject
+    messages.order("sent_at DESC").where("subject IS NOT NULL").first.try(:subject)
+  end
+  
   def serializable_hash(options = nil)
     # TODO - limit amount of messages a conversation includes by default
     super((options || {}).merge(

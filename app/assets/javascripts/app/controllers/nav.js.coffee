@@ -16,4 +16,4 @@ class App.Nav extends Spine.Controller
   renderCount: =>
     count = Conversation.unreadCount()
     @messages.attr('data-count', count or '')
-    callback?.dock.badge = if count then count + '' else ''
+    macgap?.dock.badge = if count then count + '' else ''

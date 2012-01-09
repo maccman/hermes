@@ -1,5 +1,6 @@
 class UserMailer < ActionMailer::Base
-  default from: "notify@#{Rails.config.domain}"
+  default from: "notify@#{Rails.config.domain}",
+          subject: "#{Rails.config.name} message"
   
   def send_message(to_user, message)
     @to_user   = to_user
@@ -10,7 +11,7 @@ class UserMailer < ActionMailer::Base
       to:       @to_user.email, 
       from:     @from_user.email,
       reply_to: "#{@from_user.handle}@#{Rails.config.domain}", 
-      subject:  "#{Rails.config.name} message"
+      subject:  @message.conversation.current_subject
     )
   end
 end
