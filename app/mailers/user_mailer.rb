@@ -7,7 +7,7 @@ class UserMailer < ActionMailer::Base
     @message      = message
     @conversation = message.conversation
     
-    previous_msgs = @conversation.messages.where("id != ?", @message.id).all
+    previous_msgs = @conversation.messages.latest_first.where("id != ?", @message.id).all
     
     mail(
       :to           => @to_user.email, 

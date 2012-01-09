@@ -15,7 +15,8 @@ class Message < ActiveRecord::Base
     where(:user_id => user && user.id)
   }
   
-  scope :latest, order(:sent_at => "ASC")
+  scope :latest_last, order("sent_at ASC")
+  scope :latest_first, order("sent_at DESC")
   
   attr_accessor   :to, :client_id
   attr_accessible :to, :subject, :body, :sent_at, :client_id, :uid

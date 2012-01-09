@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
   
   # GET /messages.json
   def index
-    @messages = Message.for_user(current_user).latest.all
+    @messages = Message.for_user(current_user).latest_last.all
     render json: @messages
   end
 
