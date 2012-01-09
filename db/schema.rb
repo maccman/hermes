@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120107183711) do
+ActiveRecord::Schema.define(:version => 20120109063448) do
 
   create_table "attachments", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(:version => 20120107183711) do
     t.datetime "updated_at",                         :null => false
     t.boolean  "starred",         :default => false
     t.integer  "user_id"
+    t.string   "uid"
   end
 
   create_table "users", :force => true do |t|
