@@ -55,6 +55,7 @@ class Compose extends Spine.Controller
     if message.body
       @input.text('')
       message.save()
+      @record.open()
     
 class App.Messages.Article extends Spine.Controller
   elements:
