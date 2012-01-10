@@ -47,7 +47,7 @@ class App.Messages.Aside extends Spine.Controller
     @items = []
     @itemsEl.html('')
     
-    for record in Conversation.all()
+    for record in Conversation.all().sort(Conversation.sort)
       item = new Item(record: record)
       item.toggleActive(item.record.eql(@current))
       @items.push(item)
