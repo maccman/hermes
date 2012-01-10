@@ -38,7 +38,7 @@
       color: lighten(#52585D, 20%)      
   
   .items
-    padding: 25px 30px 1px 30px
+    padding: 25px 30px 0 30px
     overflow-x: auto
     -webkit-overflow-scrolling: touch
     box-flex(1)
@@ -73,7 +73,8 @@
         transition(0.2s)
         
         &:active, &.active
-          background-image: url(/assets/stard.png)
+          background: url(/assets/stard.png) center center no-repeat
+          background-size: 15px 15px
           opacity: 1
         
     &:hover nav .star

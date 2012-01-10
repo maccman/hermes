@@ -1,12 +1,7 @@
 $            = Spine.$.sub()
 Conversation = App.Conversation
 Message      = App.Message
-
-$.fn.combinedHeight = ->
-  height = 0
-  @each -> height += $(@).outerHeight()
-  height
-
+  
 class Item extends Spine.Controller
   className: 'item'
     
@@ -97,4 +92,5 @@ class App.Messages.Article extends Spine.Controller
     @scrollToBottom()
     
   scrollToBottom: ->
-    @items.scrollTop($(@items.children()).combinedHeight())
+    @items.scrollTop(@items[0].scrollHeight)
+  
