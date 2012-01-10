@@ -86,10 +86,7 @@ class User < ActiveRecord::Base
   end
   
   def serializable_hash(options = nil)
-    super((options || {}).merge(
-      :except  => [:twitter_token, :twitter_secret, :google_token, :access_token, :uid],
-      :methods => [:avatar_url]
-    ))
+    super(:except  => [:twitter_token, :twitter_secret, :google_token, :access_token, :uid])
   end
   
   protected
