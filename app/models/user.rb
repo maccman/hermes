@@ -82,11 +82,21 @@ class User < ActiveRecord::Base
   end
   
   def avatar_url
-    read_attribute(:avatar_url) || email? ? Gravatar.make(email) : Gravatar.robohash(to_s)
+    avatar_url = read_attribute(:avatar_url)
+    if avatar_url.blank?
+      avatar_url = Gravatar.make(email) if email? 
+      avatar_url ||= Gravatar.robohash(to_s)
+    end
+    avatar_url
   end
   
   def serializable_hash(options = nil)
-    super(:except  => [:twitter_token, :twitter_secret, :google_token, :access_token, :uid], :methods => [:avatar_url])
+    super(
+      :except => [
+        :twitter_token, :twitter_secret, 
+        :google_token, :access_token, :uid
+      ]
+    )
   end
   
   protected
