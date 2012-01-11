@@ -7,9 +7,14 @@ defaults: &defaults
   
   juggernaut:
     host: maccman-hermes-rt.herokuapp.com
+    port: 80
 
 development:
   <<: *defaults
+  
+  juggernaut:
+    host: localhost
+    port: 8080
 
 test:
   <<: *defaults

@@ -6,12 +6,12 @@ class JuggernautClient extends Spine.Module
   constructor: ->
     @client = new Juggernaut(
       host: App.config.juggernaut.host,
-      port: 80,
+      port: App.config.juggernaut.port,
       transports: ['xhr-polling', 'jsonp-polling']
     )
     @client.on 'connect', @connected
     @client.on 'disconnect', @disconnected
-    # @client.subscribe("/observer/#{App.user.id}", @processWithoutAjax)
+    @client.subscribe("/observer/#{App.user.id}", @processWithoutAjax)
   
   process: (message) =>
     @log 'processing', message
