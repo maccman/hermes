@@ -65,8 +65,9 @@ class App.Messages.Article extends Spine.Controller
   constructor: ->
     super
     
-    Conversation.bind 'change', (record) =>
-      @render() if record.eql(@current)
+    Message.bind 'create', (record) =>
+      if record.conversation().eql(@current)
+        @add([record])
     
     @active (params = {}) ->
       @change(Conversation.find(params.id)) if params.id
