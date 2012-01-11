@@ -11,7 +11,7 @@ class JuggernautClient extends Spine.Module
     )
     @client.on 'connect', @connected
     @client.on 'disconnect', @disconnected
-    @client.subscribe("/observer/#{App.user.id}", @processWithoutAjax)
+    # @client.subscribe("/observer/#{App.user.id}", @processWithoutAjax)
   
   process: (message) =>
     @log 'processing', message

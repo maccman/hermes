@@ -66,7 +66,7 @@ class App.Messages.Article extends Spine.Controller
     super
     
     Message.bind 'create', (record) =>
-      if record.conversation().eql(@current)
+      if record.conversation()?.eql(@current)
         @add([record])
     
     @active (params = {}) ->
