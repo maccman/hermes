@@ -28,20 +28,38 @@ class App extends Spine.Controller
     if (typeof callback is 'function')
       @bind 'ready', callback
     else
-      @trigger('ready', arguments...)
+      @trigger('ready', arguments...)    
   
   constructor: ->
     super
+        
+    @el.hide()
+    
+    @spinner = $('<div />').addClass('spinner')
+    @el.parent().append(@spinner)
+    @spinner.spin(length: 7, width: 4)
     
     @append new App.Nav
     @append new App.Stack
     
+    App.ready =>
+      @el.queueNext =>
+        @el.transform
+          scale:   '.8'
+          opacity: '0'
+    
+        @el.show().gfx
+          scale:   '1'
+          opacity: '1'
+          
+        @spinner.remove()
+
     App.Conversation.one 'refresh', ->
       Spine.Route.setup()
       App.ready()
     
     App.load()
-    App.Conversation.fetch()    
+    App.Conversation.fetch()
 
 class App.Stack extends Spine.Stack
   constructor: ->
