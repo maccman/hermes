@@ -39,9 +39,7 @@ class MessagesController < ApplicationController
   # PUT /messages/1.json
   def update
     # Can only update starred attribute
-    @message.starred = params[:starred] if params.has_key?(:starred)
-
-    if @message.save
+    if @message.update_attributes(params[:message])
       head :no_content
     else
       render json: @message.errors, status: :unprocessable_entity
