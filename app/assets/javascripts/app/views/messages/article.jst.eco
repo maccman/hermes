@@ -4,11 +4,9 @@
     <div class="participants">
       Between you and 
       
-      <% users = @to_users().all() %>
+      <% users = @to_users() %>
       <% for user, i in users: %>
-        <a data-id="<%= user.id %>">
-          <%= user.toString() %>
-        </a><% if i isnt users.length - 1: %>,<% end %>
+        <a data-id="<%= user.id %>"><%= user.toString() %></a><% if i isnt users.length - 1: %>,<% end %> 
       <% end %>
     </div>
   </header>  

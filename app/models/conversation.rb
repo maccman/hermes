@@ -31,6 +31,15 @@ class Conversation < ActiveRecord::Base
   attr_accessible :read
   
   class << self
+    # TODO - refactor and make faster
+    def between(from, *to)
+      convos = for_user(from).all(:include => :conversation_users)
+      convos = convos.find do |conv|
+        conv.conversation_users.map(&:user_id) == to.map(&:id)
+      end
+      [convos]
+    end
+    
     def between!(user, from, *to)
       # If the message was from a different person, then the
       # conversation needs to include them too

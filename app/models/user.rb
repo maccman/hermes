@@ -90,13 +90,13 @@ class User < ActiveRecord::Base
     avatar_url
   end
   
-  def serializable_hash(options = nil)
-    super(
+  def serializable_hash(options = {})
+    super(options.merge(
       :except => [
         :twitter_token, :twitter_secret, 
         :google_token, :access_token, :uid
       ]
-    )
+    ))
   end
   
   protected
