@@ -13,9 +13,6 @@ class AuthorizeController < ApplicationController
       request.env["omniauth.auth"]
     )
     redirect_to "/"
-  rescue => e
-    logger.error e
-    render :text => e.to_s
   end
   
   def failure
