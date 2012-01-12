@@ -16,10 +16,11 @@ class App.Message extends Spine.Model
   
   @bind 'beforeCreate', (record) ->
     record.sent_at or= new Date
-  
-  @bind 'create', (record) ->
-    Spine.Ajax.disable ->
-      record.conversation()?.save()
+
+  # TODO - needed?
+  # @bind 'create', (record) ->
+  #   Spine.Ajax.disable ->
+  #     record.conversation()?.save()
       
   @sentAtDesc: (a, b) ->
     later = Date.parse(a.sent_at) < Date.parse(b.sent_at)

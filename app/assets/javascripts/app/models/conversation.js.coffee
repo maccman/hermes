@@ -33,7 +33,8 @@ class App.Conversation extends Spine.Model
     }
     
   open: ->
-    return if @read
+    # TODO - renable
+    # return if @read
     @read = true
     @save()
   

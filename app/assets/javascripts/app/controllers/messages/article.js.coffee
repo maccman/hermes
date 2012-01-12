@@ -65,6 +65,10 @@ class App.Messages.Article extends Spine.Controller
   constructor: ->
     super
     
+    Conversation.bind 'change', (record) =>
+      if record.eql(@current)
+        @render()
+    
     Message.bind 'create', (record) =>
       if record.conversation()?.eql(@current)
         @add([record])
@@ -96,4 +100,5 @@ class App.Messages.Article extends Spine.Controller
   scrollToBottom: ->
     @delay ->
       @items.scrollTop(@items[0].scrollHeight)
+      @compose.find('.input').select()
   
