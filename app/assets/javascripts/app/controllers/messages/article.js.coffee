@@ -101,4 +101,3 @@ class App.Messages.Article extends Spine.Controller
     @delay ->
       @items.scrollTop(@items[0].scrollHeight)
       @compose.find('.input').select()
-  

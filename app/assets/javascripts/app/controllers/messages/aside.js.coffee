@@ -16,7 +16,7 @@ class Item extends Spine.Controller
     
   toggleActive: (bool) ->
     @active = bool
-    @render()
+    @el.toggleClass('active', @active)
 
 class App.Messages.Aside extends Spine.Controller
   elements:
