@@ -67,8 +67,7 @@ class Message < ActiveRecord::Base
     def create_conversation
       unless conversation_id?
         self.conversation ||= Conversation.new
-        conversation.to_users = *User.for(@to) if @to
-        conversation.user = user
+        conversation.between(user, from_user, *User.for(@to))
       end
       
       conversation.read = same_user?

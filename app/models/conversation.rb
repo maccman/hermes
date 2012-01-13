@@ -10,6 +10,7 @@ class Conversation < ActiveRecord::Base
   
   validates_presence_of :user_id
   validates_length_of   :to_users, :within => 1..20, :on => :create
+  validate :valid_users
   
   # Find all conversations where conversations.user is user, and all conversation_users.user_id are equal to_ids
   scope :between, lambda {|from, *to| 
@@ -39,6 +40,18 @@ class Conversation < ActiveRecord::Base
     end
   end
   
+  def between(user, from, *to)
+    # If the message was from a different person, then the
+    # conversation needs to include them too
+    to |= [from]
+   	
+    # To must not include the current user
+    to -= [user]
+
+    self.user     = user
+   	self.to_users = to
+  end
+  
   def current_subject
     messages.latest_first.where("subject IS NOT NULL").first.try(:subject)
   end
@@ -57,5 +70,11 @@ class Conversation < ActiveRecord::Base
   protected  
     def set_defaults
       self.received_at = current_time_from_proper_timezone
-    end  
+    end
+    
+    def valid_users 	
+      if to_users.include?(user)
+        errors.add("users", "can't start a conversation with yourself")
+      end
+    end
 end
