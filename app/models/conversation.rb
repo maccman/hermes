@@ -70,7 +70,7 @@ class Conversation < ActiveRecord::Base
   protected  
     def set_defaults
       self.received_at = current_time_from_proper_timezone
-      self.uid       ||= Mail::MessageIdField.new.to_s
+      self.uid       ||= Mail::MessageIdField.new.message_id
     end
     
     def valid_users 	

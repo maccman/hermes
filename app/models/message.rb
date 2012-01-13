@@ -60,7 +60,7 @@ class Message < ActiveRecord::Base
   protected
     def set_defaults
       self.sent_at ||= Time.now
-      self.uid     ||= Mail::MessageIdField.new.to_s
+      self.uid     ||= Mail::MessageIdField.new.message_id
     end
   
     # Create a conversation if it doesn't exist

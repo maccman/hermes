@@ -8,14 +8,16 @@ class UserMailer < ActionMailer::Base
     @conversation = message.conversation
     
     previous_msgs = @conversation.messages.latest_first.where("id != ?", @message.id).all
-    
+    previous_msgs = previous_msgs.map(&:uid).map {|v| "<#{v}>" }
+        
     mail(
+      :message_id   => "<#{message.uid}>",
       :to           => @to_user.email, 
       :from         => @from_user.email,
       :reply_to     => "#{@from_user.handle}@#{Rails.config.domain}", 
       :subject      => @conversation.current_subject || "#{Rails.config.name} message",
-      "In-Reply-To" => previous_msgs.first.try(:uid),
-      "References"  => previous_msgs.map(&:uid).reverse.join(" ")
+      "In-Reply-To" => previous_msgs.first,
+      "References"  => previous_msgs.reverse.join(" ")
     )
   end
 end
