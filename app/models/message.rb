@@ -19,7 +19,7 @@ class Message < ActiveRecord::Base
   scope :latest_first, order("sent_at DESC")
   
   attr_accessor   :to, :client_id
-  attr_accessible :to, :subject, :body, :sent_at, :client_id, :uid
+  attr_accessible :to, :subject, :body, :sent_at, :client_id, :uid, :conversation_id
   
   class << self
     def duplicate!(to_user, message)
@@ -65,14 +65,14 @@ class Message < ActiveRecord::Base
     # Create a conversation if it doesn't exist
     # with the message's participants
     def create_conversation
-      unless conversation_id?
-        self.conversation ||= Conversation.new
-        conversation.between(user, from_user, *User.for(@to))
+      unless self.conversation
+        self.conversation = Conversation.new
+        self.conversation.between(user, from_user, *User.for(@to))
       end
       
-      conversation.read = same_user?
-      conversation.client_id = client_id
-      conversation.save!
+      self.conversation.read = same_user?
+      self.conversation.client_id = client_id
+      self.conversation.save!
     end
     
     def send_message
