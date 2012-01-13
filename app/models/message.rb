@@ -19,7 +19,7 @@ class Message < ActiveRecord::Base
   scope :latest_first, order("sent_at DESC")
   
   attr_accessor   :to, :client_id
-  attr_accessible :to, :subject, :body, :sent_at, :client_id, :uid, :conversation_id
+  attr_accessible :to, :subject, :body, :sent_at, :client_id, :uid
   
   class << self
     def duplicate!(to_user, message)
@@ -29,9 +29,9 @@ class Message < ActiveRecord::Base
         body:    message.body,
         sent_at: message.sent_at
       )
-      
-      duplicate.user      = to_user
-      duplicate.from_user = message.user
+      duplicate.conversation = message.conversation
+      duplicate.user         = to_user
+      duplicate.from_user    = message.user
       duplicate.save!
       duplicate
     end
