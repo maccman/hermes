@@ -7,8 +7,8 @@ class Message < ActiveRecord::Base
   
   validates_presence_of :from_user, :conversation, :user, :body
   
-  before_save       :set_defaults
   before_validation :create_conversation, :on => :create
+  before_save       :set_defaults
   after_create      :send_message
   
   scope :for_user, lambda {|user|
@@ -18,18 +18,19 @@ class Message < ActiveRecord::Base
   scope :latest_last, order("sent_at ASC")
   scope :latest_first, order("sent_at DESC")
   
-  attr_accessor   :to, :client_id
-  attr_accessible :to, :subject, :body, :sent_at, :client_id, :uid
+  attr_accessor   :to, :client_id, :in_reply_to, :conversation_uid
+  attr_accessible :to, :subject, :body, :sent_at, :client_id, :uid, :in_reply_to, :conversation_uid
   
   class << self
     def duplicate!(to_user, message)
       duplicate = Message.new(
-        to:      message.to,
-        subject: message.subject,
-        body:    message.body,
-        sent_at: message.sent_at
+        to:               message.to,
+        subject:          message.subject,
+        body:             message.body,
+        sent_at:          message.sent_at,
+        uid:              message.uid,
+        conversation_uid: message.conversation.uid
       )
-      duplicate.conversation = message.conversation
       duplicate.user         = to_user
       duplicate.from_user    = message.user
       duplicate.save!
@@ -55,7 +56,7 @@ class Message < ActiveRecord::Base
   def same_user?
     from_user == user
   end
-    
+      
   protected
     def set_defaults
       self.sent_at ||= Time.now
@@ -65,14 +66,27 @@ class Message < ActiveRecord::Base
     # Create a conversation if it doesn't exist
     # with the message's participants
     def create_conversation
-      unless self.conversation
-        self.conversation = Conversation.new
-        self.conversation.between(user, from_user, *User.for(@to))
+      # Find conversation by in_reply_to's uid
+      if !conversation_id? && in_reply_to
+        message = Message.for_user(user).find_by_uid(in_reply_to)
+        self.conversation = message && message.conversation
       end
       
-      self.conversation.read = same_user?
-      self.conversation.client_id = client_id
-      self.conversation.save!
+      # Find conversation by conversation uid
+      if !conversation_id? && conversation_uid
+        self.conversation = Conversation.for_user(user).find_by_uid(conversation_uid)
+      end
+
+      # Create a conversation between @to
+      if !conversation_id?
+        self.conversation = Conversation.new
+        conversation.between(user, from_user, *User.for(@to))
+      end
+      
+      conversation.uid      ||= conversation_uid
+      conversation.read       = same_user?
+      conversation.client_id  = client_id
+      conversation.save!
     end
     
     def send_message

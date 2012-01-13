@@ -13,9 +13,10 @@ class EmailsController < ApplicationController
     to_user = User.find_by_handle!(Mail::Address.new(to).local)
     
     message = Message.new(
-      uid:     headers.try(:message_id),
-      subject: subject,
-      body:    strip(body)
+      uid:         headers.try(:message_id),
+      subject:     subject,
+      body:        strip(body),
+      in_reply_to: headers.try(:in_reply_to)
     )
     
     message.from_user = User.for(from).first
