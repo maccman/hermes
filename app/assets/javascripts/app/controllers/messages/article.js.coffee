@@ -61,13 +61,14 @@ class App.Messages.Article extends Spine.Controller
   elements:
     '.items': 'items'
     '.compose': 'compose'
+    'header': 'header'
   
   constructor: ->
     super
     
     Conversation.bind 'change', (record) =>
       if record.eql(@current)
-        @render()
+        @renderHeader()
     
     Message.bind 'create', (record) =>
       if record.conversation()?.eql(@current)
@@ -84,6 +85,12 @@ class App.Messages.Article extends Spine.Controller
       if item.eql(@current)
         @current.open()
     , 1000
+    
+  renderHeader: ->
+    header = $(@view('messages/article')(@current))
+    header = header.find('header')
+    @header.replaceWith header
+    @refreshElements()
     
   render: ->
     @replace @view('messages/article')(@current)
