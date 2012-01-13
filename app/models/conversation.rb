@@ -6,11 +6,10 @@ class Conversation < ActiveRecord::Base
 
   has_many :messages
   
-  before_save   :set_defaults
+  before_save :set_defaults
   
   validates_presence_of :user_id
-  validates_length_of   :to_users, :within => 1..20
-  validate :valid_users  
+  validates_length_of   :to_users, :within => 1..20, :on => :create
   
   # Find all conversations where conversations.user is user, and all conversation_users.user_id are equal to_ids
   scope :between, lambda {|from, *to| 
@@ -44,9 +43,9 @@ class Conversation < ActiveRecord::Base
     messages.latest_first.where("subject IS NOT NULL").first.try(:subject)
   end
   
-  def serializable_hash(options = nil)
+  def serializable_hash(options = {})
     # TODO - limit amount of messages a conversation includes by default
-    super((options || {}).merge(
+    super(options.merge(
       :include => [:user, :to_users, :messages]
     ))
   end
@@ -58,11 +57,5 @@ class Conversation < ActiveRecord::Base
   protected  
     def set_defaults
       self.received_at = current_time_from_proper_timezone
-    end
-  
-    def valid_users
-      if to_users.include?(user)
-        errors.add("users", "can't start a conversation with yourself")
-      end
-    end
+    end  
 end

@@ -45,10 +45,9 @@ class Message < ActiveRecord::Base
     (conversation_id? && conversation.to_users) || []
   end
   
-  def serializable_hash(options = nil)
-    super((options || {}).merge(
+  def serializable_hash(options = {})
+    super(options.merge(
       :include => :from_user,
-      :methods => :to,
       :except  => [:from_user_id, :user_id, :uid]
     ))
   end
@@ -66,10 +65,12 @@ class Message < ActiveRecord::Base
     # Create a conversation if it doesn't exist
     # with the message's participants
     def create_conversation
-      self.conversation ||= Conversation.new      
-      conversation.to_users = *User.for(@to) if @to
-      conversation.received_at = current_time_from_proper_timezone
-      conversation.user = user
+      unless conversation_id?
+        self.conversation ||= Conversation.new
+        conversation.to_users = *User.for(@to) if @to
+        conversation.user = user
+      end
+      
       conversation.read = same_user?
       conversation.client_id = client_id
       conversation.save!
