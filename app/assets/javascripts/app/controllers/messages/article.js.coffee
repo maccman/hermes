@@ -53,7 +53,7 @@ class Compose extends Spine.Controller
     message.from_user(App.user)
     message.conversation(@record)
     if message.body
-      @input.text('')
+      @render()
       message.save()
       @record.open()
     
@@ -100,4 +100,3 @@ class App.Messages.Article extends Spine.Controller
   scrollToBottom: ->
     @delay ->
       @items.scrollTop(@items[0].scrollHeight)
-      @compose.find('.input').select()
