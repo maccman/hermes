@@ -42,6 +42,10 @@ class User < ActiveRecord::Base
     save!
   end
   
+  def app_email
+    [handle, "@", Rails.config.domain].join('')
+  end
+  
   def to_s
     handle? ? "@#{handle}" : email
   end
