@@ -1,4 +1,5 @@
 class AuthorizeController < ApplicationController
+  skip_before_filter :keepsafe
   before_filter :require_user, :only => :google
   
   def google
