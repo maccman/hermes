@@ -80,9 +80,7 @@ class User < ActiveRecord::Base
   alias_method :member?, :twitter?
   
   def autocomplete
-    Rails.cache.fetch([cache_key, :autocomplete].join('/'), expires_in: 1.day) do
-      friends_autocomplete | twitter_autocomplete | google_autocomplete
-    end
+    friends_autocomplete | twitter_autocomplete | google_autocomplete
   end
   
   def avatar_url
@@ -106,14 +104,18 @@ class User < ActiveRecord::Base
   protected
     def twitter_autocomplete
       return [] unless twitter? 
-      friend_ids = twitter.friend_ids.ids.shuffle[0..99]
-      friends    = twitter.users(*friend_ids)
-      friends.map {|f| "#{f.name.inspect} @#{f.screen_name}" }
+      Rails.cache.fetch([cache_key, :autocomplete, :twitter].join('/')) do
+        friend_ids = twitter.friend_ids.ids.shuffle[0..99]
+        friends    = twitter.users(*friend_ids)
+        friends.map {|f| "#{f.name.inspect} @#{f.screen_name}" }
+      end
     end
     
     def google_autocomplete
       return [] unless google?
-      google.contacts.select(&:email).map(&:to_s)
+      Rails.cache.fetch([cache_key, :autocomplete, :google].join('/')) do
+        google.contacts.select(&:email).map(&:to_s)
+      end
     end
 
     def friends_autocomplete
