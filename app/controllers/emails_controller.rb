@@ -28,7 +28,7 @@ class EmailsController < ApplicationController
       message.from_user = from_user
       message.to        = to_users
       message.user      = user
-      message.save!
+      message.save
     end
     
     head :ok
