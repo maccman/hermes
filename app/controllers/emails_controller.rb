@@ -13,6 +13,7 @@ class EmailsController < ApplicationController
     body      = params[:text] || params["stripped-text"] || params[:plain]
     headers   = params[:headers] && Mail.new(params[:headers])
     
+    body      = subject if body.blank?
     body      = strip(body)
     from_user = User.for(from).first
     to_users  = User.for([to, cc, bcc].join(','))
@@ -36,6 +37,7 @@ class EmailsController < ApplicationController
   
   protected
     def strip(body)
+      return if body.blank?
       body = body.split(/^-----Original Message-----/, 2)[0]
       body = body.split(/^________________________________/, 2)[0]
       body = body.split(/^On .+ wrote:(\n|\r\n)/, 2)[0]
