@@ -5,13 +5,13 @@ class EmailsController < ApplicationController
   skip_before_filter :verify_authenticity_token
   
   def create
+    headers   = params[:headers] && Mail.new(params[:headers])
     from      = params[:from]
-    to        = params[:to] || params[:recipient]
+    to        = headers['X-Forwarded-For'] || params[:to] || params[:recipient]
     cc        = params[:cc]
     bcc       = params[:bcc]
     subject   = params[:subject]
     body      = params[:text] || params["stripped-text"] || params[:plain]
-    headers   = params[:headers] && Mail.new(params[:headers])
     
     body      = subject if body.blank?
     body      = strip(body)
