@@ -13,14 +13,14 @@ class EmailsController < ApplicationController
     subject   = params[:subject]
     body      = params[:text] || params["stripped-text"] || params[:plain]
     
-    if forwarded = headers['X-Forwarded-For']
-      to = forwarded.to_s.split(' ').first
+    if forwarded = headers && headers["X-Forwarded-For"]
+      (to ||= "") += "," + forwarded.to_s.split(" ").first
     end
     
     body      = subject if body.blank?
     body      = strip(body)
     from_user = User.for(from).first
-    to_users  = User.for([to, cc, bcc].join(','))
+    to_users  = User.for([to, cc, bcc].join(","))
     
     to_users.each do |user|
       message = Message.new(
@@ -46,6 +46,8 @@ class EmailsController < ApplicationController
       body = body.split(/^________________________________/, 2)[0]
       body = body.split(/^On .+ wrote:(\n|\r\n)/, 2)[0]
       body = body.split(/^---? ?(\n|\r\n)/, 2)[0]
+      
+      return if body.blank?      
       body.gsub!("Sent from my iPhone", "")
       body.gsub!("Sent from my BlackBerry", "")
       body.strip!
