@@ -7,14 +7,14 @@ class EmailsController < ApplicationController
   def create
     headers   = params[:headers] && Mail.new(params[:headers])
     from      = params[:from]
-    to        = params[:to] || params[:recipient]
+    to        = params[:to] || params[:recipient] || ""
     cc        = params[:cc]
     bcc       = params[:bcc]
     subject   = params[:subject]
     body      = params[:text] || params["stripped-text"] || params[:plain]
     
     if forwarded = headers && headers["X-Forwarded-For"]
-      (to ||= "") += "," + forwarded.to_s.split(" ").first
+      to += ("," + forwarded.to_s.split(" ").first)
     end
     
     body      = subject if body.blank?
