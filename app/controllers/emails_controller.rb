@@ -14,7 +14,7 @@ class EmailsController < ApplicationController
     body      = params[:text] || params["stripped-text"] || params[:plain]
     
     if forwarded = headers['X-Forwarded-For']
-      to = forwarded.split(' ').first
+      to = forwarded.to_s.split(' ').first
     end
     
     body      = subject if body.blank?
