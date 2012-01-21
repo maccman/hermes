@@ -1,5 +1,5 @@
 class App.Message extends Spine.Model
-  @configure 'Message', 'subject', 'body', 'starred', 'to', 'sent_at'
+  @configure 'Message', 'subject', 'body', 'html', 'starred', 'to', 'sent_at'
   @extend Spine.Model.Ajax
   @extend Spine.Timestamps
   
@@ -16,6 +16,7 @@ class App.Message extends Spine.Model
   
   @bind 'beforeCreate', (record) ->
     record.sent_at or= new Date
+    record.html or= Utils.format(record.body)
       
   @sentAtDesc: (a, b) ->
     later = Date.parse(a.sent_at) < Date.parse(b.sent_at)

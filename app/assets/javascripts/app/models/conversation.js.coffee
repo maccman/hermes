@@ -1,5 +1,5 @@
 class App.Conversation extends Spine.Model
-  @configure 'Conversation', 'read', 'received_at', 'to_users'
+  @configure 'Conversation', 'read', 'starred', 'activity', 'received_at', 'to_users'
   @extend Spine.Model.Ajax
   @extend Spine.Timestamps
   
@@ -43,3 +43,12 @@ class App.Conversation extends Spine.Model
     
   @unreadCount: ->
     @select((c)-> not c.read).length
+    
+  @latest: ->
+    (@select (rec) -> not rec.activity).sort(@sort)
+    
+  @starred: ->
+    (@select (rec) -> rec.starred).sort(@sort)
+    
+  @activity: ->
+    (@select (rec) -> rec.activity).sort(@sort)

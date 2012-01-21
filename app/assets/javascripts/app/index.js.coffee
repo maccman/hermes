@@ -15,6 +15,8 @@
 #= require_tree ./controllers
 #= require_tree ./views
 
+$ = jQuery
+
 class App extends Spine.Controller
   @extend Spine.Events
   
@@ -54,12 +56,11 @@ class App extends Spine.Controller
           
         @spinner.remove()
 
-    App.Conversation.one 'refresh', ->
+    App.load()
+    
+    App.Conversation.ajax().fetch().success ->
       Spine.Route.setup()
       App.ready()
-    
-    App.load()
-    App.Conversation.fetch()
 
 class App.Stack extends Spine.Stack
   constructor: ->

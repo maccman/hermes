@@ -152,6 +152,8 @@ GEM
       activesupport (= 3.2.0.rc1)
       bundler (~> 1.0)
       railties (= 3.2.0.rc1)
+    rails_autolink (1.0.4)
+      rails (>= 3.1.0)
     railties (3.2.0.rc1)
       actionpack (= 3.2.0.rc1)
       activesupport (= 3.2.0.rc1)
@@ -160,6 +162,7 @@ GEM
       rdoc (~> 3.4)
       thor (~> 0.14.6)
     rake (0.9.2.2)
+    rdiscount (1.6.8)
     rdoc (3.12)
       json (~> 1.4)
     redis (2.2.2)
@@ -231,6 +234,8 @@ DEPENDENCIES
   omniauth-twitter
   pg
   rails (= 3.2.0.rc1)
+  rails_autolink
+  rdiscount
   rmagick
   ruby-debug19
   spine-rails!

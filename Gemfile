@@ -25,6 +25,8 @@ gem 'will_paginate'
 gem 'nestful'
 gem 'dalli'
 gem 'juggernaut'
+gem 'rdiscount'
+gem 'rails_autolink'
 
 group :development do
   gem 'sqlite3'

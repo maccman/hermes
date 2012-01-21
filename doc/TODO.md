@@ -1,7 +1,5 @@
 Email conversation style, with an integrated workflow.
 
-Fix email address names with commas: "\"Gonzalez-Maddux, Catherine\" <cgonzalez-maddux@firstrepublic.com>"
-
 
 # Types
 

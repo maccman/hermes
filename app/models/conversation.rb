@@ -21,11 +21,9 @@ class Conversation < ActiveRecord::Base
     where(:user_id => user && user.id)
   }
   
-  scope :for_token, lambda {|token|
-    where(:access_token => token)
-  }
-  
-  scope :latest, order("received_at DESC")
+  scope :latest,   where("messages.activity = ?", false).order("received_at DESC")
+  scope :activity, where("messages.activity = ?", true).order("received_at DESC")
+  scope :starred,  where("messages.starred = ?", true).order("received_at DESC")
   
   attr_accessor :client_id
   attr_accessible :read
@@ -56,9 +54,23 @@ class Conversation < ActiveRecord::Base
     messages.latest_first.where("subject IS NOT NULL").first.try(:subject)
   end
   
+  def starred?
+    messages.all?(&:starred?)
+  end
+  
+  alias_method :starred, :starred?
+  
+    
+  def activity?
+    messages.all?(&:activity?)
+  end
+  
+  alias_method :activity, :activity?
+  
   def serializable_hash(options = {})
     # TODO - limit amount of messages a conversation includes by default
     super(options.merge(
+      :methods => [:activity, :starred],
       :include => [:user, :to_users, :messages]
     ))
   end
@@ -71,6 +83,7 @@ class Conversation < ActiveRecord::Base
     def set_defaults
       self.received_at = current_time_from_proper_timezone
       self.uid       ||= Mail::MessageIdField.new.message_id
+      true
     end
     
     def valid_users 	

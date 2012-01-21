@@ -1,6 +1,9 @@
 require 'mail'
+require 'rails_autolink'
 
 class Message < ActiveRecord::Base
+  include ActionView::Helpers::TextHelper
+  
   belongs_to :conversation
   belongs_to :user
   belongs_to :from_user, :class_name => "User"
@@ -9,6 +12,7 @@ class Message < ActiveRecord::Base
   
   before_validation :create_conversation, :on => :create
   before_save       :set_defaults
+  before_create     :set_activity
   after_create      :send_message
   
   scope :for_user, lambda {|user|
@@ -19,7 +23,8 @@ class Message < ActiveRecord::Base
   scope :latest_first, order("sent_at DESC")
   
   attr_accessor   :to, :client_id, :in_reply_to, :conversation_uid
-  attr_accessible :to, :subject, :body, :sent_at, :client_id, :uid, :in_reply_to, :conversation_uid
+  attr_accessible :to, :subject, :body, :starred, :sent_at, 
+                  :client_id, :uid, :in_reply_to, :conversation_uid
   
   class << self
     def duplicate!(to_user, message)
@@ -49,6 +54,7 @@ class Message < ActiveRecord::Base
   def serializable_hash(options = {})
     super(options.merge(
       :include => :from_user,
+      :methods => :html,
       :except  => [:from_user_id, :user_id, :uid]
     ))
   end
@@ -56,11 +62,21 @@ class Message < ActiveRecord::Base
   def same_user?
     from_user == user
   end
-      
+  
+  def html
+    body? && auto_link(RDiscount.new(body).to_html)
+  end
+        
   protected
     def set_defaults
       self.sent_at ||= Time.now
       self.uid     ||= Mail::MessageIdField.new.message_id
+      true
+    end
+    
+    def set_activity
+      self.activity ||= MessageActivity.match?(self)
+      true
     end
   
     # Create a conversation if it doesn't exist
