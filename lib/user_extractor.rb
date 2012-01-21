@@ -19,6 +19,7 @@ module UserExtractor extend self
     users = []
     
     Array(array).each do |value|
+      next if value.blank?
       if value.is_a?(User)
         users << value
       elsif handle = extract_handle(value)

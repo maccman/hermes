@@ -42,7 +42,7 @@ class App.Conversation extends Spine.Model
     if earlier then -1 else 1
     
   @unreadCount: ->
-    @select((c)-> not c.read).length
+    @select((rec)-> not rec.activity and not rec.read).length
     
   @latest: ->
     (@select (rec) -> not rec.activity).sort(@sort)
