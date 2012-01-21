@@ -7,6 +7,7 @@ class Item extends Spine.Controller
     
   events:
     'click .star': 'toggleStarred'
+    'click .body a': 'clickLink'
     
   elements:
     '.star': 'star'
@@ -23,6 +24,11 @@ class Item extends Spine.Controller
   toggleStarred: ->
     @record.toggleStarred()
     @star.gfx(rotate: if @record.starred then '360deg' else '-360deg')
+    
+  clickLink: (e) ->
+    href = $(e.target).attr('href')
+    window.open(href)
+    e.preventDefault()
   
 class Compose extends Spine.Controller
   className: 'item me'
