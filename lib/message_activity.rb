@@ -16,10 +16,9 @@ module MessageActivity extend self
   ]
   
   def match?(message)
-    from  = message.from_user
-    email = from && from.email
-    return false unless email
-    
-    !!(FROM_EMAIL_PATTERNS.find {|reg| reg =~ email })
+    message.to.each do |to|
+      return true if FROM_EMAIL_PATTERNS.find {|reg| reg =~ to }
+    end
+    false
   end
 end
