@@ -39,7 +39,10 @@ class App extends Spine.Controller
     
     @spinner = $('<div />').addClass('spinner')
     @el.parent().append(@spinner)
-    @spinner.spin(length: 7, width: 4)
+    @spinner.spin(
+      length: 7, width: 4, 
+      color: 'rgba(255, 255, 255, 0.5)'
+    )
     
     @append new App.Nav
     @append new App.Stack
