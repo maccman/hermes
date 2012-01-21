@@ -3,6 +3,7 @@ require 'rails_autolink'
 
 class Message < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
+  include ActionView::Helpers::UrlHelper
   
   belongs_to :conversation
   belongs_to :user
