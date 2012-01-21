@@ -64,7 +64,7 @@ class Message < ActiveRecord::Base
   end
   
   def html
-    body? && auto_link(RDiscount.new(body).to_html)
+    body? && auto_link(RDiscount.new(body, :filter_html).to_html)
   end
         
   protected

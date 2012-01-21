@@ -2,6 +2,7 @@ module MessageActivity extend self
   FROM_EMAIL_PATTERNS = [
     /no-?reply/,
     /\+activity/,
+    /amazon.com/,
     /facebookmail.com/,
     /linkedin.com/,
     /foursquare.com/,

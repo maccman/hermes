@@ -59,7 +59,6 @@ class Conversation < ActiveRecord::Base
   end
   
   alias_method :starred, :starred?
-  
     
   def activity?
     messages.all?(&:activity?)
