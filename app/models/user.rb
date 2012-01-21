@@ -23,6 +23,18 @@ class User < ActiveRecord::Base
     def for(to_users)
       UserExtractor.extract(to_users)
     end
+    
+    def from_handle(handle)
+      find_or_create_by_handle(handle)
+    end
+    
+    def from_mail(mail)
+      address     = mail.address.downcase
+      user        = find_by_email(address) || self.new(:email => address)
+      user.name ||= mail.name
+      user.save!
+      user
+    end
   end
   
   def link_twitter!(auth)

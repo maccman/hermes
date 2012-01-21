@@ -7,14 +7,13 @@ module UserExtractor extend self
     Twitter::Extractor.extract_mentioned_screen_names(str)[0]
   end
   
-  def extract_email(str)
-    email = Mail::Address.new(str)
-    email.domain && email.address
+  def extract_mail(str)
+    Mail::Address.new(str)
   end
   
   def extract(array)
     if array.is_a?(String)
-      array = array.split(',')
+      array = array.split(/,(?=(?:[^']*'[^']*')*[^']*$)/)
     end
     
     users = []
@@ -23,9 +22,9 @@ module UserExtractor extend self
       if value.is_a?(User)
         users << value
       elsif handle = extract_handle(value)
-        users << User.find_or_create_by_handle(handle)
-      elsif email = extract_email(value)
-        users << User.find_or_create_by_email(email)
+        users << User.from_handle(handle)
+      elsif mail = extract_mail(value)
+        users << User.from_mail(mail)
       end
     end
     
