@@ -24,12 +24,11 @@ class EmailsController < ApplicationController
     
     to_users.each do |user|
       message = Message.new(
-        uid:         headers.try(:message_id),
         subject:     subject,
         body:        body,
-        in_reply_to: headers.try(:in_reply_to)
+        headers:     headers
       )
-    
+          
       message.from_user = from_user
       message.to        = to_users
       message.user      = user

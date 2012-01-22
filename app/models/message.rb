@@ -25,7 +25,7 @@ class Message < ActiveRecord::Base
   
   attr_accessor   :to, :client_id, :in_reply_to, :conversation_uid
   attr_accessible :to, :subject, :body, :starred, :sent_at, 
-                  :client_id, :uid, :in_reply_to, :conversation_uid
+                  :client_id, :conversation_uid, :headers
   
   class << self
     def duplicate!(to_user, message)
@@ -34,9 +34,9 @@ class Message < ActiveRecord::Base
         subject:          message.subject,
         body:             message.body,
         sent_at:          message.sent_at,
-        uid:              message.uid,
         conversation_uid: message.conversation.uid
       )
+      duplicate.uid          = message.uid
       duplicate.user         = to_user
       duplicate.from_user    = message.user
       duplicate.save!
@@ -66,6 +66,16 @@ class Message < ActiveRecord::Base
   
   def html
     body? && auto_link(RDiscount.new(body, :filter_html).to_html)
+  end
+  
+  def headers
+    @headers ||= Hashie::Mash.new
+  end
+  
+  def headers=(value)
+    @headers         = value
+    self.uid         = headers.message_id
+    self.in_reply_to = headers.in_reply_to
   end
         
   protected
