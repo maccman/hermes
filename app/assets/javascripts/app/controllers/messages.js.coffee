@@ -1,4 +1,4 @@
-$       = Spine.$
+$ = Spine.$
   
 class App.Messages extends Spine.Controller
   className: 'messages'
@@ -20,6 +20,8 @@ class App.Messages extends Spine.Controller
         @active()
         @aside.active(params)
         @article.active(params)
+      '/conversations': ->
+        @active()
         
   newMessage: ->
     (new App.Compose).open()

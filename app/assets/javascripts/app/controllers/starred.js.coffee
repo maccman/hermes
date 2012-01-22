@@ -1,10 +1,8 @@
 class App.Starred extends Spine.Controller
-  # elements:
-  #   '.items': items
-  # 
-  # events:
-  #   'click .item': 'itemClick'
-
+  className: 'starred'
+  
   constructor: ->
     super
-    # ...
+    
+    @routes
+      '/starred': -> @active()

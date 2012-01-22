@@ -2,7 +2,10 @@ Conversation = App.Conversation
 
 class App.Nav extends Spine.Controller
   elements:
-    '[data-type=messages]': 'messages'
+    '[data-type=conversations]': 'conversations'
+    
+  events:
+    'click .item[data-type]': 'click'
   
   constructor: ->
     super
@@ -15,5 +18,9 @@ class App.Nav extends Spine.Controller
     
   renderCount: =>
     count = Conversation.unreadCount()
-    @messages.attr('data-count', count or '')
+    @conversations.attr('data-count', count or '')
     macgap?.dock.badge = if count then count + '' else ''
+  
+  click: (e) ->
+    type = $(e.currentTarget).data('type')
+    @navigate "/#{type}"

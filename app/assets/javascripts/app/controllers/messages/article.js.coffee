@@ -26,9 +26,9 @@ class Item extends Spine.Controller
     @star.gfx(rotate: if @record.starred then '360deg' else '-360deg')
     
   clickLink: (e) ->
+    e.preventDefault()
     href = $(e.target).attr('href')
     macgap?.app.open(href) or window.open(href)
-    e.preventDefault()
   
 class Compose extends Spine.Controller
   className: 'item me'
