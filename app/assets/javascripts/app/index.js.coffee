@@ -58,6 +58,10 @@ class App extends Spine.Controller
           opacity: '1'
           
         @spinner.remove()
+        
+    App.ready ->
+      App.Conversation.fetchStarred()
+      App.Conversation.fetchActivity()
 
     App.load()
     

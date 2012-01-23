@@ -11,13 +11,7 @@ class App.Starred extends Spine.Controller
   constructor: ->
     super
     @render()
-    @active @fetch
-  
-  fetch: ->
-    return if @beenActivated
-    App.Conversation.fetchStarred()
-    @beenActivated = true
-    
+      
   render: ->
     @append @aside = new App.Starred.Aside
     @append $('<div />').addClass('vdivide')

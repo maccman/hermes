@@ -11,13 +11,7 @@ class App.Activity extends Spine.Controller
   constructor: ->
     super
     @render()
-    @active @fetch
   
-  fetch: ->
-    return if @beenActivated
-    App.Conversation.fetchActivity()
-    @beenActivated = true
-    
   render: ->
     @append @aside = new App.Activity.Aside
     @append $('<div />').addClass('vdivide')
