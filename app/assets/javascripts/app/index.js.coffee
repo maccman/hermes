@@ -61,7 +61,8 @@ class App extends Spine.Controller
 
     App.load()
     
-    App.Conversation.fetch().success ->
+    App.Conversation.fetch().success =>
+      @navigate '/conversations'
       Spine.Route.setup()
       App.ready()
 
