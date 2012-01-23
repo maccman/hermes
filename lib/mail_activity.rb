@@ -19,7 +19,7 @@ module MailActivity extend self
   
   BODY_PATTERNS = []
   
-  HEADERS = %w{ List-Unsubscribe List-Id X-AWS-Outgoing Precedence }
+  HEADERS = %w{ List-Unsubscribe List-Id X-AWS-Outgoing X-Sendgrid-EID Precedence }
   
   def match?(from, mail, body)
     return true if HEADERS.find {|header| mail[header] }

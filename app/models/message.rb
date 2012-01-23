@@ -22,6 +22,16 @@ class Message < ActiveRecord::Base
   scope :latest_last, order("sent_at ASC")
   scope :latest_first, order("sent_at DESC")
   
+  scope :search, lambda {|query| 
+    if Rails.env.production?
+      # In production, PostgreSQL needs ILIKE 
+      # for case insensitive LIKE queries
+      where('body ILIKE ?', "%#{query}%") 
+    else
+      where('body LIKE ?',  "%#{query}%") 
+    end      
+  }
+  
   attr_accessor   :to, :client_id, :in_reply_to, :conversation_uid
   attr_accessible :to, :subject, :body, :starred, :sent_at, 
                   :client_id, :conversation_uid
