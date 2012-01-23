@@ -42,7 +42,7 @@ class App.Conversation extends Spine.Model
     @save()
   
   @sort: (a, b) ->
-    earlier = Date.parse(a.updated_at) > Date.parse(b.updated_at)
+    earlier = Date.parse(a.received_at) > Date.parse(b.received_at)
     if earlier then -1 else 1
     
   @unreadCount: ->
