@@ -19,9 +19,9 @@ class App.Starred extends Spine.Controller
     @beenActivated = true
     
   render: ->
-    @append @aside = new App.Activity.Aside
+    @append @aside = new App.Starred.Aside
     @append $('<div />').addClass('vdivide')
-    @append @article = new App.Activity.Article
+    @append @article = new App.Starred.Article
     
     @routes
       '/starred/:id': (params) ->
@@ -37,5 +37,9 @@ class App.Starred extends Spine.Controller
 class App.Starred.Aside extends App.Messages.Aside
   getRecords: ->
     App.Conversation.starred()
+    
+  click: (e) ->
+    itemID = $(e.currentTarget).data('cid')
+    @navigate '/starred', itemID
 
 class App.Starred.Article extends App.Messages.Article

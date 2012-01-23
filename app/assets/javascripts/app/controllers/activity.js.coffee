@@ -37,5 +37,9 @@ class App.Activity extends Spine.Controller
 class App.Activity.Aside extends App.Messages.Aside
   getRecords: ->
     App.Conversation.activity()
+    
+  click: (e) ->
+    itemID = $(e.currentTarget).data('cid')
+    @navigate '/activity', itemID
 
 class App.Activity.Article extends App.Messages.Article
