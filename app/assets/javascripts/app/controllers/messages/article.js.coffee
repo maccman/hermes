@@ -112,4 +112,4 @@ class App.Messages.Article extends Spine.Controller
     
   scrollToBottom: ->
     @delay ->
-      @items.scrollTop(@items[0].scrollHeight)
+      @items.scrollTop(@items.find('.item:last').offset().top)
