@@ -3,12 +3,12 @@
     <img src="<%= @avatar_url %>">
   </div>
   
-  <div class="item" data-type="conversations">
+  <div class="item conversations" data-type="conversations">
   </div>
 
-  <div class="item" data-type="starred">
+  <div class="item starred" data-type="starred">
   </div>
   
-  <div class="item" data-type="activity">
+  <div class="item activity" data-type="activity">
   </div>
 </nav>

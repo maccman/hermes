@@ -44,21 +44,21 @@
       vbg-gradient(#7BB5DB, #4775B8)
       box-shadow(0, 1px, 1px, rgba(0,0,0,0.3))
       
-    &[data-type=conversations]
+    &.conversations
       background-image: url(/assets/messages.png)
     
-    &[data-type=starred]
+    &.starred
       background-image: url(/assets/starred.png)
     
-    &[data-type=activity]
+    &.activity
       background-image: url(/assets/activity.png)
       
-    &.active[data-type=conversations]
+    &.active.conversations
       background-image: url(/assets/messages-sel.png)
 
-    &.active[data-type=starred]
+    &.active.starred
       background-image: url(/assets/starred-sel.png)
 
-    &.active[data-type=activity]
+    &.active.activity
       background-image: url(/assets/activity-sel.png)
     
