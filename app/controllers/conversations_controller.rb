@@ -5,18 +5,21 @@ class ConversationsController < ApplicationController
   # GET /conversations.json
   def index
     @conversations = Conversation.for_user(current_user).latest
+    @conversations = @conversations.paginate(:page => params[:page], :per_page => 30)
     @conversations = @conversations.all(:include => [:user, :to_users, {:messages => :from_user}])
     render json: @conversations
   end
   
   def activity
     @conversations = Conversation.for_user(current_user).activity
+    @conversations = @conversations.paginate(:page => params[:page], :per_page => 30)
     @conversations = @conversations.all(:include => [:user, :to_users, {:messages => :from_user}])
     render json: @conversations
   end
   
   def starred
     @conversations = Conversation.for_user(current_user).starred
+    @conversations = @conversations.paginate(:page => params[:page], :per_page => 30)
     @conversations = @conversations.all(:include => [:user, :to_users, {:messages => :from_user}])
     render json: @conversations
   end
@@ -36,6 +39,12 @@ class ConversationsController < ApplicationController
     else
       render json: @conversation.errors, status: :unprocessable_entity
     end
+  end
+  
+  # GET /conversation/between.json?to=@maccman,info@eribium.org
+  def between
+    @conversations = Conversation.between(current_user, *User.for(params[:to]))
+    render json: @conversations
   end
   
   protected

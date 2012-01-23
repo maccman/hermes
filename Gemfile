@@ -33,6 +33,7 @@ group :development do
   gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'heroku'
   gem 'foreman'
+  gem 'factory_girl_rails'
 end
 
 group :production do

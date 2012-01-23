@@ -52,3 +52,12 @@ class App.Conversation extends Spine.Model
     
   @activity: ->
     (@select (rec) -> rec.activity).sort(@sort)
+    
+  @fetch: ->
+    @ajax().fetch()
+  
+  @fetchStarred: ->
+    @ajax().fetch(url: @url('starred'))
+
+  @fetchActivity: ->
+    @ajax().fetch(url: @url('activity'))

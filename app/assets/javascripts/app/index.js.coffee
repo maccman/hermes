@@ -61,7 +61,7 @@ class App extends Spine.Controller
 
     App.load()
     
-    App.Conversation.ajax().fetch().success ->
+    App.Conversation.fetch().success ->
       Spine.Route.setup()
       App.ready()
 

@@ -2,9 +2,10 @@ Hermes::Application.routes.draw do
   resources :messages
   
   resources :conversations do
-    member do
+    collection do
       get 'activity'
       get 'starred'
+      get 'between'
     end
   end
   

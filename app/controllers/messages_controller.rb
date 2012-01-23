@@ -4,7 +4,9 @@ class MessagesController < ApplicationController
   
   # GET /messages.json
   def index
-    @messages = Message.for_user(current_user).latest_last.all(:include => [:from_user, :to_users])
+    @messages = Message.for_user(current_user).latest_last
+    @messages = @messages.paginate(:page => params[:page], :per_page => 30)
+    @messages = @messages.all(:include => [:from_user, :to_users])
     render json: @messages
   end
 
@@ -51,7 +53,7 @@ class MessagesController < ApplicationController
     @message.destroy
     head :no_content
   end
-  
+    
   protected
     def find_message
       @message = Message.for_user(current_user).find(params[:id])

@@ -1,4 +1,4 @@
-module MessageActivity extend self
+module MailActivity extend self
   FROM_EMAIL_PATTERNS = [
     /no-?reply/,
     /\+activity/,
@@ -21,12 +21,10 @@ module MessageActivity extend self
   
   HEADERS = %w{ List-Unsubscribe List-Id X-AWS-Outgoing Precedence }
   
-  def match?(message)
-    return true if HEADERS.find {|header| message.headers.has_key?(header) }
-    return true if BODY_PATTERNS.find {|reg| reg =~ message.body }
-    message.to.each do |to|
-      return true if FROM_EMAIL_PATTERNS.find {|reg| reg =~ to }
-    end
+  def match?(to, mail, body)
+    return true if HEADERS.find {|header| mail.headers.has_key?(header) }
+    return true if BODY_PATTERNS.find {|reg| reg =~ body }
+    return true if FROM_EMAIL_PATTERNS.find {|reg| reg =~ to }
     false
   end
 end

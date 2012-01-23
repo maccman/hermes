@@ -1,3 +1,6 @@
+#= require_self
+#= require_tree ./messages
+
 $ = Spine.$
   
 class App.Messages extends Spine.Controller

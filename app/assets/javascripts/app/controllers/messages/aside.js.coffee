@@ -42,12 +42,15 @@ class App.Messages.Aside extends Spine.Controller
     
     for item in @items
       item.toggleActive(item.record.eql(@current))
+      
+  getRecords: ->
+    Conversation.latest()
     
   render: =>
     @items = []
     @itemsEl.html('')
     
-    for record in Conversation.latest()
+    for record in @getRecords()
       item = new Item(record: record)
       item.toggleActive(item.record.eql(@current))
       @items.push(item)

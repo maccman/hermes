@@ -13,7 +13,6 @@ class Message < ActiveRecord::Base
   
   before_validation :create_conversation, :on => :create
   before_save       :set_defaults
-  before_create     :set_activity
   after_create      :send_message
   
   scope :for_user, lambda {|user|
@@ -25,7 +24,7 @@ class Message < ActiveRecord::Base
   
   attr_accessor   :to, :client_id, :in_reply_to, :conversation_uid
   attr_accessible :to, :subject, :body, :starred, :sent_at, 
-                  :client_id, :conversation_uid, :headers
+                  :client_id, :conversation_uid
   
   class << self
     def duplicate!(to_user, message)
@@ -68,12 +67,7 @@ class Message < ActiveRecord::Base
     body? && auto_link(RDiscount.new(body, :filter_html).to_html)
   end
   
-  def headers
-    @headers ||= Hashie::Mash.new
-  end
-  
-  def headers=(value)
-    @headers         = value
+  def headers=(headers)
     self.uid         = headers.message_id
     self.in_reply_to = headers.in_reply_to
   end
@@ -82,11 +76,6 @@ class Message < ActiveRecord::Base
     def set_defaults
       self.sent_at ||= Time.now
       self.uid     ||= Mail::MessageIdField.new.message_id
-      true
-    end
-    
-    def set_activity
-      self.activity ||= MessageActivity.match?(self)
       true
     end
   
