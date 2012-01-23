@@ -32,7 +32,7 @@ class EmailsController < ApplicationController
       message.from_user = from_user
       message.to        = to_users
       message.user      = user
-      message.activity  = MailActivity.match?(to, mail, body)
+      message.activity  = MailActivity.match?(from, mail, body)
       message.save
     end
     

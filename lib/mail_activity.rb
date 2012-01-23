@@ -21,7 +21,7 @@ module MailActivity extend self
   
   HEADERS = %w{ List-Unsubscribe List-Id X-AWS-Outgoing Precedence }
   
-  def match?(to, mail, body)
+  def match?(from, mail, body)
     return true if HEADERS.find {|header| mail[header] }
     return true if BODY_PATTERNS.find {|reg| reg =~ body }
     return true if FROM_EMAIL_PATTERNS.find {|reg| reg =~ to }
