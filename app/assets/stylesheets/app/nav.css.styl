@@ -23,13 +23,13 @@
   .item 
     margin: 12px 0
     cursor: pointer
-    position: relative
+    position: relative    
+    height: 25px
+    background-position: center center
+    background-repeat: no-repeat
+    background-size: 25px 25px
     
-    img      
-      width: 25px
-      height: 25px
-      
-    &[data-type=messages]:after
+    &[data-type=conversations]:after
       position: absolute
       right: -2px
       top: -5px
@@ -44,3 +44,21 @@
       vbg-gradient(#7BB5DB, #4775B8)
       box-shadow(0, 1px, 1px, rgba(0,0,0,0.3))
       
+    &[data-type=conversations]
+      background-image: url(/assets/messages.png)
+    
+    &[data-type=starred]
+      background-image: url(/assets/starred.png)
+    
+    &[data-type=activity]
+      background-image: url(/assets/activity.png)
+      
+  &[data-active=conversations] .item[data-type=conversations]
+    background-image: url(/assets/messages-sel.png)
+
+  &[data-active=starred] .item[data-type=starred]
+    background-image: url(/assets/starred-sel.png)
+
+  &[data-active=activity] .item[data-type=activity]
+    background-image: url(/assets/activity-sel.png)
+    

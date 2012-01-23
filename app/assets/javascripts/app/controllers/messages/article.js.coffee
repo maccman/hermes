@@ -28,7 +28,10 @@ class Item extends Spine.Controller
   clickLink: (e) ->
     e.preventDefault()
     href = $(e.target).attr('href')
-    macgap?.app.open(href) or window.open(href)
+    if macgap?
+      macgap.app.open(href)
+    else
+      window.open(href)
   
 class Compose extends Spine.Controller
   className: 'item me'

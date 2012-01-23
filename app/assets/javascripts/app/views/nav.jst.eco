@@ -4,14 +4,11 @@
   </div>
   
   <div class="item" data-type="conversations">
-    <img src="/assets/messages.png">
   </div>
 
   <div class="item" data-type="starred">
-    <img src="/assets/starred.png">
   </div>
   
   <div class="item" data-type="activity">
-    <img src="/assets/broadcast.png">
   </div>
 </nav>

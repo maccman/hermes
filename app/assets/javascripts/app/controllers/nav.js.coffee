@@ -12,6 +12,7 @@ class App.Nav extends Spine.Controller
     @render()
     
     Conversation.bind 'change refresh', @renderCount
+    Spine.Route.bind 'navigate', @changeActive
     
   render: ->
     @replace @view('nav')(App.user)
@@ -20,6 +21,9 @@ class App.Nav extends Spine.Controller
     count = Conversation.unreadCount()
     @conversations.attr('data-count', count or '')
     macgap?.dock.badge = if count then count + '' else ''
+    
+  changeActive: (url) =>
+    @el.attr('data-active', url?.match(/^\/(\w+)/)[1])
   
   click: (e) ->
     type = $(e.currentTarget).data('type')
