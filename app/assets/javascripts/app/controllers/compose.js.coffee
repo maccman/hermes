@@ -19,7 +19,7 @@ $.fn.appAutocomplete = (data) ->
 
     focus: ->
       false
-
+    
     select: (event, ui) ->
       terms = split(@value)
       terms.pop()
