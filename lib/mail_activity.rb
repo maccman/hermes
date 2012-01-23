@@ -24,7 +24,7 @@ module MailActivity extend self
   def match?(from, mail, body)
     return true if HEADERS.find {|header| mail[header] }
     return true if BODY_PATTERNS.find {|reg| reg =~ body }
-    return true if FROM_EMAIL_PATTERNS.find {|reg| reg =~ to }
+    return true if FROM_EMAIL_PATTERNS.find {|reg| reg =~ from }
     false
   end
 end
