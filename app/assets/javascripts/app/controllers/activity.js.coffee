@@ -30,6 +30,7 @@ class App.Activity extends Spine.Controller
         @article.active(params)
       '/activity': ->
         @active()
+        @aside.selectFirst()
         
   newMessage: ->
     (new App.Compose).open()

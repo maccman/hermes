@@ -38,8 +38,7 @@ class App.Messages.Aside extends Spine.Controller
     Conversation.bind 'refresh change', @render
         
   change: (item) ->
-    @current = item
-    
+    @current = item    
     for item in @items
       item.toggleActive(item.record.eql(@current))
       
@@ -55,7 +54,8 @@ class App.Messages.Aside extends Spine.Controller
       item.toggleActive(item.record.eql(@current))
       @items.push(item)
       @itemsEl.append(item.render())
-      
+  
+  selectFirst: ->
     # Select first item unless otherwise specified
     unless @current
       @itemsEl.find('.item:first').click()

@@ -30,6 +30,7 @@ class App.Starred extends Spine.Controller
         @article.active(params)
       '/starred': ->
         @active()
+        @aside.selectFirst()
         
   newMessage: ->
     (new App.Compose).open()

@@ -36,6 +36,10 @@ class App.Conversation extends Spine.Model
     return if @read is true
     @read = true
     @save()
+    
+  toggleStarred: (bool) ->
+    @starred = bool ? !@starred
+    @save()
   
   @sort: (a, b) ->
     earlier = Date.parse(a.updated_at) > Date.parse(b.updated_at)

@@ -25,6 +25,7 @@ class App.Messages extends Spine.Controller
         @article.active(params)
       '/conversations': ->
         @active()
+        @aside.selectFirst()
         
   newMessage: ->
     (new App.Compose).open()

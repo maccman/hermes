@@ -10,9 +10,11 @@ class App.Message extends Spine.Model
   isMe: ->
     App.user?.eql(@from_user()) or false
     
-  toggleStarred: ->
-    @starred = !@starred
+  toggleStarred: (bool) ->
+    @starred = bool ? !@starred
     @save()
+    if @starred
+      @conversation()?.toggleStarred(true)
   
   @bind 'beforeCreate', (record) ->
     record.sent_at or= new Date
