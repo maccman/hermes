@@ -8,7 +8,8 @@ module UserExtractor extend self
   end
   
   def extract_mail(str)
-    Mail::Address.new(str)
+    address = Mail::Address.new(str)
+    address.domain && address
   end
   
   def extract(array)
