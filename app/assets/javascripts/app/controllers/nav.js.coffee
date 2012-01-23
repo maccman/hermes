@@ -23,7 +23,9 @@ class App.Nav extends Spine.Controller
     macgap?.dock.badge = if count then count + '' else ''
     
   changeActive: (url) =>
-    @el.attr('data-active', url?.match(/^\/(\w+)/)[1])
+    type = url?.match(/^\/(\w+)/)[1]
+    @el.find('[data-type]').removeClass('active')
+    @el.find("[data-type=#{type}]").addClass('active')
   
   click: (e) ->
     type = $(e.currentTarget).data('type')
