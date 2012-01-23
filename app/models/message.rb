@@ -99,6 +99,7 @@ class Message < ActiveRecord::Base
         conversation.between(user, from_user, *User.for(@to))
       end
       
+      conversation.touch_received_at
       conversation.uid      ||= conversation_uid
       conversation.read       = same_user?
       conversation.client_id  = client_id

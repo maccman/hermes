@@ -78,10 +78,13 @@ class Conversation < ActiveRecord::Base
     handle || email
   end
   
+  def touch_received_at
+    self.received_at = current_time_from_proper_timezone
+  end
+  
   protected  
     def set_defaults
-      self.received_at = current_time_from_proper_timezone
-      self.uid       ||= Mail::MessageIdField.new.message_id
+      self.uid ||= Mail::MessageIdField.new.message_id
       true
     end
     
