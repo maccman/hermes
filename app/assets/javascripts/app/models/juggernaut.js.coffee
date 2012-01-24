@@ -18,13 +18,11 @@ class JuggernautClient extends Spine.Module
     
     model = App[message.model] or throw('Model required')
     switch message.type
-      when 'create'
+      when 'create', 'update'
         if model.exists(message.id)
           model.update(message.id, message.record)
         else
           model.create(message.record)
-      when 'update'
-        model.update(message.id, message.record)
       when 'destroy'
         model.destroy(message.id)
       else

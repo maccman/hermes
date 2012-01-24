@@ -33,7 +33,7 @@ class MessagesController < ApplicationController
 
     if @message.save
       @message.siblings.each do |message|
-        publish(:update, message)
+        publish(:create, message)
         publish(:create, message.conversation)
       end
       
@@ -48,7 +48,7 @@ class MessagesController < ApplicationController
     # Can only update starred attribute
     if @message.update_attributes(params[:message])
       publish(:update, @message)
-      publish(:create, @message.conversation)
+      publish(:update, @message.conversation)
       head :no_content
     else
       render json: @message.errors, status: :unprocessable_entity
