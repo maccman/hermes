@@ -38,6 +38,7 @@ class EmailsController < ApplicationController
       message.save
       
       publish(:create, message)
+      publish(:create, message.conversation)
     end
     
     head :ok
