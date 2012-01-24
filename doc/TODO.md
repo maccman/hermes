@@ -3,6 +3,8 @@ Email conversation style, with an integrated workflow.
 * solve starred jump bug
 * scroll to right of new message autocomplete
 * Sideways gloss on the avatars
+* autoarchive
+// * Make all links clickable
 // * Bugs with new emails
 // * Subjects
 // * Icon
