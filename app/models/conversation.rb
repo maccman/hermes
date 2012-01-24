@@ -25,7 +25,6 @@ class Conversation < ActiveRecord::Base
   scope :activity, where("messages.activity = ?", true).order("received_at DESC")
   scope :starred,  where("messages.starred = ?", true).order("received_at DESC")
   
-  attr_accessor :client_id
   attr_accessible :read
   
   class << self

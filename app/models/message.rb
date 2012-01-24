@@ -32,9 +32,9 @@ class Message < ActiveRecord::Base
     end      
   }
   
-  attr_accessor   :to, :client_id, :in_reply_to, :conversation_uid
+  attr_accessor   :to, :in_reply_to, :conversation_uid
   attr_accessible :to, :subject, :body, :starred, :sent_at, 
-                  :client_id, :conversation_uid
+                  :conversation_uid
   
   class << self
     def duplicate!(to_user, message)
@@ -112,7 +112,6 @@ class Message < ActiveRecord::Base
       conversation.touch_received_at
       conversation.uid      ||= conversation_uid
       conversation.read       = same_user?
-      conversation.client_id  = client_id
       conversation.save!
     end
     

@@ -35,6 +35,7 @@ class ConversationsController < ApplicationController
   # PUT /conversation/1.json
   def update
     if @conversation.update_attributes(params[:conversation])
+      publish(:update, @conversation)
       head :no_content
     else
       render json: @conversation.errors, status: :unprocessable_entity

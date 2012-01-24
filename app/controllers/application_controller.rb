@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :keepsafe
   
-  protected
+  protected    
     def keepsafe
       request.local? || authenticate_or_request_with_http_digest do |username|
         Rails.config.users[username]
@@ -51,4 +51,9 @@ class ApplicationController < ActionController::Base
     end
     
     helper_method :logged_in?, :current_user
+    
+    def publish(type, record)
+      session_id = request.headers['X-Session-ID']
+      JuggernautObserver.publish(type, record, except: session_id)
+    end
 end

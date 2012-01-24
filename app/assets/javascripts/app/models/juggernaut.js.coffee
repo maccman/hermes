@@ -35,7 +35,7 @@ class JuggernautClient extends Spine.Module
   logPrefix: '(Juggernaut)'
   
   connected: =>
-    @log 'connected'
+    @log 'connected'    
     
   disconnected: =>
     @log 'disconnected'
@@ -43,11 +43,9 @@ class JuggernautClient extends Spine.Module
   getID: ->
     @client.sessionID
     
-Spine.Model.include
-  toJSON: ->
-    result = @attributes()
-    result.client_id = App.Juggernaut?.getID()
-    result
+jQuery.ajaxPrefilter (options, originalOptions, xhr) ->
+  sessionID = App.Juggernaut?.getID()
+  xhr.setRequestHeader('X-Session-ID', sessionID) if sessionID
 
 App.ready -> 
   App.Juggernaut = new JuggernautClient

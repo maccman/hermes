@@ -32,6 +32,7 @@ class MessagesController < ApplicationController
     end
 
     if @message.save
+      publish(:create, @message)
       render json: @message, status: :created, location: @message
     else
       render json: @message.errors, status: :unprocessable_entity
@@ -42,6 +43,7 @@ class MessagesController < ApplicationController
   def update
     # Can only update starred attribute
     if @message.update_attributes(params[:message])
+      publish(:update, @message)
       head :no_content
     else
       render json: @message.errors, status: :unprocessable_entity

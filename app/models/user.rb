@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
   end
   
   def to_name_s
-    name? ? "#{name.inspect} #{to_s}" : to_s
+    name? ? "#{name.inspect} <#{to_s}>" : to_s
   end
   
   def google
