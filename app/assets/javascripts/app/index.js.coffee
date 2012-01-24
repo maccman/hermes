@@ -39,16 +39,10 @@ class App extends Spine.Controller
     super
         
     @el.hide()
+    @toggleSpinner(true)
     
-    @spinner = $('<div />').addClass('spinner')
-    @el.parent().append(@spinner)
-    @spinner.spin(
-      length: 7, width: 4, 
-      color: 'rgba(255, 255, 255, 0.5)'
-    )
-    
-    @append new App.Nav
-    @append new App.Stack
+    @append(@nav = new App.Nav)
+    @append(@stack = new App.Stack)
     
     App.ready =>
       @el.queueNext =>
@@ -60,7 +54,7 @@ class App extends Spine.Controller
           scale:   '1'
           opacity: '1'
           
-        @spinner.remove()
+        @toggleSpinner(false)
         
     App.ready ->
       App.Conversation.fetchStarred()
@@ -72,6 +66,17 @@ class App extends Spine.Controller
       @navigate '/conversations'
       Spine.Route.setup()
       App.ready()
+      
+  toggleSpinner: (show) ->
+    if show
+      @spinner = $('<div />').addClass('spinner')
+      @el.parent().append(@spinner)
+      @spinner.spin(
+        length: 7, width: 4, 
+        color: 'rgba(255, 255, 255, 0.5)'
+      )
+    else
+      @spinner?.remove()
       
   clickLink: (e) ->
     e.preventDefault()

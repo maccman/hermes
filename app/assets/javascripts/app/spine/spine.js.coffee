@@ -101,10 +101,9 @@ class Model extends Module
   @toString: -> "#{@className}(#{@attributes.join(", ")})"
 
   @find: (id) ->
-    if ("#{id}").match(/c-\d+/)
-      return @findCID(id)
-    
     record = @records[id]
+    if !record and ("#{id}").match(/c-\d+/)
+      return @findCID(id)
     throw('Unknown record') unless record
     record.clone()
     

@@ -11,6 +11,8 @@ Email conversation style, with an integrated workflow.
 // * Sleep/wake events
 // * Track exceptions
 
+Show all unread or received_at > 1.day.ago
+
 Later:
 
 * Attachments
