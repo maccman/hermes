@@ -28,6 +28,7 @@ gem 'juggernaut'
 gem 'rdiscount'
 gem 'rails_autolink'
 gem 'airbrake'
+gem 'macgap'
 
 group :development do
   gem 'sqlite3'

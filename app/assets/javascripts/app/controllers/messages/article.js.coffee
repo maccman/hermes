@@ -114,8 +114,9 @@ class App.Messages.Article extends Spine.Controller
     @replace @view('messages/article')(@current)
     @compose.append(new Compose(record: @current).render())
     
-    messages = @current?.messages().all().sort(Message.sentAtDesc)
-    @add(messages)
+    @delay ->
+      messages = @current?.messages().all().sort(Message.sentAtDesc)
+      @add(messages)
     
   add: (records = []) ->
     if @items.is(':empty')

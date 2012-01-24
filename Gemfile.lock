@@ -108,6 +108,7 @@ GEM
       addressable (~> 2.2.6)
     linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
+    macgap (0.0.3)
     mail (2.3.0)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -237,6 +238,7 @@ DEPENDENCIES
   heroku
   jquery-rails
   juggernaut
+  macgap
   nestful
   omniauth
   omniauth-google
