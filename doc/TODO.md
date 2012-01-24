@@ -5,7 +5,7 @@ Email conversation style, with an integrated workflow.
 * Sideways gloss on the avatars
 // * Bugs with new emails
 // * Subjects
-* Icon
+// * Icon
 // * Sleep/wake events
 // * Track exceptions
 

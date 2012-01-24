@@ -30,7 +30,10 @@ class App extends Spine.Controller
     if (typeof callback is 'function')
       @bind 'ready', callback
     else
-      @trigger('ready', arguments...)    
+      @trigger('ready', arguments...)
+      
+  events:
+    'click a': 'clickLink'
   
   constructor: ->
     super
@@ -69,6 +72,19 @@ class App extends Spine.Controller
       @navigate '/conversations'
       Spine.Route.setup()
       App.ready()
+      
+  clickLink: (e) ->
+    e.preventDefault()
+    href = $(e.target).attr('href')
+    
+    if match = href.match(/mailto:(.+)/)
+      (new App.Compose(value: match[1])).open()
+      
+    else    
+      if macgap?
+        macgap.app.open(href)
+      else
+        window.open(href)
 
 class App.Stack extends Spine.Stack
   constructor: ->

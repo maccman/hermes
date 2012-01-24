@@ -40,7 +40,7 @@ class App.Compose extends Spine.Controller
     'input[name=to]': 'to'
   
   open: ->
-    @html @view('messages/compose')()
+    @html @view('messages/compose')(value: @value)
     $(@to).appAutocomplete(App.user.autocomplete)
     
     $.overlay(@el)

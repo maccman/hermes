@@ -7,7 +7,6 @@ class Item extends Spine.Controller
     
   events:
     'click .star': 'toggleStarred'
-    'click .body a': 'clickLink'
     
   elements:
     '.star': 'star'
@@ -24,14 +23,6 @@ class Item extends Spine.Controller
   toggleStarred: ->
     @record.toggleStarred()
     @star.gfx(rotate: if @record.starred then '360deg' else '-360deg')
-    
-  clickLink: (e) ->
-    e.preventDefault()
-    href = $(e.target).attr('href')
-    if macgap?
-      macgap.app.open(href)
-    else
-      window.open(href)
       
 class Subject extends Spine.Controller
     className: 'subject'
