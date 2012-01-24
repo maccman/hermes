@@ -55,13 +55,13 @@ class Conversation < ActiveRecord::Base
   end
   
   def starred?
-    messages.all?(&:starred?)
+    messages.any?(&:starred?)
   end
   
   alias_method :starred, :starred?
     
   def activity?
-    messages.all?(&:activity?)
+    messages.any? && messages.all?(&:activity?)
   end
   
   alias_method :activity, :activity?
