@@ -25,9 +25,10 @@ class App.Conversation extends Spine.Model
     message = (msg for msg in messages when not msg.isMe())[0]
     message or= messages[0] or {}
     
+    # TODO - add default avatar
     {
       avatar_url: from_user?.avatar_url
-      handle:     from_user?.toString() or App.user.handle
+      handle:     from_user?.toString() or 'Loading...'
       body:       message.body
       timestamp:  new Date(message.sent_at).formatAgo()
     }
@@ -40,6 +41,9 @@ class App.Conversation extends Spine.Model
   toggleStarred: (bool) ->
     @starred = bool ? !@starred
     @save()
+    
+  @bind 'beforeCreate', (record) ->
+    record.received_at or= new Date
   
   @sort: (a, b) ->
     earlier = Date.parse(a.received_at) > Date.parse(b.received_at)

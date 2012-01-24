@@ -12,6 +12,6 @@ module JuggernautObserver extend self
       data,
       options
     )
-  rescue
+  rescue Errno::ECONNREFUSED
   end
 end

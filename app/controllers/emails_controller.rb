@@ -36,6 +36,8 @@ class EmailsController < ApplicationController
       message.user      = user
       message.activity  = MailActivity.match?(from, mail, body)
       message.save
+      
+      publish(:create, message)
     end
     
     head :ok
