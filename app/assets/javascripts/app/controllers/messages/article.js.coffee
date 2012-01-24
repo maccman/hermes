@@ -89,7 +89,7 @@ class App.Messages.Article extends Spine.Controller
         @renderHeader()
     
     Message.bind 'create', (record) =>
-      if record.conversation().eql?(@current)
+      if record.conversation()?.eql?(@current)
         @add([record])
     
     @active (params = {}) ->
@@ -114,16 +114,17 @@ class App.Messages.Article extends Spine.Controller
     @replace @view('messages/article')(@current)
     @compose.append(new Compose(record: @current).render())
     
-    @delay ->
-      messages = @current?.messages().all().sort(Message.sentAtDesc)
-      @add(messages)
+    messages = @current?.messages().all().sort(Message.sentAtDesc)
+    @add(messages)
     
   add: (records = []) ->
+    @items.hide()
     if @items.is(':empty')
       @items.append(new Subject(record: records[0]).render())  
     
     for record in records
       @items.append(new Item(record: record).render())
+    @items.show()
     @scrollToBottom()
     
   scrollToBottom: ->
