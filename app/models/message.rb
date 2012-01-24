@@ -19,6 +19,8 @@ class Message < ActiveRecord::Base
     where(:user_id => user && user.id)
   }
   
+  scope :siblings, lambda {|message| where(uid: message.uid) }
+  
   scope :latest_last, order("sent_at ASC")
   scope :latest_first, order("sent_at DESC")
   
@@ -59,6 +61,10 @@ class Message < ActiveRecord::Base
   
   def to_users
     (conversation_id? && conversation.to_users) || []
+  end
+  
+  def siblings
+    self.class.siblings(self)
   end
   
   def serializable_hash(options = {})

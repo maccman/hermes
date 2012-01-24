@@ -32,7 +32,11 @@ class MessagesController < ApplicationController
     end
 
     if @message.save
-      publish(:create, @message)
+      @message.siblings.each do |message|
+        publish(:update, message)
+        publish(:create, message.conversation)
+      end
+      
       render json: @message, status: :created, location: @message
     else
       render json: @message.errors, status: :unprocessable_entity

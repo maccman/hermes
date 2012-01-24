@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120124033720) do
+ActiveRecord::Schema.define(:version => 20120124071202) do
 
   create_table "attachments", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(:version => 20120124033720) do
     t.datetime "received_at"
   end
 
+  add_index "conversations", ["uid"], :name => "index_conversations_on_uid"
+
   create_table "messages", :force => true do |t|
     t.text     "subject"
     t.text     "body"
@@ -47,6 +49,8 @@ ActiveRecord::Schema.define(:version => 20120124033720) do
     t.string   "uid"
     t.boolean  "activity",        :default => false
   end
+
+  add_index "messages", ["uid"], :name => "index_messages_on_uid"
 
   create_table "users", :force => true do |t|
     t.string   "email"
@@ -62,5 +66,7 @@ ActiveRecord::Schema.define(:version => 20120124033720) do
     t.string   "google_token"
     t.string   "access_token"
   end
+
+  add_index "users", ["uid"], :name => "index_users_on_uid"
 
 end
