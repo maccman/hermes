@@ -11,14 +11,16 @@ class EmailsController < ApplicationController
     cc        = params[:cc]
     bcc       = params[:bcc]
     subject   = params[:subject]
-    body      = params[:text] || params["stripped-text"] || params[:plain]
+    body      = params[:text] || params["stripped-text"] || params[:plain] || ""
     
     if forwarded = mail && mail["X-Forwarded-For"]
       to += ("," + forwarded.to_s.split(" ").first)
     end
     
+    body.encode!("utf-8", "utf-8", :invalid => :replace)
     body      = subject if body.blank?
     body      = MailBody.strip(body)
+    
     from_user = User.for(from).first
     to_users  = User.for([to, cc, bcc].join(","))
     

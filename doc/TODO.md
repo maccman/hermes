@@ -6,6 +6,8 @@ Email conversation style, with an integrated workflow.
 * Bugs with new emails
 * Subjects
 * Icon
+// * Sleep/wake events
+// * Track exceptions
 
 Later:
 
