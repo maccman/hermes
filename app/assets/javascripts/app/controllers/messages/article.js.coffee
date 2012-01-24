@@ -32,6 +32,15 @@ class Item extends Spine.Controller
       macgap.app.open(href)
     else
       window.open(href)
+      
+class Subject extends Spine.Controller
+    className: 'subject'
+      
+    constructor: ->
+      super
+    
+    render: =>
+      @el.text @record?.subject
   
 class Compose extends Spine.Controller
   className: 'item me'
@@ -109,6 +118,9 @@ class App.Messages.Article extends Spine.Controller
     @add(messages)
     
   add: (records = []) ->
+    if @items.is(':empty')
+      @items.append(new Subject(record: records[0]).render())  
+    
     for record in records
       @items.append(new Item(record: record).render())
     @scrollToBottom()
