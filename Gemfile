@@ -27,6 +27,7 @@ gem 'dalli'
 gem 'juggernaut'
 gem 'rdiscount'
 gem 'rails_autolink'
+gem 'airbrake'
 
 group :development do
   gem 'sqlite3'
