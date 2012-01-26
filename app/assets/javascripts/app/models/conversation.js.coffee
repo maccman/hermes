@@ -29,7 +29,7 @@ class App.Conversation extends Spine.Model
     {
       avatar_url: from_user?.avatar_url
       handle:     from_user?.toString() or 'Loading...'
-      body:       message.body
+      body:       message.subject or message.body
       timestamp:  new Date(message.sent_at).formatAgo()
     }
     

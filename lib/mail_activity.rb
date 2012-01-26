@@ -1,6 +1,6 @@
 module MailActivity extend self
   FROM_EMAIL_PATTERNS = [
-    /no-?reply/,
+    /not?-?reply/,
     /\+activity/,
     /amazon.com/,
     /facebookmail.com/,

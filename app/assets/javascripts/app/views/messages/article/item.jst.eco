@@ -1,4 +1,4 @@
-<img src="<%= @from_user()?.avatar_url %>" />
+<a href="mailto:<%= @from_user()?.toUID() %>"><img src="<%= @from_user()?.avatar_url %>" /></a>
 
 <nav><a class="star <%= 'active' if @starred %>"></a></nav>
 <div class="body"><%- @html %></div>

@@ -80,7 +80,7 @@ class App extends Spine.Controller
       
   clickLink: (e) ->
     e.preventDefault()
-    href = $(e.target).attr('href')
+    href = $(e.currentTarget).attr('href')
     
     if match = href.match(/mailto:(.+)/)
       (new App.Compose(value: match[1])).open()
