@@ -7,6 +7,9 @@ Email conversation style, with an integrated workflow.
 
 Show all unread or received_at > 1.day.ago
 
+* Star conversations not messages
+* Task with name/date?
+
 Later:
 
 * Attachments

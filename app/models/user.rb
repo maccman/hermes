@@ -29,6 +29,10 @@ class User < ActiveRecord::Base
     end
     
     def from_mail(mail)
+      if mail.domain.downcase == Rails.config.domain
+        return find_or_create_by_handle(mail.local)
+      end
+      
       address     = mail.address.downcase
       user        = find_by_email(address) || self.new(:email => address)
       user.name ||= mail.name
