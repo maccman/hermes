@@ -14,8 +14,8 @@ class UserMailer < ActionMailer::Base
       :message_id   => "<#{message.uid}>",
       :to           => @to_user.email, 
       :from         => "#{@from_user.to_name} <#{@from_user.email}>",
-      :reply_to     => @from_user.app_email,
-      :subject      => @conversation.current_subject || "#{Rails.config.name} message",
+      # :reply_to     => @from_user.app_email, - TODO
+      :subject      => @conversation.current_subject,
       "In-Reply-To" => previous_msgs.first,
       "References"  => previous_msgs.reverse.join(" ")
     )
