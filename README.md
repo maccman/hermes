@@ -1,4 +1,6 @@
 
+##Interesting parts
+
 Server side:
 
 * Using Juggernaut to make an app realtime
@@ -6,12 +8,12 @@ Server side:
 * Detecting email sent by a computer
 * Modeling messages and conversations
 * Using the Twitter API
+* JSON/Ajax API (docs/API.md)
 
 Client side:
 
 * Spine web app
 * Overlays and CSS transforms
-
 
 ##Demo
 
