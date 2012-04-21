@@ -1,75 +1,41 @@
-## Data
 
-This is a description of the fields and types of data in the system.
+Server side:
 
-User:
+* Using Juggernaut to make an app realtime
+* Receiving and parsing email signatures
+* Detecting email sent by a computer
+* Modeling messages and conversations
+* Using the Twitter API
 
-  handle: String, unique in the system
-  name: String
-  avatar_url: URL string
-  description: String
+Client side:
 
-Message:
+* Spine web app
+* Overlays and CSS transforms
 
-  created_at: Unix timestamp
-  sent_at: Unix timestamp
-  subject: String
-  body: String
-  attachments: [Attachment]
-  starred: Boolean
-  to_users: [User]
-  from_user: User
 
-Attachment:
+##Demo
 
-  message: Message
-  name: String, unique among attachments to the message
-  type: String, an HTTP content type
-  size: Number, bytes encoded
-  encoding: String, specifies data encoding (default is base64)
-  data: String
+[http://maccman-hermes.herokuapp.com/](http://maccman-hermes.herokuapp.com/)
 
-Conversation:
+##Installation
 
-  read: Boolean
-  from_user: User
-  to_users: [User]
-  messages: [Message]
+Requires:
 
-## API
+* Ruby 1.9.2
+* Bundler
 
-GET /messages?since=:since&limit=:limit
+Installation:
 
-  Since defaults to current server time. Limit defaults to ?.
-  Finds messages where from_user is current_user
+1. `bundle install`
+1. `rake db:setup`
+1. Set env variables:
 
-  Returns:
-  messages: [Message] sorted by sent_at DESC
-  users: [User] who appear in the messages
+    export TWITTER_CONSUMER_KEY=foo
+    export TWITTER_CONSUMER_SECRET=blah
+    export SENDGRID_USERNAME=blah
+    export SENDGRID_PASSWORD=blah
+    export S3_KEY=blah
+    export S3_SECRET=blah
 
-POST /messages
-
-  Creates a new message. If a conversation between the creator of the message
-  and any of the recipients does not yet exist, a new conversation is created
-  between them.
-  
-  Sets from_user to current_user
-
-  Params:
-  sent_at: Unix timestamp
-  to: Array of handles/emails
-  subject: String
-  body: String
-  attachments: [Attachment]
-
-PUT /messages/:id
-
-  Finds any message the current_user is associated with (i.e. via from_user or to_users)
-  Update starred.
-
-  Params:
-  starred: Boolean
-
-DELETE /messages/:id
-
-  Marks a message as deleted.
+1. `rails server thin`
+1. [http://localhost:3000](http://localhost:3000)

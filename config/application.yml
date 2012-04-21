@@ -1,18 +1,15 @@
 defaults: &defaults
-  users:
-    dragon: slayer
-
   name: Hermes
   domain: postmonk.com
   url: http://postmonk.com
-  
+
   juggernaut:
     host: maccman-hermes-rt.herokuapp.com
     port: 80
 
 development:
   <<: *defaults
-  
+
   juggernaut:
     host: localhost
     port: 8080
