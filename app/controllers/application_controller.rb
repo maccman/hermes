@@ -1,15 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :keepsafe
   before_filter :login_with_access_token
   
   protected    
-    def keepsafe
-      request.local? || authenticate_or_request_with_http_digest do |username|
-        Rails.config.users[username]
-      end
-    end
-    
     def login_with_access_token
       if params[:access_token].present? 
         self.current_user = User.find_by_access_token(params[:access_token])
