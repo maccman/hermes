@@ -1,3 +1,8 @@
+#Hermes
+
+Hermes was a re-think of email, to make it more conversation based, and move to a HTTP based protocol. The app included some novel things, such as an asynchronous UI, and automatically filtering of any automated emails. It's now been released under the MIT license.
+
+See the [blog post](http://blog.alexmaccaw.com/open-source-all-the-things) for more information.
 
 ##Interesting parts
 
