@@ -37,12 +37,12 @@ Installation:
 1. `rake db:setup`
 1. Set env variables:
 
-    export TWITTER_CONSUMER_KEY=foo
-    export TWITTER_CONSUMER_SECRET=blah
-    export SENDGRID_USERNAME=blah
-    export SENDGRID_PASSWORD=blah
-    export S3_KEY=blah
-    export S3_SECRET=blah
+  `export TWITTER_CONSUMER_KEY=foo`
+  `export TWITTER_CONSUMER_SECRET=blah`
+  `export SENDGRID_USERNAME=blah`
+  `export SENDGRID_PASSWORD=blah`
+  `export S3_KEY=blah`
+  `export S3_SECRET=blah`
 
 1. `rails server thin`
 1. [http://localhost:3000](http://localhost:3000)
