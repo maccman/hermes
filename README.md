@@ -24,6 +24,8 @@ Client side:
 
 [http://maccman-hermes.herokuapp.com/](http://maccman-hermes.herokuapp.com/)
 
+![Hermes](http://f.cl.ly/items/030w0Q3g2M0H292w1M2w/Screen%20Shot%202012-03-21%20at%203.41.48%20PM.png)
+
 ##Installation
 
 Requires:
