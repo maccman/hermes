@@ -35,14 +35,23 @@ Installation:
 
 1. `bundle install`
 1. `rake db:setup`
-1. Set env variables:
-
-  `export TWITTER_CONSUMER_KEY=foo`
-  `export TWITTER_CONSUMER_SECRET=blah`
-  `export SENDGRID_USERNAME=blah`
-  `export SENDGRID_PASSWORD=blah`
-  `export S3_KEY=blah`
-  `export S3_SECRET=blah`
-
+1. Set env variables
 1. `rails server thin`
 1. [http://localhost:3000](http://localhost:3000)
+
+##ENV Variables
+
+Hermes requires a few services to be available in order to function correctly.
+
+* Twitter
+* Sendgrid *optional
+* Google *optional
+
+To use these services, you'll need to set the relevant ENV vars containing credentials before you boot up the server:
+
+    export TWITTER_CONSUMER_KEY=foo
+    export TWITTER_CONSUMER_SECRET=blah
+    export SENDGRID_USERNAME=blah
+    export SENDGRID_PASSWORD=blah
+    export S3_KEY=blah
+    export S3_SECRET=blah
