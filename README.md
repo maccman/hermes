@@ -32,6 +32,7 @@ Requires:
 
 * Ruby 1.9.2
 * Bundler
+* nodejs
 
 Installation:
 
